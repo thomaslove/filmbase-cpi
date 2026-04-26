@@ -3,33 +3,9 @@
   import viteLogo from "/vite.svg";
   import Counter from "./lib/Counter.svelte";
 
-  import { CPI_DATA } from "./cpidata.js";
+  import { CPI_DATA } from "./cpidata";
 
   function getCPI(month: number | string, year: number) {
-    // If month is 0 or "average", calculate average for the year
-    if (month === 0 || month === "average") {
-      const monthlyValues = [];
-
-      // Get CPI data for all 12 months of the year
-      for (let m = 1; m <= 12; m++) {
-        const key = `${year}-${m.toString().padStart(2, "0")}`;
-        const value = CPI_DATA[key];
-
-        if (typeof value === "number") {
-          monthlyValues.push(value);
-        }
-      }
-
-      // Return average if we have data, otherwise null
-      if (monthlyValues.length > 0) {
-        const average = monthlyValues.reduce((sum, val) => sum + val, 0) / monthlyValues.length;
-        return average;
-      }
-
-      return null;
-    }
-
-    // Original logic for specific months
     const key = `${year}-${month.toString().padStart(2, "0")}`;
     return CPI_DATA[key] || null;
   }
@@ -87,24 +63,34 @@
   const now = new Date();
   const latest = getLatestAvailableDate();
 
-  let month = $state(latest.month.toString());
-  let year = $state(latest.year);
+  let month = $state(0);
+  let year = $state(0);
+
+  // let month = $state(latest.month.toString());
+  // let year = $state(latest.year);
   let rate = $state(0);
 
   let toCPI = $derived(getCPI(latest.month, latest.year));
-  let fromCPI = $derived(getCPI(month, year));
+  let fromCPI = $derived(getCPI(month, year) ?? (isDateInFuture(year, month) ? toCPI : null));
 
   // Error states
-  let dateError = $derived.by(() => {
+
+  let dateNote = $derived.by(() => {
+    if (month === 0 || year === 0) return null;
     if (isDateInFuture(year, month)) {
       return (
-        "Future dates are not available. Latest data is from " +
+        "NB: Data is only available up to " +
         monthToText(latest.month.toString()) +
         " " +
-        latest.year
+        latest.year +
+        ". Showing results as of that date."
       );
     }
+    return null;
+  });
 
+  let dateError = $derived.by(() => {
+    if (month === 0 || year === 0) return null;
     if (isDateTooEarly(year, month)) {
       const earliest = getEarliestAvailableDate();
       return (
@@ -119,13 +105,6 @@
       return "No CPI data available for the selected date";
     }
 
-    return null;
-  });
-
-  let nudgeMessage = $derived.by(() => {
-    if (isSameAsLatestDate(year, month)) {
-      return "💡 Now choose a date in the past to see how inflation has affected your rate over time.";
-    }
     return null;
   });
 
@@ -214,7 +193,7 @@
     fromYear: number,
     fromMonth: string | number,
     toYear: number,
-    toMonth: number
+    toMonth: number,
   ): number {
     const fromCPI = getCPI(fromMonth, fromYear);
     const toCPI = getCPI(toMonth, toYear);
@@ -248,7 +227,7 @@
     fromYear: number,
     fromMonth: string | number,
     toYear: number,
-    toMonth: number
+    toMonth: number,
   ): string {
     const yearsDiff = toYear - fromYear;
 
@@ -288,78 +267,67 @@
     return monthNum === latest.month;
   }
 
-  // Constrain year input to available range
-  function handleYearInput(event: Event) {
-    const target = event.target as HTMLInputElement;
-    const inputYear = parseInt(target.value);
-
-    if (inputYear > latest.year) {
-      year = latest.year;
-      target.value = latest.year.toString();
-    } else if (inputYear < parseInt(dateRange.earliest)) {
-      year = parseInt(dateRange.earliest);
-      target.value = dateRange.earliest;
-    }
-  }
-
-  // Auto-adjust month if year changes and current month becomes invalid
-  $effect(() => {
-    if (isDateInFuture(year, month) && month !== "average") {
-      if (year === latest.year) {
-        month = latest.month.toString();
-      }
-    }
-  });
-
   function resetForm() {
-    month = latest.month.toString();
-    year = latest.year;
+    month = 0;
+    year = 0;
     rate = 0;
   }
 </script>
 
 <main>
   <form id="yearForm">
-    <h2>What is your rate worth today?</h2>
-    <p>Enter a past rate to see its inflation-adjusted value today.</p>
-    <p class="small">If you don't know the exact month, select average.</p>
+    <h2>Inflation Calculator</h2>
+    <p>Fill in the fields below to work out what your rate is worth today compared to when you did your last deal.</p>
+
     <div class="form-wrapper">
-      <div class="form-group">
-        £ <input
-          type="number"
-          id="rate"
-          name="rate"
-          class:error={rateError}
-          min="0"
-          step="1"
-          bind:value={rate}
-          required
-        />
-      </div>
+      <div class="form">
+        <div>
+          <p class="form-label">I negotiated a rate of</p>
+        </div>
 
-      <div>
-        <p>in</p>
-      </div>
+        <div class="form-group">
+          £ <input
+            type="number"
+            id="rate"
+            name="rate"
+            class:error={rateError}
+            min="0"
+            step="1"
+            bind:value={rate}
+            required
+          />
+        </div>
 
-      <div class="form-group">
-        <select id="month" name="month" bind:value={month} class="month-select" required>
-          <option value="average">Average</option>
-          <option value="1">January</option>
-          <option value="2">February</option>
-          <option value="3">March</option>
-          <option value="4">April</option>
-          <option value="5">May</option>
-          <option value="6">June</option>
-          <option value="7">July</option>
-          <option value="8">August</option>
-          <option value="9">September</option>
-          <option value="10">October</option>
-          <option value="11">November</option>
-          <option value="12">December</option>
-        </select>
-      </div>
+        <div class="form-group">
+          <span>in </span>
+          <select id="month" name="month" bind:value={month} class="month-select" required>
+            <!-- <option value="average">Average</option> -->
+            <option value={0} disabled>Month</option>
+            <option value={1}>January</option>
+            <option value={2}>February</option>
+            <option value={3}>March</option>
+            <option value={4}>April</option>
+            <option value={5}>May</option>
+            <option value={6}>June</option>
+            <option value={7}>July</option>
+            <option value={8}>August</option>
+            <option value={9}>September</option>
+            <option value={10}>October</option>
+            <option value={11}>November</option>
+            <option value={12}>December</option>
+          </select>
 
-      <div class="form-group">
+          <select id="year" name="year" bind:value={year} class="year-select" required>
+            <option value={0} disabled>Year</option>
+            {#each Array.from({ length: 11 }, (_, i) => new Date().getFullYear() - i) as y}
+              <option value={y}>{y}</option>
+            {/each}
+          </select>
+        </div>
+
+        <!-- <p class="small">If you don't know the exact date, make an estimate.</p> -->
+
+        <!-- <div class="form-group">
         <input
           type="number"
           id="year"
@@ -370,122 +338,104 @@
           max={latest.year}
           placeholder="YYYY"
           bind:value={year}
-          on:input={handleYearInput}
+          oninput={handleYearInput}
           required
         />
-      </div>
-    </div>
+      </div> -->
 
-    <div class="result">
-      {#if rate > 0 && !hasErrors && result > 0 && !nudgeMessage}
-        <div class="answer">
-          <p>
-            Your rate of {currency(rate)} from
-            {#if month !== "average"}
-              {monthToText(month)}
-            {:else}
-              average for
+        {#if month !== 0 || year !== 0 || rate > 0}
+          <div class="form-actions">
+            <button type="button" class="reset-btn" onclick={resetForm}> Reset </button>
+          </div>
+        {/if}
+      </div>
+
+      <div class="result">
+        <p class="form-label">Equivalent rate today</p>
+
+        <p class="big-result">{rate > 0 && result > 0 && !hasErrors ? currency(result) : "£ —"}</p>
+
+        {#if rate > 0 && !hasErrors && result > 0}
+          <div class="answer">
+            <p>
+              <span
+                >Taking inflation in to account, your rate of {currency(rate)} from {monthToText(month.toString())}
+                {year} would be equivalent to {currency(result)} today.
+                <i>Accepting anything less would be a pay cut in real terms.</i></span
+              >
+            </p>
+
+            <p><strong>Change in value:</strong> {totalInflationPercentage.toFixed(1)}%</p>
+
+            {#if dateNote}
+              <p>{dateNote}</p>
             {/if}
-            {year} would be equivalent to {currency(result)} in today's money.
-          </p>
-
-          <p><i>Put simply: this is what you'd need to charge today to maintain the same standard of living.</i></p>
-
-          {#if showYearlyRate}
-            <div class="inflation-details">
-              <h3>Inflation Breakdown</h3>
-              <p class="total-inflation">
-                <strong>Total inflation {timePeriodDescription}:</strong>
-                {totalInflationPercentage >= 0 ? "+" : ""}{totalInflationPercentage.toFixed(1)}%
-              </p>
-              <p class="yearly-rate">
-                <strong>Average yearly inflation:</strong>
-                {yearlyInflationRate.toFixed(1) >= 0 ? "+" : ""}{yearlyInflationRate.toFixed(1)}% per year
-              </p>
-            </div>
+          </div>
+        {:else if hasErrors}
+          {#if dateError}
+            <p class="error-text">{dateError}</p>
           {:else}
-            <div class="inflation-details">
-              <h3>Inflation Breakdown</h3>
-
-              <p class="total-inflation">
-                <strong>Total inflation {timePeriodDescription}:</strong>
-                {totalInflationPercentage >= 0 ? "+" : ""}{totalInflationPercentage.toFixed(1)}%
-              </p>
-            </div>
+            <p class="error-text">Please fix the errors above to see the result</p>
           {/if}
-        </div>
-      {:else if hasErrors}
-        <p class="error-text">Please fix the errors above to see the result</p>
-      {:else if rate > 0 && !hasErrors && result > 0 && nudgeMessage}
-        <div class="nudge-message">
-          {nudgeMessage}
-        </div>
-      {/if}
-    </div>
-
-    {#if rate > 0 || !hasErrors}
-      <div class="form-actions">
-        <button type="button" class="reset-btn" on:click={resetForm}> Reset </button>
+        {/if}
       </div>
-    {/if}
+    </div>
   </form>
 
   <!-- Error Messages -->
 
   <!-- Debug info (can be removed in production) -->
-  <div class="debug-info">
+  <!-- <div class="debug-info">
     <h3>Debugging Info</h3>
     <p>Latest CPI: {toCPI} ({latest.year}-{latest.month.toString().padStart(2, "0")})</p>
     <p>Chosen CPI: {fromCPI || "N/A"} ({year}-{month})</p>
-  </div>
+  </div> -->
 
   <div class="footer">
     <p class="small">
       The calculations are approximate and only give a rough guide to the buying power of the pound for goods and
-      services purchased in the UK.
-    </p>
-
-    <p class="small">
-      Consumer Price Index (CPI) data from the Office for National Statistics. Data updated through {monthToText(
-        latest.month
-      )}
+      services purchased in the UK. <br />Consumer Price Index (CPI) data from the Office for National Statistics. Data
+      updated through {monthToText(latest.month.toString())}
       {latest.year}.
     </p>
   </div>
 </main>
 
 <style>
-  .nudge-message {
-    background-color: #fff8dc;
-    border: 1px solid #f0e68c;
-    padding: 0.5rem;
-    margin: 0.5rem 0;
-    border-radius: 4px;
-    color: #8b7355;
-    font-style: italic;
-    /* max-width: 500px; */
+  .big-result {
+    font-size: 2rem;
+    margin: 0 0 1rem 0;
   }
-  h3 {
-    margin-top: 0;
-  }
+
   .form-wrapper {
     display: flex;
-    align-items: center;
-    gap: 1rem;
-    justify-content: center;
+  }
+
+  .form-wrapper .form,
+  .form-wrapper .result {
+    flex: 1;
+  }
+
+  .form {
+    display: flex;
+    gap: 0.5rem;
+    flex-direction: column;
+    align-items: start;
+
+    margin-right: 2rem;
+    padding-right: 2rem;
+    border-right: 1px solid white;
+  }
+
+  .form,
+  .form input,
+  .form select {
+    font-size: 1.25rem;
   }
 
   .small {
     font-size: 0.75rem;
-  }
-
-  .error-message {
-    background-color: #fee;
-    border: 1px solid #fcc;
-    padding: 0.5rem;
-    margin: 0.5rem 0;
-    border-radius: 4px;
-    color: #c33;
+    margin: 0;
   }
 
   .error-text {
@@ -498,45 +448,13 @@
     background-color: #fef !important;
   }
 
-  .debug-info {
-    background-color: #f8f9fa;
-    padding: 0.5rem;
-    margin: 0.5rem 0;
-    border-radius: 4px;
-    font-size: 0.875rem;
-    color: #666;
-    margin-top: 2rem;
-  }
-
-  .debug-info p {
-    margin: 0.25rem 0;
-  }
-
-  .inflation-details {
-    margin: 0.75rem 0 0.5rem 0;
-    padding: 0.5rem;
-    background-color: #f0f8ff;
-    border-left: 3px solid #4a90e2;
-    border-radius: 0 4px 4px 0;
-    color: #2c5aa0;
-  }
-
-  .yearly-rate {
-    margin: 0;
-    color: #2c5aa0;
-    font-size: 0.9rem;
-  }
-
-  .total-inflation {
-    margin: 0 0 0.25rem 0;
-    color: #2c5aa0;
-    font-size: 0.9rem;
-  }
-
   .form-actions {
     margin-top: 1rem;
-    display: flex;
-    justify-content: center;
+  }
+
+  .form-label {
+    font-size: 1.25rem;
+    margin: 0 0 1rem 0;
   }
 
   .reset-btn {
@@ -561,19 +479,11 @@
     transform: translateY(1px);
   }
 
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
+  main {
+    max-width: 800px;
   }
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-  }
-  .logo.svelte:hover {
-    filter: drop-shadow(0 0 2em #ff3e00aa);
-  }
-  .read-the-docs {
-    color: #888;
+
+  .footer {
+    margin-top: 2rem;
   }
 </style>
