@@ -1,0 +1,622 @@
+{
+    "published": 2023,
+    "source": [{
+        "subcategory": "Dressing Props",
+        "url": "https://members.bectu.org.uk/filegrab/props-rates-film-tv-2023.pdf?ref=2918"
+    },{
+        "subcategory": "Prop Modellers",
+        "url": "https://members.bectu.org.uk/filegrab/props-modellers-final-rate-card-2023.pdf?ref=2439"
+    }],
+    "department": "Props",
+    "bands": [
+        {
+            "name": "Major Motion Picture (£30M+)",
+            "code": "mmp"
+        },
+        {
+            "name": "Motion Picture (< £30M)",
+            "code": "mp"
+        },
+        {
+            "name": "TV Band 4 (£7M+)",
+            "code": "tv4"
+        },
+        {
+            "name": "TV Band 3 (£3M < £7M)",
+            "code": "tv3"
+        },
+        {
+            "name": "TV Band 2 (£850k < £3M)",
+            "code": "tv2"
+        },
+        {
+            "name": "TV Band 1 (< £850k)",
+            "code": "tv1"
+        }, {
+            "name": "Rates",
+            "code": "mod",
+            "alias": true
+        }
+    ],
+    "roles": [
+        {
+            "titles": [ "Property Master" ],
+            "code": "propm",
+            "subcategory": "dressing",
+            "rates": [
+                    {
+                        "band": "mmp",
+                        "min": null,
+                        "rec": null,
+                        "note": "Negotiable"
+                    },
+                    {
+                        "band": "mp",
+                        "min": null,
+                        "rec": null,
+                        "note": "Negotiable"
+                    },
+                    {
+                        "band": "tv4",
+                        "min": null,
+                        "rec": null,
+                        "note": "Negotiable"
+                    },
+                    {
+                        "band": "tv3",
+                        "min": null,
+                        "rec": null,
+                        "note": "Negotiable"
+                    },
+                    {
+                        "band": "tv2",
+                        "min": null,
+                        "rec": null,
+                        "note": "Negotiable"
+                    },
+                     {
+                        "band": "tv1",
+                        "min": null,
+                        "rec": null,
+                        "note": "Negotiable"
+                    }
+            ]
+        },
+        {
+            "titles": [ "Assistant Property Master" ],
+            "code": "aspm",
+            "subcategory": "dressing",
+            "rates": [
+                    {
+                        "band": "mmp",
+                        "min": null,
+                        "rec": null,
+                        "note": "Negotiable"
+                    },
+                    {
+                        "band": "mp",
+                        "min": null,
+                        "rec": null,
+                        "note": "Negotiable"
+                    },
+                    {
+                        "band": "tv4",
+                        "min": null,
+                        "rec": null,
+                        "note": "Negotiable"
+                    },
+                    {
+                        "band": "tv3",
+                        "min": null,
+                        "rec": null,
+                        "note": "Negotiable"
+                    },
+                    {
+                        "band": "tv2",
+                        "min": null,
+                        "rec": null,
+                        "note": "Negotiable"
+                    },
+                    {
+                        "band": "tv1",
+                        "min": null,
+                        "rec": null,
+                        "note": "Negotiable"
+                    }
+            ]
+        },
+        {
+            "titles": [ "Storeperson" ],
+            "code": "stor",
+            "subcategory": "dressing",
+            "rates": [
+                    {
+                        "band": "mmp",
+                        "min": 1890,
+                        "rec": 2205
+                    },
+                    {
+                        "band": "mp",
+                        "min": 1785,
+                        "rec": 2047
+                    },
+                    {
+                        "band": "tv4",
+                        "min": 1900,
+                        "rec": null,
+                        "note": "Negotiable"
+                    },
+                    {
+                        "band": "tv3",
+                        "min": 1825,
+                        "rec": 2200
+                    },
+                    {
+                        "band": "tv2",
+                        "min": 1525,
+                        "rec": 1875
+                    },
+                    {
+                        "band": "tv1",
+                        "min": 1425,
+                        "rec": 1625
+                    }
+            ]
+        },
+        {
+            "titles": [ "Supervising Standby Props" ],
+            "code": "supsp",
+            "subcategory": "dressing",
+            "rates": [
+                    {
+                        "band": "mmp",
+                        "min": 2100,
+                        "rec": null,
+                        "note": "Negotiable"
+                    },
+                    {
+                        "band": "mp",
+                        "min": 1995,
+                        "rec": 2150
+                    },
+                    {
+                        "band": "tv4",
+                        "min": 2050,
+                        "rec": null,
+                        "note": "Negotiable"
+                    },
+                    {
+                        "band": "tv3",
+                        "min": 1950,
+                        "rec": null,
+                        "note": "Negotiable"
+                    
+                    },
+                    {
+                        "band": "tv2",
+                        "min": null,
+                        "rec": null,
+                        "note": "Negotiable"
+                    },
+                    {
+                        "band": "tv1",
+                        "min": null,
+                        "rec": null,
+                        "note": "Negotiable"
+                    }
+            ]
+        },
+        {
+            "titles": [ "Supervising Chargehand Props" ],
+            "code": "supcp",
+            "subcategory": "dressing",
+            "rates": [
+                    {
+                        "band": "mmp",
+                        "min": 1890,
+                        "rec": 2205
+                    },
+                    {
+                        "band": "mp",
+                        "min": 1785,
+                        "rec": 2047
+                    },
+                    {
+                        "band": "tv4",
+                        "min": 1900,
+                        "rec": null,
+                        "note": "Negotiable"
+                    },
+                    {
+                        "band": "tv3",
+                        "min": 1825,
+                        "rec": 2250
+                    },
+                    {
+                        "band": "tv2",
+                        "min": null,
+                        "rec": null,
+                        "note": "Negotiable"
+                    },
+                    {
+                        "band": "tv1",
+                        "min": null,
+                        "rec": null,
+                        "note": "Negotiable"
+                    }
+            ]
+        },
+        {
+            "titles": [ "Action Props Supervisor" ],
+            "code": "acps",
+            "subcategory": "dressing",
+            "rates": [
+                    {
+                        "band": "mmp",
+                        "min": 1890,
+                        "rec": 2260
+                    },
+                    {
+                        "band": "mp",
+                        "min": null,
+                        "rec": null,
+                        "note": "Negotiable"
+                    },
+                    {
+                        "band": "tv4",
+                        "min": 1900,
+                        "rec": null,
+                        "note": "Negotiable"
+                    },
+                    {
+                        "band": "tv3",
+                        "min": 1750,
+                        "rec": 2250
+                    },
+                    {
+                        "band": "tv2",
+                        "min": 1500,
+                        "rec": 2000
+                    },
+                    {
+                        "band": "tv1",
+                        "min": null,
+                        "rec": null,
+                        "note": "Negotiable"
+                    }
+            ]
+        },
+        {
+            "titles": [ "Chargehand Props" ],
+            "code": "chpr",
+            "subcategory": "dressing",
+            "rates": [
+                    {
+                        "band": "mmp",
+                        "min": 1730,
+                        "rec": 1940
+                    },
+                    {
+                        "band": "mp",
+                        "min": 1575,
+                        "rec": 1890
+                    },
+                    {
+                        "band": "tv4",
+                        "min": 1750,
+                        "rec": 2000
+                    },
+                    {
+                        "band": "tv3",
+                        "min": 1675,
+                        "rec": 1950
+                    },
+                    {
+                        "band": "tv2",
+                        "min": 1500,
+                        "rec": 1750
+                    },
+                    {
+                        "band": "tv1",
+                        "min": 1425,
+                        "rec": 1625
+                    }
+            ]
+        },
+        {
+            "titles": [ "Standby Props" ],
+            "code": "stpr",
+            "subcategory": "dressing",
+            "rates": [
+                    {
+                        "band": "mmp",
+                        "min": 1730,
+                        "rec": 1940
+                    },
+                    {
+                        "band": "mp",
+                        "min": 1575,
+                        "rec": 1890
+                    },
+                    {
+                        "band": "tv4",
+                        "min": 1750,
+                        "rec": 2050
+                    },
+                    {
+                        "band": "tv3",
+                        "min": 1675,
+                        "rec": 2000
+                    },
+                    {
+                        "band": "tv2",
+                        "min": 1500,
+                        "rec": 1750
+                    },
+                    {
+                        "band": "tv1",
+                        "min": 1425,
+                        "rec": 1625
+                    }
+            ]
+        },
+        {
+            "titles": [ "Assistant Storeperson" ],
+            "code": "assto",
+            "subcategory": "dressing",
+            "rates": [
+                    {
+                        "band": "mmp",
+                        "min": 1625,
+                        "rec": 1940
+                    },
+                    {
+                        "band": "mp",
+                        "min": 1522,
+                        "rec": 1730
+                    },
+                    {
+                        "band": "tv4",
+                        "min": 1550,
+                        "rec": 1900
+                    },
+                    {
+                        "band": "tv3",
+                        "min": 1450,
+                        "rec": 1900
+                    },
+                    {
+                        "band": "tv2",
+                        "min": 1400,
+                        "rec": 1650
+                    },
+                    {
+                        "band": "tv1",
+                        "min": 1350,
+                        "rec": 1525
+                    }
+            ]
+        },
+        {
+            "titles": [ "Prop Hand", "Dressing Props" ],
+            "code": "propha",
+            "subcategory": "dressing",
+            "rates": [
+                    {
+                        "band": "mmp",
+                        "min": 1575,
+                        "rec": 1785
+                    },
+                    {
+                        "band": "mp",
+                        "min": 1470,
+                        "rec": 1680
+                    },
+                    {
+                        "band": "tv4",
+                        "min": 1550,
+                        "rec": 1900
+                    },
+                    {
+                        "band": "tv3",
+                        "min": 1450,
+                        "rec": 1700
+                    },
+                    {
+                        "band": "tv2",
+                        "min": 1400,
+                        "rec": 1550
+                    },
+                    {
+                        "band": "tv1",
+                        "min": 1350,
+                        "rec": 1525
+                    }
+            ]
+        },
+        {
+            "titles": [ "Prop Coordinator" ],
+            "code": "propco",
+            "subcategory": "dressing",
+            "rates": [
+                    {
+                        "band": "mmp",
+                        "min": 1575,
+                        "rec": 1785
+                    },
+                    {
+                        "band": "mp",
+                        "min": 1470,
+                        "rec": 1680
+                    },
+                    {
+                        "band": "tv4",
+                        "min": 1550,
+                        "rec": 1900
+                    },
+                    {
+                        "band": "tv3",
+                        "min": 1450,
+                        "rec": 1700
+                    },
+                    {
+                        "band": "tv2",
+                        "min": 1400,
+                        "rec": 1550
+                    },
+                    {
+                        "band": "tv1",
+                        "min": 1350,
+                        "rec": 1525
+                    }
+            ]
+        },
+        {
+            "titles": [ "Junior Prop Hand" ],
+            "code": "jnph",
+            "subcategory": "dressing",
+            "rates": [
+                    {
+                        "band": "mmp",
+                        "min": 1555,
+                        "rec": 1365
+                    },
+                    {
+                        "band": "mp",
+                        "min": 1050,
+                        "rec": 1260
+                    },
+                    {
+                        "band": "tv4",
+                        "min": 1025,
+                        "rec": 1200
+                    },
+                    {
+                        "band": "tv3",
+                        "min": 1000,
+                        "rec": 1200
+                    },
+                    {
+                        "band": "tv2",
+                        "min": 1000,
+                        "rec": 1200
+                    },
+                    {
+                        "band": "tv1",
+                        "min": 1000,
+                        "rec": 1200
+                    }
+            ]
+        },
+        {
+            "titles": [ "Trainee Prop Hand" ],
+            "code": "train",
+            "subcategory": "dressing",
+            "rates": [
+                    {
+                        "band": "mmp",
+                        "min": 750,
+                        "rec": 950
+                    },
+                    {
+                        "band": "mp",
+                        "min": 750,
+                        "rec": 950
+                    },
+                    {
+                        "band": "tv4",
+                        "min": 675,
+                        "rec": 950
+                    },
+                    {
+                        "band": "tv3",
+                        "min": 675,
+                        "rec": 950
+                    },
+                    {
+                        "band": "tv2",
+                        "min": 675,
+                        "rec": 900
+                    },
+                    {
+                        "band": "tv1",
+                        "min": 675,
+                        "rec": 850
+                    }
+            ]
+        }, 
+        {
+            "titles": [ "HOD Modeller" ],
+            "code": "hodmod",
+            "subcategory": "modellers",
+            "rates": [
+                {
+                    "band": "mod",
+                    "min": null,
+                    "rec": null,
+                    "note": "Negotiable"
+                }
+            ]
+        },
+        {
+            "titles": [ "Supervising Modeller" ],
+            "code": "supmod",
+            "subcategory": "modellers",
+            "rates": [
+                {
+                    "band": "mod",
+                    "min": 1890,
+                    "rec": 2260
+                }
+            ]
+        },
+        {
+            "titles": [ "Senior Prop Modeller" ],
+            "code": "snmod",
+            "subcategory": "modellers",
+            "rates": [
+                {
+                    "band": "mod",
+                    "min": 1730,
+                    "rec": 1940
+                }
+            ]
+        },
+        {
+            "titles": [ "Prop Modeller" ],
+            "code": "propmod",
+            "subcategory": "modellers",
+            "rates": [
+                {
+                    "band": "mod",
+                    "min": 1575,
+                    "rec": 1785
+                }
+            ]
+        },
+        {
+            "titles": [ "Mid Prop Modeller" ],
+            "code": "midpropmod",
+            "subcategory": "modellers",
+            "rates": [
+                {
+                    "band": "mod",
+                    "min": 1155,
+                    "rec": 1365
+                }
+            ]
+        },
+        {
+            "titles": [ "Junior Prop Modeller" ],
+            "code": "jnpropmod",
+            "subcategory": "modellers",
+            "rates": [
+                {
+                    "band": "mod",
+                    "min": 750,
+                    "rec": 950
+                }
+            ]
+        }
+    ]
+}

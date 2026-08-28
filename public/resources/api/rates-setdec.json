@@ -1,0 +1,668 @@
+{
+    "published": 2023,
+    "source": "https://www.bectuartdepartment.co.uk/rate-card-2023",
+    "department": "Set Dec",
+    "bands": [
+        {
+            "name": "Major Motion Picture (£30M+)",
+            "code": "mmp"
+        },
+        {
+            "name": "Motion Picture (£5M - £30M)",
+            "code": "mp"
+        },
+        {
+            "name": "Feature Film (£1M - £5M)",
+            "code": "ff"
+        },
+        {
+            "name": "TV Band 4 (£7M+)",
+            "code": "tv4"
+        },
+        {
+            "name": "TV Band 3 (£3M < £7M)",
+            "code": "tv3"
+        },
+        {
+            "name": "TV Band 2 (£850k < £3M)",
+            "code": "tv2"
+        },
+        {
+            "name": "TV Band 1 (< £850k)",
+            "code": "tv1"
+        }
+    ],
+    "roles": [
+        {
+            "titles": [ "Set Decorator" ],
+            "code": "scora",
+            "rates": [
+                    {
+                        "band": "mmp",
+                        "min": 3310,
+                        "rec": 3618
+                    },
+                    {
+                        "band": "mp",
+                        "min": 2693,
+                        "rec": 2944
+                    },
+                    {
+                        "band": "ff",
+                        "min": 2004,
+                        "rec": 2191
+                    },
+                    {
+                        "band": "tv4",
+                        "min": null,
+                        "rec": null,
+                        "align": "mmp"
+                    },
+                    {
+                        "band": "tv3",
+                        "min": 2664,
+                        "rec": 3066
+                    },
+                    {
+                        "band": "tv2",
+                        "min": 2139,
+                        "rec": 2338
+                    },
+                    {
+                        "band": "tv1",
+                        "min": 1687,
+                        "rec": 1817
+                    }
+            ]
+        },
+        {
+            "titles": [ "Senior Production Buyer" ],
+            "code": "sprod",
+            "rates": [
+                    {
+                        "band": "mmp",
+                        "min": 2705,
+                        "rec": 2941
+                    },
+                    {
+                        "band": "mp",
+                        "min": 2470,
+                        "rec": 2685
+                    },
+                    {
+                        "band": "ff",
+                        "min": null,
+                        "rec": null
+                    },
+                    {
+                        "band": "tv4",
+                        "min": null,
+                        "rec": null,
+                        "align": "mmp"
+                    },
+                    {
+                        "band": "tv3",
+                        "min": 2207,
+                        "rec": 2608
+                    },
+                    {
+                        "band": "tv2",
+                        "min": null,
+                        "rec": null
+                    },
+                    {
+                        "band": "tv1",
+                        "min": null,
+                        "rec": null
+                    }
+            ]
+        },
+        {
+            "titles": [ "Production Buyer" ],
+            "code": "prod",
+            "rates": [
+                    {
+                        "band": "mmp",
+                        "min": 2410,
+                        "rec": 2596
+                    },
+                    {
+                        "band": "mp",
+                        "min": 2066,
+                        "rec": 2226
+                    },
+                    {
+                        "band": "ff",
+                        "min": 1294,
+                        "rec": 1578
+                    },
+                    {
+                        "band": "tv4",
+                        "min": null,
+                        "rec": null,
+                        "align": "mmp"
+                    },
+                    {
+                        "band": "tv3",
+                        "min": 1926,
+                        "rec": 2348
+                    },
+                    {
+                        "band": "tv2",
+                        "min": 1736,
+                        "rec": 1870
+                    },
+                    {
+                        "band": "tv1",
+                        "min": 1578,
+                        "rec": 1700
+                    }
+            ]
+        }, {
+            "titles": [ "Set Dec Art Director" ],
+            "code": "adrec",
+            "rates": [
+                    {
+                        "band": "mmp",
+                        "min": 2299,
+                        "rec": 2477
+                    },
+                    {
+                        "band": "mp",
+                        "min": 2080,
+                        "rec": 2241
+                    },
+                    {
+                        "band": "ff",
+                        "min": 1683,
+                        "rec": 1813
+                    },
+                    {
+                        "band": "tv4",
+                        "min": null,
+                        "rec": null,
+                        "align": "mmp"
+                    },
+                    {
+                        "band": "tv3",
+                        "min": 1881,
+                        "rec": 2375
+                    },
+                    {
+                        "band": "tv2",
+                        "min": 1735,
+                        "rec": 1869
+                    },
+                    {
+                        "band": "tv1",
+                        "min": 1656,
+                        "rec": 1785
+                    }
+            ]
+        },{
+            "titles": [ "Action Prop Buyer" ],
+            "code": "apb",
+            "rates": [
+                    {
+                        "band": "mmp",
+                        "min": null,
+                        "rec": null,
+                        "note": "Usually as per Props Dept"
+                    },
+                    {
+                        "band": "mp",
+                        "min": 1334,
+                        "rec": 1651
+                    },
+                    {
+                        "band": "ff",
+                        "min": 1010,
+                        "rec": 1251
+                    },
+                    {
+                        "band": "tv4",
+                        "min": null,
+                        "rec": null,
+                        "align": "mmp"
+                    },
+                    {
+                        "band": "tv3",
+                        "min": 1334,
+                        "rec": 1583
+                    },
+                    {
+                        "band": "tv2",
+                        "min": 1112,
+                        "rec": 1376
+                    },
+                    {
+                        "band": "tv1",
+                        "min": null,
+                        "rec": null
+                    }
+            ]
+        },
+        {
+            "titles": [ "Location Set Decorator" ],
+            "code": "lsd",
+            "rates": [
+                    {
+                        "band": "mmp",
+                        "min": 2707,
+                        "rec": 2942
+                    },
+                    {
+                        "band": "mp",
+                        "min": 2472,
+                        "rec": 2686
+                    },
+                    {
+                        "band": "ff",
+                        "min": 1724,
+                        "rec": 1857
+                    },
+                    {
+                        "band": "tv4",
+                        "min": null,
+                        "rec": null,
+                        "align": "mmp"
+                    },
+                    {
+                        "band": "tv3",
+                        "min": 2472,
+                        "rec": 2610
+                    },
+                    {
+                        "band": "tv2",
+                        "min": null,
+                        "rec": null
+                    },
+                    {
+                        "band": "tv1",
+                        "min": null,
+                        "rec": null
+                    }
+            ]
+        },
+        {
+            "titles": [ "Senior Assistant Set Decorator" ],
+            "code": "snasd",
+            "rates": [
+                    {
+                        "band": "mmp",
+                        "min": 2199,
+                        "rec": 2624
+                    },
+                    {
+                        "band": "mp",
+                        "min": 2141,
+                        "rec": 2306
+                    },
+                    {
+                        "band": "ff",
+                        "min": 1472,
+                        "rec": 1586
+                    },
+                    {
+                        "band": "tv4",
+                        "min": null,
+                        "rec": null,
+                        "align": "mmp"
+                    },
+                    {
+                        "band": "tv3",
+                        "min": 2146,
+                        "rec": 2402
+                    },
+                    {
+                        "band": "tv2",
+                        "min": null,
+                        "rec": null
+                    },
+                    {
+                        "band": "tv1",
+                        "min": null,
+                        "rec": null
+                    }
+            ]
+        },
+        {
+            "titles": [ "Assistant Set Decorator" ],
+            "code": "assd",
+            "rates": [
+                    {
+                        "band": "mmp",
+                        "min": 1856,
+                        "rec": 2227
+                    },
+                    {
+                        "band": "mp",
+                        "min": 1676,
+                        "rec": 2011
+                    },
+                    {
+                        "band": "ff",
+                        "min": 1130,
+                        "rec": 1356
+                    },
+                    {
+                        "band": "tv4",
+                        "min": null,
+                        "rec": null,
+                        "align": "mmp"
+                    },
+                    {
+                        "band": "tv3",
+                        "min": 1856,
+                        "rec": 2010
+                    },
+                    {
+                        "band": "tv2",
+                        "min": 1450,
+                        "rec": 1631
+                    },
+                    {
+                        "band": "tv1",
+                        "min": null,
+                        "rec": null
+                    }
+            ]
+        },
+        {
+            "titles": [ "Junior Assistant Set Decorator" ],
+            "code": "jusd",
+            "rates": [
+                    {
+                        "band": "mmp",
+                        "min": 1427,
+                        "rec": 1559
+                    },
+                    {
+                        "band": "mp",
+                        "min": null,
+                        "rec": null
+                    },
+                    {
+                        "band": "ff",
+                        "min": null,
+                        "rec": null
+                    },
+                    {
+                        "band": "tv4",
+                        "min": null,
+                        "rec": null,
+                        "align": "mmp"
+                    },
+                    {
+                        "band": "tv3",
+                        "min": null,
+                        "rec": null
+                    },
+                    {
+                        "band": "tv2",
+                        "min": null,
+                        "rec": null
+                    },
+                    {
+                        "band": "tv1",
+                        "min": null,
+                        "rec": null
+                    }
+            ]
+        },
+        {
+            "titles": [ "Set Dec Buyer", "Assistant Buyer" ],
+            "code": "byer",
+            "rates": [
+                    {
+                        "band": "mmp",
+                        "min": 1490,
+                        "rec": 1844
+                    },
+                    {
+                        "band": "mp",
+                        "min": 1337,
+                        "rec": 1655
+                    },
+                    {
+                        "band": "ff",
+                        "min": 1013,
+                        "rec": 1254
+                    },
+                    {
+                        "band": "tv4",
+                        "min": null,
+                        "rec": null,
+                        "align": "mmp"
+                    },
+                    {
+                        "band": "tv3",
+                        "min": 1337,
+                        "rec": 1587
+                    },
+                    {
+                        "band": "tv2",
+                        "min": 1114,
+                        "rec": 1379
+                    },
+                    {
+                        "band": "tv1",
+                        "min": 1064,
+                        "rec": 1317
+                    }
+            ]
+        },
+        {
+            "titles": [ "Petty Cash Buyer" ],
+            "code": "cash",
+            "rates": [
+                    {
+                        "band": "mmp",
+                        "min": 1232,
+                        "rec": 1372
+                    },
+                    {
+                        "band": "mp",
+                        "min": 1008,
+                        "rec": 1122
+                    },
+                    {
+                        "band": "ff",
+                        "min": 840,
+                        "rec": 935
+                    },
+                    {
+                        "band": "tv4",
+                        "min": null,
+                        "rec": null,
+                        "align": "mmp"
+                    },
+                    {
+                        "band": "tv3",
+                        "min": 1033,
+                        "rec": 1137
+                    },
+                    {
+                        "band": "tv2",
+                        "min": 874,
+                        "rec": 973
+                    },
+                    {
+                        "band": "tv1",
+                        "min": 727,
+                        "rec": 810
+                    }
+            ]
+        },{
+            "titles": [ "Set Dec Coordinator" ],
+            "code": "coor",
+            "rates": [
+                    {
+                        "band": "mmp",
+                        "min": 1459,
+                        "rec": 1739
+                    },
+                    {
+                        "band": "mp",
+                        "min": 1234,
+                        "rec": 1472
+                    },
+                    {
+                        "band": "ff",
+                        "min": null,
+                        "rec": null
+                    },
+                    {
+                        "band": "tv4",
+                        "min": null,
+                        "rec": null,
+                        "align": "mmp"
+                    },
+                    {
+                        "band": "tv3",
+                        "min": 1328,
+                        "rec": 1523
+                    },
+                    {
+                        "band": "tv2",
+                        "min": null,
+                        "rec": null
+                    },
+                    {
+                        "band": "tv1",
+                        "min": null,
+                        "rec": null
+                    }
+            ]
+        },{
+            "titles": [ "Set Dec Assistant" ],
+            "code": "assi",
+            "rates": [
+                    {
+                        "band": "mmp",
+                        "min": 876,
+                        "rec": 958
+                    },
+                    {
+                        "band": "mp",
+                        "min": 841,
+                        "rec": 920
+                    },
+                    {
+                        "band": "ff",
+                        "min": 729,
+                        "rec": 798
+                    },
+                    {
+                        "band": "tv4",
+                        "min": null,
+                        "rec": null,
+                        "align": "mmp"
+                    },
+                    {
+                        "band": "tv3",
+                        "min": 841,
+                        "rec": 920
+                    },
+                    {
+                        "band": "tv2",
+                        "min": 766,
+                        "rec": 838
+                    },
+                    {
+                        "band": "tv1",
+                        "min": 729,
+                        "rec": 797
+                    }
+            ]
+        },{
+            "titles": [ "Set Dec Trainee" ],
+            "code": "trane",
+            "rates": [
+                    {
+                        "band": "mmp",
+                        "min": 739,
+                        "rec": 739
+                    },
+                    {
+                        "band": "mp",
+                        "min": 722,
+                        "rec": 722
+                    },
+                    {
+                        "band": "ff",
+                        "min": 712,
+                        "rec": 712
+                    },
+                    {
+                        "band": "tv4",
+                        "min": null,
+                        "rec": null,
+                        "align": "mmp"
+                    },
+                    {
+                        "band": "tv3",
+                        "min": 728,
+                        "rec": 728
+                    },
+                    {
+                        "band": "tv2",
+                        "min": 722,
+                        "rec": 722
+                    },
+                    {
+                        "band": "tv1",
+                        "min": 712,
+                        "rec": 712
+                    }
+            ]
+        },{
+            "titles": [ "Set Dec Concept Artist" ],
+            "code": "cart",
+            "rates": [
+                    {
+                        "band": "mmp",
+                        "min": 2244,
+                        "rec": null,
+                        "note": "Negotiable based on portfolio"
+                    },
+                    {
+                        "band": "mp",
+                        "min": 1795,
+                        "rec": null,
+                        "note": "Negotiable based on portfolio"
+                    },
+                    {
+                        "band": "ff",
+                        "min": 1739,
+                        "rec": null,
+                        "note": "Negotiable based on portfolio"
+                    },
+                    {
+                        "band": "tv4",
+                        "min": null,
+                        "rec": null,
+                        "align": "mmp"
+                    },
+                    {
+                        "band": "tv3",
+                        "min": 1795,
+                        "rec": null,
+                        "note": "Negotiable based on portfolio"
+                    },
+                    {
+                        "band": "tv2",
+                        "min": null,
+                        "rec": null,
+                        "note": "Negotiable based on portfolio"
+                    },
+                    {
+                        "band": "tv1",
+                        "min": null,
+                        "rec": null,
+                        "note": "Negotiable based on portfolio"
+                    }
+            ]
+        }
+    ]
+}
