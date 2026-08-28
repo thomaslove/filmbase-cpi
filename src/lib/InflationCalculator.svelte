@@ -1,5 +1,11 @@
 <script lang="ts">
-  import { CPI_DATA } from "../cpidata";
+  // --- Props ---
+
+  interface Props {
+    apiBase?: string;
+  }
+
+  let { apiBase = "/resources/api" }: Props = $props();
 
   const MONTH_NAMES = [
     "January",
@@ -16,33 +22,70 @@
     "December",
   ];
 
-  const latest = getLatestAvailableDate();
-
   let month = $state(0);
   let year = $state(0);
   let rate = $state(0);
 
   let showDateInfo = $state(false);
 
+  // --- State ---
+
+  // Metadata fields are for whoever maintains the JSON; only `data` is read here
+  interface CpiData {
+    title?: string;
+    source?: string;
+    data: Record<string, number>;
+  }
+
+  let cpiData = $state<CpiData | null>(null);
+  let loading = $state(true);
+  let error = $state<string | null>(null);
+
+  // --- Fetch data ---
+
+  const endpoint = `${apiBase}/cpi.json`;
+
+  async function fetchCpiData() {
+    try {
+      const res = await fetch(endpoint);
+      if (!res.ok) throw new Error(`Failed to load CPI data (${res.status})`);
+      const json = await res.json();
+      if (!json?.data || typeof json.data !== "object") {
+        throw new Error("CPI data file is missing its \"data\" section");
+      }
+      cpiData = json;
+    } catch (e) {
+      error = e instanceof Error ? e.message : "Failed to load CPI data";
+    } finally {
+      loading = false;
+    }
+  }
+
+  fetchCpiData();
+
   // --- CPI lookups ---
 
   function getCPI(month: number, year: number): number | null {
+    if (!cpiData) return null;
     const key = `${year}-${month.toString().padStart(2, "0")}`;
-    return CPI_DATA[key] || null;
-  }
-
-  function getLatestAvailableDate() {
-    const dates = Object.keys(CPI_DATA).sort();
-    const [year, month] = dates[dates.length - 1].split("-").map(Number);
-    return { year, month };
+    return cpiData.data[key] ?? null;
   }
 
   // --- Derived values ---
 
-  let toCPI = $derived(getCPI(latest.month, latest.year));
+  let latest = $derived.by(() => {
+    if (!cpiData) return null;
+    const dates = Object.keys(cpiData.data).sort();
+    if (dates.length === 0) return null;
+    const [year, month] = dates[dates.length - 1].split("-").map(Number);
+    return { year, month };
+  });
+
+  let toCPI = $derived(latest ? getCPI(latest.month, latest.year) : null);
   let fromCPI = $derived(getCPI(month, year));
 
   let dateError = $derived.by(() => {
+    if (!latest) return null;
     if (month === 0 || year === 0) return null;
     if (year > latest.year || (year === latest.year && month >= latest.month)) {
       return "Your rate is already in today's money. Pick an earlier date to see its real value over time.";
@@ -89,145 +132,214 @@
 
   // --- Constants for dropdowns ---
 
-  const years = Array.from({ length: 11 }, (_, i) => latest.year - i).filter(
-    (y) => y < latest.year || latest.month > 1,
-  );
+  let years = $derived.by(() => {
+    if (!latest) return [];
+    const { year: latestYear, month: latestMonth } = latest;
+    return Array.from({ length: 11 }, (_, i) => latestYear - i).filter(
+      (y) => y < latestYear || latestMonth > 1,
+    );
+  });
 </script>
 
-<form id="yearForm" onsubmit={(e) => e.preventDefault()}>
-  <h2>Inflation Calculator</h2>
-  <p>Fill in the fields below to work out what your rate is worth today compared to when you did your last deal.</p>
+{#if loading}
+  <p>Loading inflation data…</p>
+{:else if error}
+  <p class="error-text">{error}</p>
+{:else if latest}
+  {@const latestDate = latest}
+  <form id="yearForm" onsubmit={(e) => e.preventDefault()}>
+    <h2>Inflation Calculator</h2>
+    <p>
+      Fill in the fields below to work out what your rate is worth today <br />compared to when you did your last deal.
+    </p>
 
-  <div class="form-wrapper">
-    <div class="form">
-      <div>
-        <p class="form-label">I negotiated a rate of</p>
-      </div>
+    <div class="form-wrapper">
+      <div class="form">
+        <div>
+          <label class="form-label" for="rate">I negotiated a rate of</label>
+        </div>
 
-      <div class="form-group">
-        £ <input
-          type="number"
-          id="rate"
-          name="rate"
-          class:error={rateError}
-          min="0"
-          step="1"
-          bind:value={rate}
-          required
-        />
-      </div>
+        <div class="form-group">
+          £ <input
+            type="number"
+            id="rate"
+            name="rate"
+            class:error={rateError}
+            min="0"
+            step="1"
+            bind:value={rate}
+            required
+          />
+        </div>
 
-      <div class="form-group">
-        <span>in </span>
+        <div class="form-group">
+          <span>in </span>
 
-        <select id="month" name="month" bind:value={month} class="month-select" required>
-          <option value={0} disabled>Month</option>
-          {#each MONTH_NAMES as name, i}
-            {@const monthVal = i + 1}
-            <option value={monthVal} disabled={year === latest.year && monthVal >= latest.month}>
-              {name}
-            </option>
-          {/each}
-        </select>
+          <select id="month" name="month" bind:value={month} class="month-select" required>
+            <option value={0} disabled>Month</option>
+            {#each MONTH_NAMES as name, i}
+              {@const monthVal = i + 1}
+              <option value={monthVal} disabled={year === latestDate.year && monthVal >= latestDate.month}>
+                {name}
+              </option>
+            {/each}
+          </select>
 
-        <select id="year" name="year" bind:value={year} class="year-select" required>
-          <option value={0} disabled>Year</option>
-          {#each years as y}
-            <option value={y}>{y}</option>
-          {/each}
-        </select>
-      </div>
+          <select id="year" name="year" bind:value={year} class="year-select" required>
+            <option value={0} disabled>Year</option>
+            {#each years as y}
+              <option value={y}>{y}</option>
+            {/each}
+          </select>
+        </div>
 
-      {#if month !== 0 || year !== 0 || rate > 0}
         <div class="form-actions">
-          <button type="button" class="reset-btn" onclick={resetForm}>Reset</button>
-        </div>
-      {/if}
-    </div>
-
-    <div class="result">
-      <p class="form-label">
-        Equivalent rate as of
-        <span class="data-date">
-          {monthName(latest.month)}
-          {latest.year}<button
-            class="info-toggle"
-            onclick={() => (showDateInfo = !showDateInfo)}
-            aria-label="Why this date?">ⓘ</button
+          <button
+            type="button"
+            class="calculator-button calculator-reset reset-btn"
+            disabled={month === 0 && year === 0 && rate <= 0}
+            onclick={resetForm}>Reset</button
           >
-        </span>
-      </p>
-
-      {#if showDateInfo}
-        <p class="info-text">
-          CPI data from the ONS is published with a delay. {monthName(latest.month)}
-          {latest.year} is the most recent data available.
-        </p>
-      {/if}
-
-      <p class="big-result">{rate > 0 && result > 0 && !hasErrors ? currency(result) : "£ —"}</p>
-
-      {#if rate > 0 && !hasErrors && result > 0}
-        <div class="answer">
-          <p>
-            <span>
-              Taking inflation into account, your rate of {currency(rate)} from {monthName(month)}
-              {year} would be equivalent to {currency(result)} today.
-              <i>Accepting anything less would be a pay cut in real terms.</i>
-            </span>
-          </p>
-
-          <p><strong>Change in value:</strong> {totalInflationPercentage.toFixed(1)}%</p>
         </div>
-      {:else if hasErrors}
-        {#if dateError}
-          <p class="error-text">{dateError}</p>
-        {:else}
-          <p class="error-text">Please fix the errors above to see the result</p>
-        {/if}
-      {/if}
-    </div>
-  </div>
-</form>
+      </div>
 
-<div class="footer">
-  <p class="small">
-    The calculations are approximate and only give a rough guide to the buying power of the pound for goods and services
-    purchased in the UK. <br />Consumer Price Index (CPI) data from the Office for National Statistics. Data updated
-    through {monthName(latest.month)}
-    {latest.year}, inflation data is not currently available beyond this date.
-  </p>
-</div>
+      <div class="result">
+        <p class="form-label">
+          Equivalent rate as of
+          <span class="data-date">
+            {monthName(latestDate.month)}
+            {latestDate.year}<button
+              class="info-toggle"
+              onclick={() => (showDateInfo = !showDateInfo)}
+              aria-label="Why this date?">ⓘ</button
+            >
+          </span>
+        </p>
+
+        {#if showDateInfo}
+          <p class="info-text">
+            CPI data from the ONS is published with a delay. {monthName(latestDate.month)}
+            {latestDate.year} is the most recent data available.
+          </p>
+        {/if}
+
+        <div class="result-body">
+          <p class="big-result">{rate > 0 && result > 0 && !hasErrors ? currency(result) : "£ —"}</p>
+
+          {#if rate > 0 && !hasErrors && result > 0}
+            <div class="answer">
+              <p>
+                Taking inflation into account, your rate of {currency(rate)} from {monthName(month)}
+                {year} would be equivalent to {currency(result)} today.
+                <i>Accepting anything less would be a pay cut in real terms.</i>
+              </p>
+
+              <p class="change"><strong>Change in value:</strong> {totalInflationPercentage.toFixed(1)}%</p>
+            </div>
+          {:else if hasErrors}
+            {#if dateError}
+              <p class="error-text">{dateError}</p>
+            {:else}
+              <p class="error-text">Please fix the errors above to see the result</p>
+            {/if}
+          {:else}
+            <p class="prompt-text">Enter a rate and date to see what it is worth today.</p>
+          {/if}
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="footer">
+    <p class="small">
+      NB: The calculations give a guide to the buying power of the pound for goods and services purchased in the UK.<br />
+      Consumer Price Index (CPI) data from the Office for National Statistics.
+    </p>
+  </div>
+{/if}
 
 <style>
+  /* Centred intro block above the form */
+  form > h2,
+  form > h2 + p {
+    text-align: center;
+  }
+
+  form > h2 {
+    margin: 0 0 0.5rem 0;
+  }
+
+  form > h2 + p {
+    max-width: 62ch;
+    margin: 0 auto 2rem auto;
+  }
+
+  /* Matches .big-result / .rate-value on the rate card so both tabs share a rhythm */
   .big-result {
     font-size: 2rem;
-    margin: 0 0 1rem 0;
+    line-height: 1.2;
+    margin: 0 0 0.5rem 0;
+    /* Equal-width digits stop the figure jittering as the input changes */
+    font-variant-numeric: tabular-nums;
   }
 
   .form-wrapper {
     display: flex;
   }
 
+  /* basis 0 + min-width 0 => both columns are exactly half, whatever they hold */
   .form-wrapper .form,
   .form-wrapper .result {
-    flex: 1;
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  /* Matching inner gutters keep the divider centred and the text blocks equal */
+  .form-wrapper .form {
+    padding-right: 2rem;
+  }
+
+  .form-wrapper .result {
+    display: flex;
+    flex-direction: column;
+    padding-left: 2rem;
+  }
+
+  /* Fills the space between the heading and the pinned Reset, and centres the
+     figure in it so the column does not read as top-heavy with a void below */
+  .result-body {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0.5rem 0;
   }
 
   .form {
     display: flex;
     gap: 0.5rem;
     flex-direction: column;
-    align-items: start;
-    margin-right: 2rem;
-    padding-right: 2rem;
-    border-right: 1px solid white;
+    /* stretch so the controls fill the column instead of hugging their text */
+    align-items: stretch;
+    border-right: 1px solid #c1c1c1;
   }
 
-  .form,
-  .form input,
-  .form select {
+  /* Controls themselves are sized by #calculator input/select in app.css */
+  .form {
     font-size: 1.25rem;
+  }
+
+  .form-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* flex-basis 0 keeps every control the same width regardless of its content */
+  .form-group input,
+  .form-group select {
+    flex: 1 1 0;
+    min-width: 0;
   }
 
   .small {
@@ -236,8 +348,28 @@
   }
 
   .error-text {
+    max-width: 40ch;
+    margin: 0;
     color: #c33;
     font-style: italic;
+    text-wrap: balance;
+  }
+
+  .prompt-text {
+    max-width: 34ch;
+    margin: 0;
+    opacity: 0.7;
+    font-style: italic;
+    text-wrap: balance;
+  }
+
+  .answer p {
+    max-width: 46ch;
+    margin: 0 0 0.5rem 0;
+  }
+
+  .answer .change {
+    margin-bottom: 0;
   }
 
   .error {
@@ -246,38 +378,16 @@
   }
 
   .form-actions {
-    margin-top: 1rem;
+    /* auto margin pins the row to the bottom of its column, as on the rate card */
+    margin-top: auto;
+    padding-top: 1rem;
+    display: flex;
+    gap: 0.5rem;
   }
 
-  .form-label {
+  p.form-label {
     font-size: 1.25rem;
-    margin: 0 0 1rem 0;
-  }
-
-  .reset-btn {
-    background-color: #f8f9fa;
-    border: 1px solid #dee2e6;
-    color: #6c757d;
-    padding: 0.375rem 0.75rem;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.875rem;
-    transition: all 0.2s ease;
-  }
-
-  .reset-btn:hover {
-    background-color: #e9ecef;
-    border-color: #adb5bd;
-    color: #495057;
-  }
-
-  .reset-btn:active {
-    background-color: #dee2e6;
-    transform: translateY(1px);
-  }
-
-  main {
-    max-width: 800px;
+    margin: 0 0 0.5rem 0;
   }
 
   .footer {
@@ -305,9 +415,66 @@
     opacity: 1;
   }
 
+  /* A 14px glyph is not a tappable target on touch */
+  @media (pointer: coarse) {
+    .info-toggle {
+      min-width: 32px;
+      min-height: 32px;
+    }
+  }
+
   .info-text {
     font-size: 0.8rem;
-    margin: 0 0 1rem 0;
+    max-width: 40ch;
+    margin: 0.5rem 0 0 0;
     opacity: 0.8;
+    text-wrap: balance;
+  }
+
+  /* --- Responsive --- */
+
+  /* Below this the two columns are too narrow to read, so stack them and turn
+     the vertical divider into a horizontal one */
+  @media (max-width: 640px) {
+    .form-wrapper {
+      flex-direction: column;
+    }
+
+    .form-wrapper .form {
+      border-right: none;
+      border-bottom: 1px solid #c1c1c1;
+      padding-right: 0;
+      padding-bottom: 1.5rem;
+    }
+
+    .form-wrapper .result {
+      padding-left: 0;
+      padding-top: 1.5rem;
+    }
+
+    /* The hard break in the intro leaves a stranded short line when narrow */
+    form > h2 + p br {
+      display: none;
+    }
+
+    form > h2 + p {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    /* Month + year side by side clip their longest options at this width, so
+       give each its own full-width row and let "in" head them */
+    .form-group {
+      flex-wrap: wrap;
+    }
+
+    .form-group > span {
+      flex: 1 0 100%;
+    }
+
+    .form-group select {
+      flex: 1 1 100%;
+    }
   }
 </style>

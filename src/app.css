@@ -3,9 +3,10 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* Dark mode disabled for now: light is the only scheme */
+  color-scheme: light;
+  color: #213547;
+  background-color: #ffffff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -19,13 +20,15 @@ a {
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: #747bff;
 }
 
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  /* Top-aligned: centring made the page shift when panel height changed */
+  align-items: flex-start;
+  justify-content: center;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -40,10 +43,12 @@ h1 {
 }
 
 #calculator {
+  width: 100%;
   max-width: 1280px;
-  min-width: 800px;
   margin: 0 auto;
-  padding: 2rem;
+  box-sizing: border-box;
+  /* Vertical padding lives on .panel; this keeps the tabs off the window edge */
+  padding: 2rem 0;
 }
 
 button {
@@ -53,7 +58,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #f9f9f9;
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -65,15 +70,119 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+/* Rate card / calculator buttons */
+#calculator * {
+  font-family: 'Raleway', 'Arial', sans-serif !important;
+}
+
+#calculator .calculator-button {
+  border: none;
+  background-color: #371E79;
+  transition: background-color 0.25s ease;
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  min-width: 112px;
+  margin: 0;
+  padding: 8px 20px;
+  color: white;
+  font-family: 'Lato', 'Arial', sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1.5;
+  white-space: nowrap;
+  text-align: center;
+  text-transform: uppercase;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+#calculator .calculator-button:disabled,
+#calculator .calculator-button:disabled:hover {
+  opacity: 0.5;
+  background-color: grey;
+  cursor: not-allowed;
+}
+
+#calculator .calculator-button:hover,
+#calculator .calculator-button:active {
+  background-color: #8e1b7e;
+}
+
+#calculator .calculator-reset {
+  background-color: #353a50;
+}
+
+#calculator .calculator-reset:hover,
+#calculator .calculator-reset:active {
+  background-color: #22252d;
+}
+
+#calculator h1,
+#calculator h2 {
+  color: #371E79;
+  font-family: 'Raleway', 'Arial', sans-serif;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.29;
+  text-transform: uppercase;
+}
+
+#calculator label {
+  display: inline-block;
+  margin-bottom: .5rem;
+  color: #676767;
+  font-size: 16px;
+  font-style: italic;
+  /* :root sets font-synthesis: none, so a real italic face must be loaded */
+  font-synthesis: style;
+}
+
+#calculator input,
+#calculator select {
+  display: inline-block;
+  box-sizing: border-box;
+  max-width: 100%;
+  margin: 0;
+  margin-bottom: 0px;
+  padding: 6px 12px 7px;
+  background: white;
+  border: 1px solid #c1c1c1;
+  border-radius: 0;
+  color: #222;
+  font: normal 16px/1.3 'Lato', 'Arial', sans-serif;
+  font-family: 'Lato', 'Arial', sans-serif;
+}
+
+/* --- Responsive --- */
+
+/* Comfortable touch targets wherever there is no fine pointer */
+@media (pointer: coarse) {
+  #calculator .calculator-button {
+    min-height: 44px;
   }
-  a:hover {
-    color: #747bff;
+
+  #calculator input,
+  #calculator select {
+    min-height: 44px;
   }
-  button {
-    background-color: #f9f9f9;
+}
+
+@media (max-width: 640px) {
+  #calculator {
+    padding: 1rem 0;
+  }
+
+  #calculator h1,
+  #calculator h2 {
+    font-size: 22px;
+  }
+
+  /* Long button labels must wrap rather than push the layout wide */
+  #calculator .calculator-button {
+    min-width: 0;
+    white-space: normal;
   }
 }

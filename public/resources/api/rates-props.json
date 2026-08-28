@@ -1,13 +1,31 @@
 {
-    "published": 2023,
+    "published": "2025-26",
     "source": [{
         "subcategory": "Dressing Props",
-        "url": "https://members.bectu.org.uk/filegrab/props-rates-film-tv-2023.pdf?ref=2918"
+        "url": "https://union.bectu.org.uk/resource/props-branch-ratecard-2025-26.html"
     },{
         "subcategory": "Prop Modellers",
-        "url": "https://members.bectu.org.uk/filegrab/props-modellers-final-rate-card-2023.pdf?ref=2439"
+        "url": "https://union.bectu.org.uk/resource/props-modellers-ratecard-2025-26.html"
+    },{
+        "subcategory": "Prop Painters",
+        "url": "https://union.bectu.org.uk/resource/props-painters-rate-card-2025-26.html"
     }],
     "department": "Props",
+    "labels": {
+        "min": "Minimum",
+        "rec": "Recommended"
+    },
+    "subcategories": [
+        { "code": "dressing",  "name": "Prop Dressing" },
+        { "code": "modellers", "name": "Prop Modellers" },
+        { "code": "painters",  "name": "Prop Painters" }
+    ],
+    "allowanceTypes": [
+        { "code": "box",      "name": "Box",      "period": "daily" },
+        { "code": "computer", "name": "Computer", "period": "weekly" },
+        { "code": "phone",    "name": "Phone",    "period": "weekly" },
+        { "code": "car",      "name": "Car",      "period": "weekly" }
+    ],
     "bands": [
         {
             "name": "Major Motion Picture (£30M+)",
@@ -32,10 +50,6 @@
         {
             "name": "TV Band 1 (< £850k)",
             "code": "tv1"
-        }, {
-            "name": "Rates",
-            "code": "mod",
-            "alias": true
         }
     ],
     "roles": [
@@ -44,42 +58,12 @@
             "code": "propm",
             "subcategory": "dressing",
             "rates": [
-                    {
-                        "band": "mmp",
-                        "min": null,
-                        "rec": null,
-                        "note": "Negotiable"
-                    },
-                    {
-                        "band": "mp",
-                        "min": null,
-                        "rec": null,
-                        "note": "Negotiable"
-                    },
-                    {
-                        "band": "tv4",
-                        "min": null,
-                        "rec": null,
-                        "note": "Negotiable"
-                    },
-                    {
-                        "band": "tv3",
-                        "min": null,
-                        "rec": null,
-                        "note": "Negotiable"
-                    },
-                    {
-                        "band": "tv2",
-                        "min": null,
-                        "rec": null,
-                        "note": "Negotiable"
-                    },
-                     {
-                        "band": "tv1",
-                        "min": null,
-                        "rec": null,
-                        "note": "Negotiable"
-                    }
+                    { "band": "mmp", "min": null, "rec": null, "note": "Negotiable", "allowances": { "box": { "text": "Negotiable" }, "computer": { "text": "Negotiable" }, "phone": { "text": "Negotiable" }, "car": { "text": "Negotiable" } } },
+                    { "band": "mp",  "min": null, "rec": null, "note": "Negotiable", "allowances": { "box": { "text": "Negotiable" }, "computer": { "text": "Negotiable" }, "phone": { "text": "Negotiable" }, "car": { "text": "Negotiable" } } },
+                    { "band": "tv4", "min": null, "rec": null, "note": "Negotiable", "allowances": { "box": { "text": "Negotiable" }, "computer": { "text": "Negotiable" }, "phone": { "text": "Negotiable" }, "car": { "text": "Negotiable" } } },
+                    { "band": "tv3", "min": null, "rec": null, "note": "Negotiable", "allowances": { "box": { "text": "Negotiable" }, "computer": { "text": "Negotiable" }, "phone": { "text": "Negotiable" }, "car": { "text": "Negotiable" } } },
+                    { "band": "tv2", "min": null, "rec": null, "note": "Negotiable", "allowances": { "box": { "text": "Negotiable" }, "computer": { "text": "Negotiable" }, "phone": { "text": "Negotiable" }, "car": { "text": "Negotiable" } } },
+                    { "band": "tv1", "min": null, "rec": null, "note": "Negotiable", "allowances": { "box": { "text": "Negotiable" }, "computer": { "text": "Negotiable" }, "phone": { "text": "Negotiable" }, "car": { "text": "Negotiable" } } }
             ]
         },
         {
@@ -87,80 +71,12 @@
             "code": "aspm",
             "subcategory": "dressing",
             "rates": [
-                    {
-                        "band": "mmp",
-                        "min": null,
-                        "rec": null,
-                        "note": "Negotiable"
-                    },
-                    {
-                        "band": "mp",
-                        "min": null,
-                        "rec": null,
-                        "note": "Negotiable"
-                    },
-                    {
-                        "band": "tv4",
-                        "min": null,
-                        "rec": null,
-                        "note": "Negotiable"
-                    },
-                    {
-                        "band": "tv3",
-                        "min": null,
-                        "rec": null,
-                        "note": "Negotiable"
-                    },
-                    {
-                        "band": "tv2",
-                        "min": null,
-                        "rec": null,
-                        "note": "Negotiable"
-                    },
-                    {
-                        "band": "tv1",
-                        "min": null,
-                        "rec": null,
-                        "note": "Negotiable"
-                    }
-            ]
-        },
-        {
-            "titles": [ "Storeperson" ],
-            "code": "stor",
-            "subcategory": "dressing",
-            "rates": [
-                    {
-                        "band": "mmp",
-                        "min": 1890,
-                        "rec": 2205
-                    },
-                    {
-                        "band": "mp",
-                        "min": 1785,
-                        "rec": 2047
-                    },
-                    {
-                        "band": "tv4",
-                        "min": 1900,
-                        "rec": null,
-                        "note": "Negotiable"
-                    },
-                    {
-                        "band": "tv3",
-                        "min": 1825,
-                        "rec": 2200
-                    },
-                    {
-                        "band": "tv2",
-                        "min": 1525,
-                        "rec": 1875
-                    },
-                    {
-                        "band": "tv1",
-                        "min": 1425,
-                        "rec": 1625
-                    }
+                    { "band": "mmp", "min": null, "rec": null, "note": "Negotiable", "allowances": { "box": { "text": "Negotiable" }, "computer": { "text": "Negotiable" }, "phone": { "text": "Negotiable" }, "car": { "text": "Negotiable" } } },
+                    { "band": "mp",  "min": null, "rec": null, "note": "Negotiable", "allowances": { "box": { "text": "Negotiable" }, "computer": { "text": "Negotiable" }, "phone": { "text": "Negotiable" }, "car": { "text": "Negotiable" } } },
+                    { "band": "tv4", "min": null, "rec": null, "note": "Negotiable", "allowances": { "box": { "text": "Negotiable" }, "computer": { "text": "Negotiable" }, "phone": { "text": "Negotiable" }, "car": { "text": "Negotiable" } } },
+                    { "band": "tv3", "min": null, "rec": null, "note": "Negotiable", "allowances": { "box": { "text": "Negotiable" }, "computer": { "text": "Negotiable" }, "phone": { "text": "Negotiable" }, "car": { "text": "Negotiable" } } },
+                    { "band": "tv2", "min": null, "rec": null, "note": "Negotiable", "allowances": { "box": { "text": "Negotiable" }, "computer": { "text": "Negotiable" }, "phone": { "text": "Negotiable" }, "car": { "text": "Negotiable" } } },
+                    { "band": "tv1", "min": null, "rec": null, "note": "Negotiable", "allowances": { "box": { "text": "Negotiable" }, "computer": { "text": "Negotiable" }, "phone": { "text": "Negotiable" }, "car": { "text": "Negotiable" } } }
             ]
         },
         {
@@ -168,42 +84,25 @@
             "code": "supsp",
             "subcategory": "dressing",
             "rates": [
-                    {
-                        "band": "mmp",
-                        "min": 2100,
-                        "rec": null,
-                        "note": "Negotiable"
-                    },
-                    {
-                        "band": "mp",
-                        "min": 1995,
-                        "rec": 2150
-                    },
-                    {
-                        "band": "tv4",
-                        "min": 2050,
-                        "rec": null,
-                        "note": "Negotiable"
-                    },
-                    {
-                        "band": "tv3",
-                        "min": 1950,
-                        "rec": null,
-                        "note": "Negotiable"
-                    
-                    },
-                    {
-                        "band": "tv2",
-                        "min": null,
-                        "rec": null,
-                        "note": "Negotiable"
-                    },
-                    {
-                        "band": "tv1",
-                        "min": null,
-                        "rec": null,
-                        "note": "Negotiable"
-                    }
+                    { "band": "mmp", "min": null, "rec": 2300, "allowances": { "box": { "text": "Negotiable" }, "computer": { "text": "£30" }, "phone": { "text": "£10" } } },
+                    { "band": "mp",  "min": null, "rec": 2000, "allowances": { "box": { "text": "Negotiable" }, "computer": { "text": "£30" }, "phone": { "text": "£10" } } },
+                    { "band": "tv4", "min": null, "rec": 1950, "allowances": { "box": { "text": "Negotiable" }, "computer": { "text": "£30" }, "phone": { "text": "£10" } } },
+                    { "band": "tv3", "min": null, "rec": 1900, "allowances": { "box": { "text": "Negotiable" }, "computer": { "text": "£30" }, "phone": { "text": "£10" } } },
+                    { "band": "tv2", "min": null, "rec": null, "note": "Negotiable", "allowances": { "box": { "text": "Negotiable" }, "computer": { "text": "£30" }, "phone": { "text": "£10" } } },
+                    { "band": "tv1", "min": null, "rec": null, "note": "Negotiable", "allowances": { "box": { "text": "Negotiable" }, "computer": { "text": "£30" }, "phone": { "text": "£10" } } }
+            ]
+        },
+        {
+            "titles": [ "Storeperson" ],
+            "code": "stor",
+            "subcategory": "dressing",
+            "rates": [
+                    { "band": "mmp", "min": null, "rec": 2000, "allowances": { "box": { "text": "£15+" }, "computer": { "text": "£30" }, "phone": { "text": "£10" }, "car": { "text": "Negotiable" } } },
+                    { "band": "mp",  "min": null, "rec": 1800, "allowances": { "box": { "text": "£15+" }, "computer": { "text": "£30" }, "phone": { "text": "£10" }, "car": { "text": "Negotiable" } } },
+                    { "band": "tv4", "min": null, "rec": 1950, "allowances": { "box": { "text": "£15+" }, "computer": { "text": "£30" }, "phone": { "text": "£10" }, "car": { "text": "Negotiable" } } },
+                    { "band": "tv3", "min": null, "rec": 1900, "allowances": { "box": { "text": "£15+" }, "computer": { "text": "£30" }, "phone": { "text": "£10" }, "car": { "text": "Negotiable" } } },
+                    { "band": "tv2", "min": null, "rec": 1600, "allowances": { "box": { "text": "£15+" }, "computer": { "text": "£30" }, "phone": { "text": "£10" }, "car": { "text": "Negotiable" } } },
+                    { "band": "tv1", "min": null, "rec": 1500, "allowances": { "box": { "text": "£15+" }, "computer": { "text": "£30" }, "phone": { "text": "£10" }, "car": { "text": "Negotiable" } } }
             ]
         },
         {
@@ -211,39 +110,12 @@
             "code": "supcp",
             "subcategory": "dressing",
             "rates": [
-                    {
-                        "band": "mmp",
-                        "min": 1890,
-                        "rec": 2205
-                    },
-                    {
-                        "band": "mp",
-                        "min": 1785,
-                        "rec": 2047
-                    },
-                    {
-                        "band": "tv4",
-                        "min": 1900,
-                        "rec": null,
-                        "note": "Negotiable"
-                    },
-                    {
-                        "band": "tv3",
-                        "min": 1825,
-                        "rec": 2250
-                    },
-                    {
-                        "band": "tv2",
-                        "min": null,
-                        "rec": null,
-                        "note": "Negotiable"
-                    },
-                    {
-                        "band": "tv1",
-                        "min": null,
-                        "rec": null,
-                        "note": "Negotiable"
-                    }
+                    { "band": "mmp", "min": null, "rec": 2000, "allowances": { "box": { "text": "£15+" }, "computer": { "text": "£30" }, "phone": { "text": "£10" }, "car": { "text": "Negotiable" } } },
+                    { "band": "mp",  "min": null, "rec": 1800, "allowances": { "box": { "text": "£15+" }, "computer": { "text": "£30" }, "phone": { "text": "£10" }, "car": { "text": "Negotiable" } } },
+                    { "band": "tv4", "min": null, "rec": 1950, "allowances": { "box": { "text": "£15+" }, "computer": { "text": "£30" }, "phone": { "text": "£10" }, "car": { "text": "Negotiable" } } },
+                    { "band": "tv3", "min": null, "rec": 1900, "allowances": { "box": { "text": "£15+" }, "computer": { "text": "£30" }, "phone": { "text": "£10" }, "car": { "text": "Negotiable" } } },
+                    { "band": "tv2", "min": null, "rec": null, "note": "Negotiable", "allowances": { "box": { "text": "£15+" }, "computer": { "text": "£30" }, "phone": { "text": "£10" }, "car": { "text": "Negotiable" } } },
+                    { "band": "tv1", "min": null, "rec": null, "note": "Negotiable", "allowances": { "box": { "text": "£15+" }, "computer": { "text": "£30" }, "phone": { "text": "£10" }, "car": { "text": "Negotiable" } } }
             ]
         },
         {
@@ -251,39 +123,12 @@
             "code": "acps",
             "subcategory": "dressing",
             "rates": [
-                    {
-                        "band": "mmp",
-                        "min": 1890,
-                        "rec": 2260
-                    },
-                    {
-                        "band": "mp",
-                        "min": null,
-                        "rec": null,
-                        "note": "Negotiable"
-                    },
-                    {
-                        "band": "tv4",
-                        "min": 1900,
-                        "rec": null,
-                        "note": "Negotiable"
-                    },
-                    {
-                        "band": "tv3",
-                        "min": 1750,
-                        "rec": 2250
-                    },
-                    {
-                        "band": "tv2",
-                        "min": 1500,
-                        "rec": 2000
-                    },
-                    {
-                        "band": "tv1",
-                        "min": null,
-                        "rec": null,
-                        "note": "Negotiable"
-                    }
+                    { "band": "mmp", "min": null, "rec": 2000, "allowances": { "box": { "text": "Negotiable" }, "computer": { "text": "£30" }, "phone": { "text": "£10" }, "car": { "text": "Negotiable" } } },
+                    { "band": "mp",  "min": null, "rec": null, "note": "Negotiable", "allowances": { "box": { "text": "Negotiable" }, "computer": { "text": "£30" }, "phone": { "text": "£10" }, "car": { "text": "Negotiable" } } },
+                    { "band": "tv4", "min": null, "rec": 1950, "allowances": { "box": { "text": "Negotiable" }, "computer": { "text": "£30" }, "phone": { "text": "£10" }, "car": { "text": "Negotiable" } } },
+                    { "band": "tv3", "min": null, "rec": 1850, "allowances": { "box": { "text": "Negotiable" }, "computer": { "text": "£30" }, "phone": { "text": "£10" }, "car": { "text": "Negotiable" } } },
+                    { "band": "tv2", "min": null, "rec": 1600, "allowances": { "box": { "text": "Negotiable" }, "computer": { "text": "£30" }, "phone": { "text": "£10" }, "car": { "text": "Negotiable" } } },
+                    { "band": "tv1", "min": null, "rec": null, "note": "Negotiable", "allowances": { "box": { "text": "Negotiable" }, "computer": { "text": "£30" }, "phone": { "text": "£10" }, "car": { "text": "Negotiable" } } }
             ]
         },
         {
@@ -291,36 +136,22 @@
             "code": "chpr",
             "subcategory": "dressing",
             "rates": [
-                    {
-                        "band": "mmp",
-                        "min": 1730,
-                        "rec": 1940
-                    },
-                    {
-                        "band": "mp",
-                        "min": 1575,
-                        "rec": 1890
-                    },
-                    {
-                        "band": "tv4",
-                        "min": 1750,
-                        "rec": 2000
-                    },
-                    {
-                        "band": "tv3",
-                        "min": 1675,
-                        "rec": 1950
-                    },
-                    {
-                        "band": "tv2",
-                        "min": 1500,
-                        "rec": 1750
-                    },
-                    {
-                        "band": "tv1",
-                        "min": 1425,
-                        "rec": 1625
-                    }
+                    { "band": "mmp", "min": null, "rec": 1850, "allowances": { "box": { "text": "£15+" }, "computer": { "text": "£30" }, "phone": { "text": "£10" } } },
+                    { "band": "mp",  "min": null, "rec": 1650, "allowances": { "box": { "text": "£15+" }, "computer": { "text": "£30" }, "phone": { "text": "£10" } } },
+                    { "band": "tv4", "min": null, "rec": 1850, "allowances": { "box": { "text": "£15+" }, "computer": { "text": "£30" }, "phone": { "text": "£10" } } },
+                    { "band": "tv3", "min": null, "rec": 1850, "allowances": { "box": { "text": "£15+" }, "computer": { "text": "£30" }, "phone": { "text": "£10" } } },
+                    { "band": "tv2", "min": null, "rec": 1600, "allowances": { "box": { "text": "£15+" }, "computer": { "text": "£30" }, "phone": { "text": "£10" } } },
+                    { "band": "tv1", "min": null, "rec": 1500, "allowances": { "box": { "text": "£15+" }, "computer": { "text": "£30" }, "phone": { "text": "£10" } } }
+            ]
+        },
+        {
+            "titles": [ "Chargehand Standby" ],
+            "code": "chsb",
+            "subcategory": "dressing",
+            "rates": [
+                    { "band": "mmp", "min": null, "rec": 1850 },
+                    { "band": "mp",  "min": null, "rec": 1650 },
+                    { "band": "tv4", "min": null, "rec": 1850 }
             ]
         },
         {
@@ -328,36 +159,12 @@
             "code": "stpr",
             "subcategory": "dressing",
             "rates": [
-                    {
-                        "band": "mmp",
-                        "min": 1730,
-                        "rec": 1940
-                    },
-                    {
-                        "band": "mp",
-                        "min": 1575,
-                        "rec": 1890
-                    },
-                    {
-                        "band": "tv4",
-                        "min": 1750,
-                        "rec": 2050
-                    },
-                    {
-                        "band": "tv3",
-                        "min": 1675,
-                        "rec": 2000
-                    },
-                    {
-                        "band": "tv2",
-                        "min": 1500,
-                        "rec": 1750
-                    },
-                    {
-                        "band": "tv1",
-                        "min": 1425,
-                        "rec": 1625
-                    }
+                    { "band": "mmp", "min": null, "rec": 1850, "allowances": { "box": { "text": "Negotiable" }, "computer": { "text": "£30" }, "phone": { "text": "£10" } } },
+                    { "band": "mp",  "min": null, "rec": 1600, "allowances": { "box": { "text": "Negotiable" }, "computer": { "text": "£30" }, "phone": { "text": "£10" } } },
+                    { "band": "tv4", "min": null, "rec": 1800, "allowances": { "box": { "text": "Negotiable" }, "computer": { "text": "£30" }, "phone": { "text": "£10" } } },
+                    { "band": "tv3", "min": null, "rec": 1750, "allowances": { "box": { "text": "Negotiable" }, "computer": { "text": "£30" }, "phone": { "text": "£10" } } },
+                    { "band": "tv2", "min": null, "rec": 1600, "allowances": { "box": { "text": "Negotiable" }, "computer": { "text": "£30" }, "phone": { "text": "£10" } } },
+                    { "band": "tv1", "min": null, "rec": 1500, "allowances": { "box": { "text": "Negotiable" }, "computer": { "text": "£30" }, "phone": { "text": "£10" } } }
             ]
         },
         {
@@ -365,36 +172,12 @@
             "code": "assto",
             "subcategory": "dressing",
             "rates": [
-                    {
-                        "band": "mmp",
-                        "min": 1625,
-                        "rec": 1940
-                    },
-                    {
-                        "band": "mp",
-                        "min": 1522,
-                        "rec": 1730
-                    },
-                    {
-                        "band": "tv4",
-                        "min": 1550,
-                        "rec": 1900
-                    },
-                    {
-                        "band": "tv3",
-                        "min": 1450,
-                        "rec": 1900
-                    },
-                    {
-                        "band": "tv2",
-                        "min": 1400,
-                        "rec": 1650
-                    },
-                    {
-                        "band": "tv1",
-                        "min": 1350,
-                        "rec": 1525
-                    }
+                    { "band": "mmp", "min": null, "rec": 1700, "allowances": { "box": { "text": "£10+" }, "computer": { "text": "£30" }, "phone": { "text": "£10" }, "car": { "text": "Negotiable" } } },
+                    { "band": "mp",  "min": null, "rec": 1600, "allowances": { "box": { "text": "£10+" }, "computer": { "text": "£30" }, "phone": { "text": "£10" }, "car": { "text": "Negotiable" } } },
+                    { "band": "tv4", "min": null, "rec": 1600, "allowances": { "box": { "text": "£10+" }, "computer": { "text": "£30" }, "phone": { "text": "£10" }, "car": { "text": "Negotiable" } } },
+                    { "band": "tv3", "min": null, "rec": 1525, "allowances": { "box": { "text": "£10+" }, "computer": { "text": "£30" }, "phone": { "text": "£10" }, "car": { "text": "Negotiable" } } },
+                    { "band": "tv2", "min": null, "rec": 1500, "allowances": { "box": { "text": "£10+" }, "computer": { "text": "£30" }, "phone": { "text": "£10" }, "car": { "text": "Negotiable" } } },
+                    { "band": "tv1", "min": null, "rec": 1450, "allowances": { "box": { "text": "£10+" }, "computer": { "text": "£30" }, "phone": { "text": "£10" }, "car": { "text": "Negotiable" } } }
             ]
         },
         {
@@ -402,36 +185,12 @@
             "code": "propha",
             "subcategory": "dressing",
             "rates": [
-                    {
-                        "band": "mmp",
-                        "min": 1575,
-                        "rec": 1785
-                    },
-                    {
-                        "band": "mp",
-                        "min": 1470,
-                        "rec": 1680
-                    },
-                    {
-                        "band": "tv4",
-                        "min": 1550,
-                        "rec": 1900
-                    },
-                    {
-                        "band": "tv3",
-                        "min": 1450,
-                        "rec": 1700
-                    },
-                    {
-                        "band": "tv2",
-                        "min": 1400,
-                        "rec": 1550
-                    },
-                    {
-                        "band": "tv1",
-                        "min": 1350,
-                        "rec": 1525
-                    }
+                    { "band": "mmp", "min": null, "rec": 1650, "allowances": { "box": { "text": "£15" }, "phone": { "text": "£10" }, "car": { "text": "Negotiable" } } },
+                    { "band": "mp",  "min": null, "rec": 1550, "allowances": { "box": { "text": "£15" }, "phone": { "text": "£10" }, "car": { "text": "Negotiable" } } },
+                    { "band": "tv4", "min": null, "rec": 1600, "allowances": { "box": { "text": "£15+" }, "phone": { "text": "£10" } } },
+                    { "band": "tv3", "min": null, "rec": 1550, "allowances": { "box": { "text": "£15+" }, "phone": { "text": "£10" } } },
+                    { "band": "tv2", "min": null, "rec": 1500, "allowances": { "box": { "text": "£15+" }, "phone": { "text": "£10" } } },
+                    { "band": "tv1", "min": null, "rec": 1450, "allowances": { "box": { "text": "£15+" }, "phone": { "text": "£10" } } }
             ]
         },
         {
@@ -439,36 +198,12 @@
             "code": "propco",
             "subcategory": "dressing",
             "rates": [
-                    {
-                        "band": "mmp",
-                        "min": 1575,
-                        "rec": 1785
-                    },
-                    {
-                        "band": "mp",
-                        "min": 1470,
-                        "rec": 1680
-                    },
-                    {
-                        "band": "tv4",
-                        "min": 1550,
-                        "rec": 1900
-                    },
-                    {
-                        "band": "tv3",
-                        "min": 1450,
-                        "rec": 1700
-                    },
-                    {
-                        "band": "tv2",
-                        "min": 1400,
-                        "rec": 1550
-                    },
-                    {
-                        "band": "tv1",
-                        "min": 1350,
-                        "rec": 1525
-                    }
+                    { "band": "mmp", "min": null, "rec": 1650, "allowances": { "computer": { "text": "£30" }, "phone": { "text": "£10" } } },
+                    { "band": "mp",  "min": null, "rec": 1550, "allowances": { "computer": { "text": "£30" }, "phone": { "text": "£10" } } },
+                    { "band": "tv4", "min": null, "rec": 1600, "allowances": { "computer": { "text": "£30" }, "phone": { "text": "£10" } } },
+                    { "band": "tv3", "min": null, "rec": 1550, "allowances": { "computer": { "text": "£30" }, "phone": { "text": "£10" } } },
+                    { "band": "tv2", "min": null, "rec": 1500, "allowances": { "computer": { "text": "£30" }, "phone": { "text": "£10" } } },
+                    { "band": "tv1", "min": null, "rec": 1450, "allowances": { "computer": { "text": "£30" }, "phone": { "text": "£10" } } }
             ]
         },
         {
@@ -476,36 +211,12 @@
             "code": "jnph",
             "subcategory": "dressing",
             "rates": [
-                    {
-                        "band": "mmp",
-                        "min": 1555,
-                        "rec": 1365
-                    },
-                    {
-                        "band": "mp",
-                        "min": 1050,
-                        "rec": 1260
-                    },
-                    {
-                        "band": "tv4",
-                        "min": 1025,
-                        "rec": 1200
-                    },
-                    {
-                        "band": "tv3",
-                        "min": 1000,
-                        "rec": 1200
-                    },
-                    {
-                        "band": "tv2",
-                        "min": 1000,
-                        "rec": 1200
-                    },
-                    {
-                        "band": "tv1",
-                        "min": 1000,
-                        "rec": 1200
-                    }
+                    { "band": "mmp", "min": null, "rec": 1200, "allowances": { "box": { "text": "£10" }, "phone": { "text": "£10" } } },
+                    { "band": "mp",  "min": null, "rec": 1100, "allowances": { "box": { "text": "£10" }, "phone": { "text": "£10" } } },
+                    { "band": "tv4", "min": null, "rec": 1100, "allowances": { "box": { "text": "£10" }, "phone": { "text": "£10" } } },
+                    { "band": "tv3", "min": null, "rec": 1100, "allowances": { "box": { "text": "£10" }, "phone": { "text": "£10" } } },
+                    { "band": "tv2", "min": null, "rec": 1050, "allowances": { "box": { "text": "£10" }, "phone": { "text": "£10" } } },
+                    { "band": "tv1", "min": null, "rec": 1100, "allowances": { "box": { "text": "£10" }, "phone": { "text": "£10" } } }
             ]
         },
         {
@@ -513,109 +224,192 @@
             "code": "train",
             "subcategory": "dressing",
             "rates": [
-                    {
-                        "band": "mmp",
-                        "min": 750,
-                        "rec": 950
-                    },
-                    {
-                        "band": "mp",
-                        "min": 750,
-                        "rec": 950
-                    },
-                    {
-                        "band": "tv4",
-                        "min": 675,
-                        "rec": 950
-                    },
-                    {
-                        "band": "tv3",
-                        "min": 675,
-                        "rec": 950
-                    },
-                    {
-                        "band": "tv2",
-                        "min": 675,
-                        "rec": 900
-                    },
-                    {
-                        "band": "tv1",
-                        "min": 675,
-                        "rec": 850
-                    }
+                    { "band": "mmp", "min": null, "rec": 750, "allowances": { "phone": { "text": "£10" } } },
+                    { "band": "mp",  "min": null, "rec": 750, "allowances": { "phone": { "text": "£10" } } },
+                    { "band": "tv4", "min": null, "rec": 750, "allowances": { "phone": { "text": "£10" } } },
+                    { "band": "tv3", "min": null, "rec": 750, "allowances": { "phone": { "text": "£10" } } },
+                    { "band": "tv2", "min": null, "rec": 700, "allowances": { "phone": { "text": "£10" } } },
+                    { "band": "tv1", "min": null, "rec": 700, "allowances": { "phone": { "text": "£10" } } }
             ]
-        }, 
+        },
         {
             "titles": [ "HOD Modeller" ],
             "code": "hodmod",
             "subcategory": "modellers",
+            "labels": { "min": "Minimum", "rec": "Standard" },
             "rates": [
-                {
-                    "band": "mod",
-                    "min": null,
-                    "rec": null,
-                    "note": "Negotiable"
-                }
+                    { "band": "mmp", "min": null, "rec": null, "note": "Negotiable" },
+                    { "band": "mp",  "min": null, "rec": null, "note": "Negotiable" },
+                    { "band": "tv4", "min": null, "rec": null, "note": "Negotiable" },
+                    { "band": "tv3", "min": null, "rec": null, "note": "Negotiable" },
+                    { "band": "tv2", "min": null, "rec": null, "note": "Negotiable" },
+                    { "band": "tv1", "min": null, "rec": null, "note": "Negotiable" }
             ]
         },
         {
-            "titles": [ "Supervising Modeller" ],
+            "titles": [ "Supervising Prop Modeller" ],
             "code": "supmod",
             "subcategory": "modellers",
+            "labels": { "min": "Minimum", "rec": "Standard" },
             "rates": [
-                {
-                    "band": "mod",
-                    "min": 1890,
-                    "rec": 2260
-                }
+                    { "band": "mmp", "min": null, "rec": null, "note": "Negotiable" },
+                    { "band": "mp",  "min": null, "rec": null, "note": "Negotiable" },
+                    { "band": "tv4", "min": 1995, "rec": 2360 },
+                    { "band": "tv3", "min": 1940, "rec": 2260 },
+                    { "band": "tv2", "min": null, "rec": null, "note": "Negotiable" },
+                    { "band": "tv1", "min": null, "rec": null, "note": "Negotiable" }
+            ]
+        },
+        {
+            "titles": [ "Prop Making Coordinator" ],
+            "code": "propmakco",
+            "subcategory": "modellers",
+            "labels": { "min": "Minimum", "rec": "Standard" },
+            "rates": [
+                    { "band": "mmp", "min": 1575, "rec": 1680 },
+                    { "band": "mp",  "min": 1575, "rec": null },
+                    { "band": "tv4", "min": 1655, "rec": null },
+                    { "band": "tv3", "min": 1575, "rec": null },
+                    { "band": "tv2", "min": 1520, "rec": null },
+                    { "band": "tv1", "min": 1470, "rec": null }
             ]
         },
         {
             "titles": [ "Senior Prop Modeller" ],
             "code": "snmod",
             "subcategory": "modellers",
+            "labels": { "min": "Minimum", "rec": "Standard" },
             "rates": [
-                {
-                    "band": "mod",
-                    "min": 1730,
-                    "rec": 1940
-                }
+                    { "band": "mmp", "min": 1835, "rec": 2045 },
+                    { "band": "mp",  "min": 1730, "rec": 1900 },
+                    { "band": "tv4", "min": 1730, "rec": 1890 },
+                    { "band": "tv3", "min": 1680, "rec": 1835 },
+                    { "band": "tv2", "min": 1630, "rec": 1785 },
+                    { "band": "tv1", "min": 1630, "rec": 1785 }
             ]
         },
         {
             "titles": [ "Prop Modeller" ],
             "code": "propmod",
             "subcategory": "modellers",
+            "labels": { "min": "Minimum", "rec": "Standard" },
             "rates": [
-                {
-                    "band": "mod",
-                    "min": 1575,
-                    "rec": 1785
-                }
+                    { "band": "mmp", "min": 1650, "rec": 1870 },
+                    { "band": "mp",  "min": 1470, "rec": 1730 },
+                    { "band": "tv4", "min": 1470, "rec": 1730 },
+                    { "band": "tv3", "min": 1415, "rec": 1680 },
+                    { "band": "tv2", "min": 1365, "rec": 1575 },
+                    { "band": "tv1", "min": 1300, "rec": 1500 }
             ]
         },
         {
             "titles": [ "Mid Prop Modeller" ],
             "code": "midpropmod",
             "subcategory": "modellers",
+            "labels": { "min": "Minimum", "rec": "Standard" },
             "rates": [
-                {
-                    "band": "mod",
-                    "min": 1155,
-                    "rec": 1365
-                }
+                    { "band": "mmp", "min": 1205, "rec": 1470 },
+                    { "band": "mp",  "min": 1155, "rec": 1415 },
+                    { "band": "tv4", "min": 1155, "rec": 1415 },
+                    { "band": "tv3", "min": 1100, "rec": 1365 },
+                    { "band": "tv2", "min": 1050, "rec": 1310 },
+                    { "band": "tv1", "min": 1000, "rec": 1250 }
             ]
         },
         {
             "titles": [ "Junior Prop Modeller" ],
             "code": "jnpropmod",
             "subcategory": "modellers",
+            "labels": { "min": "Minimum", "rec": "Standard" },
             "rates": [
-                {
-                    "band": "mod",
-                    "min": 750,
-                    "rec": 950
-                }
+                    { "band": "mmp", "min": 890, "rec": 1050 },
+                    { "band": "mp",  "min": 840, "rec": 995 },
+                    { "band": "tv4", "min": 890, "rec": 1050 },
+                    { "band": "tv3", "min": 840, "rec": 995 },
+                    { "band": "tv2", "min": 785, "rec": 945 },
+                    { "band": "tv1", "min": 840, "rec": null }
+            ]
+        },
+        {
+            "titles": [ "Trainee Prop Modeller" ],
+            "code": "trainmod",
+            "subcategory": "modellers",
+            "labels": { "min": "Minimum", "rec": "Standard" },
+            "rates": [
+                    { "band": "mmp", "min": 785, "rec": 840 },
+                    { "band": "mp",  "min": 785, "rec": 840 },
+                    { "band": "tv4", "min": 785, "rec": 840 },
+                    { "band": "tv3", "min": 785, "rec": 840 },
+                    { "band": "tv2", "min": 735, "rec": 785 },
+                    { "band": "tv1", "min": 735, "rec": null }
+            ]
+        },
+        {
+            "titles": [ "HOD Prop Painter", "Head Painter" ],
+            "code": "hodpaint",
+            "subcategory": "painters",
+            "allowancePeriods": { "box": "weekly" },
+            "labels": { "min": "Minimum", "rec": "Standard" },
+            "rates": [
+                    { "band": "mmp", "min": 2100, "rec": null, "note": "Negotiable", "allowances": { "box": { "min": 78.5, "rec": 105 } } },
+                    { "band": "mp",  "min": null, "rec": null, "align": "mmp", "allowances": { "box": { "min": 78.5, "rec": 105 } } },
+                    { "band": "tv4", "min": null, "rec": null, "align": "mmp", "allowances": { "box": { "min": 78.5, "rec": 105 } } },
+                    { "band": "tv3", "min": null, "rec": null, "align": "mmp", "allowances": { "box": { "min": 78.5, "rec": 105 } } },
+                    { "band": "tv2", "min": null, "rec": null, "note": "Negotiable", "allowances": { "box": { "min": 78.5, "rec": 105 } } }
+            ]
+        },
+        {
+            "titles": [ "Senior Prop Painter" ],
+            "code": "snpaint",
+            "subcategory": "painters",
+            "allowancePeriods": { "box": "weekly" },
+            "labels": { "min": "Minimum", "rec": "Standard" },
+            "rates": [
+                    { "band": "mmp", "min": 1825, "rec": 2100, "allowances": { "box": { "min": 52.5, "rec": 105 } } },
+                    { "band": "mp",  "min": null, "rec": null, "align": "mmp", "allowances": { "box": { "min": 52.5, "rec": 105 } } },
+                    { "band": "tv4", "min": null, "rec": null, "align": "mmp", "allowances": { "box": { "min": 52.5, "rec": 105 } } },
+                    { "band": "tv3", "min": null, "rec": null, "align": "mmp", "allowances": { "box": { "min": 52.5, "rec": 105 } } },
+                    { "band": "tv1", "min": 1890, "rec": null, "allowances": { "box": { "min": 52.5, "rec": 105 } } }
+            ]
+        },
+        {
+            "titles": [ "Prop Painter" ],
+            "code": "paint",
+            "subcategory": "painters",
+            "allowancePeriods": { "box": "weekly" },
+            "labels": { "min": "Minimum", "rec": "Standard" },
+            "rates": [
+                    { "band": "mmp", "min": 1665, "rec": 1840, "allowances": { "box": { "min": 60, "rec": 105 } } },
+                    { "band": "mp",  "min": null, "rec": null, "align": "mmp", "allowances": { "box": { "min": 60, "rec": 105 } } },
+                    { "band": "tv4", "min": null, "rec": null, "align": "mmp", "allowances": { "box": { "min": 60, "rec": 105 } } },
+                    { "band": "tv3", "min": null, "rec": null, "align": "mmp", "allowances": { "box": { "min": 60, "rec": 105 } } },
+                    { "band": "tv1", "min": 1785, "rec": null, "allowances": { "box": { "min": 60, "rec": 105 } } }
+            ]
+        },
+        {
+            "titles": [ "Mid Prop Painter" ],
+            "code": "midpaint",
+            "subcategory": "painters",
+            "allowancePeriods": { "box": "weekly" },
+            "labels": { "min": "Minimum", "rec": "Standard" },
+            "rates": [
+                    { "band": "mmp", "min": 1210, "rec": 1470, "allowances": { "box": { "text": "Negotiable" } } },
+                    { "band": "mp",  "min": null, "rec": null, "align": "mmp", "allowances": { "box": { "text": "Negotiable" } } },
+                    { "band": "tv4", "min": null, "rec": null, "align": "mmp", "allowances": { "box": { "text": "Negotiable" } } },
+                    { "band": "tv3", "min": null, "rec": null, "align": "mmp", "allowances": { "box": { "text": "Negotiable" } } }
+            ]
+        },
+        {
+            "titles": [ "Junior Prop Painter" ],
+            "code": "jnpaint",
+            "subcategory": "painters",
+            "allowancePeriods": { "box": "weekly" },
+            "labels": { "min": "Minimum", "rec": "Standard" },
+            "rates": [
+                    { "band": "mmp", "min": 1000, "rec": 1210, "allowances": { "box": { "text": "Negotiable" } } },
+                    { "band": "mp",  "min": null, "rec": null, "align": "mmp", "allowances": { "box": { "text": "Negotiable" } } },
+                    { "band": "tv4", "min": null, "rec": null, "align": "mmp", "allowances": { "box": { "text": "Negotiable" } } },
+                    { "band": "tv3", "min": null, "rec": null, "align": "mmp", "allowances": { "box": { "text": "Negotiable" } } }
             ]
         }
     ]
