@@ -271,7 +271,7 @@
 {:else if rateData}
   <form id="rateCardForm" onsubmit={(e) => e.preventDefault()}>
     <h2>{rateData.department} Rate Calculator {rateData.published}</h2>
-    <p>Use our quick tool to look up BECTU rate card rates,<br /> or browse the full rate cards below.</p>
+    <p>Use our quick tool to look up BECTU rate card rates, or browse the full rate cards below.</p>
 
     <div class="form-wrapper">
       <div class="form">
