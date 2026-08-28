@@ -270,7 +270,7 @@
   <p class="error-text">{error}</p>
 {:else if rateData}
   <form id="rateCardForm" onsubmit={(e) => e.preventDefault()}>
-    <h2>Rate Calculator {rateData.published}</h2>
+    <h2>{rateData.department} Rate Calculator {rateData.published}</h2>
     <p>Use our quick tool to look up BECTU rate card rates,<br /> or browse the full rate cards below.</p>
 
     <div class="form-wrapper">
@@ -423,8 +423,11 @@
   }
 
   form > h2 + p {
-    max-width: 62ch;
-    margin: 0 auto 2rem auto;
+    text-align: center;
+    width: 100%;
+    margin: 0 0 2rem 0;
+    /* max-width: 62ch; */
+    /* margin: 0 auto 2rem auto; */
   }
 
   /* Same size as .rate-value so the placeholder and a real figure sit on one rhythm */
@@ -501,6 +504,7 @@
     align-items: baseline;
     justify-content: space-between;
     gap: 1rem;
+    margin-bottom: 1rem;
   }
 
   .result-heading .result-label {
@@ -691,10 +695,11 @@
      it replaced is kept for screen readers rather than dropped */
   .external-arrow {
     margin-left: 0.15em;
-    font-size: 0.9em;
+    font-size: 1.2rem;
     line-height: 1;
     text-decoration: none;
-    display: inline-block;
+    /* display: inline-block; */
+    display: none;
   }
 
   .visually-hidden {
@@ -711,6 +716,7 @@
 
   .footer {
     margin-top: 2rem;
+    text-align: center;
   }
 
   /* --- Responsive --- */

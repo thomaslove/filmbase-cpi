@@ -51,7 +51,7 @@
       if (!res.ok) throw new Error(`Failed to load CPI data (${res.status})`);
       const json = await res.json();
       if (!json?.data || typeof json.data !== "object") {
-        throw new Error("CPI data file is missing its \"data\" section");
+        throw new Error('CPI data file is missing its "data" section');
       }
       cpiData = json;
     } catch (e) {
@@ -135,9 +135,7 @@
   let years = $derived.by(() => {
     if (!latest) return [];
     const { year: latestYear, month: latestMonth } = latest;
-    return Array.from({ length: 11 }, (_, i) => latestYear - i).filter(
-      (y) => y < latestYear || latestMonth > 1,
-    );
+    return Array.from({ length: 11 }, (_, i) => latestYear - i).filter((y) => y < latestYear || latestMonth > 1);
   });
 </script>
 
@@ -149,9 +147,7 @@
   {@const latestDate = latest}
   <form id="yearForm" onsubmit={(e) => e.preventDefault()}>
     <h2>Inflation Calculator</h2>
-    <p>
-      Fill in the fields below to work out what your rate is worth today <br />compared to when you did your last deal.
-    </p>
+    <p>Work out what your rate is worth today compared to when you did your last deal.</p>
 
     <div class="form-wrapper">
       <div class="form">
@@ -252,7 +248,8 @@
 
   <div class="footer">
     <p class="small">
-      NB: The calculations give a guide to the buying power of the pound for goods and services purchased in the UK.<br />
+      NB: The calculations give a guide to the buying power of the pound for goods and services purchased in the UK.<br
+      />
       Consumer Price Index (CPI) data from the Office for National Statistics.
     </p>
   </div>
@@ -270,8 +267,11 @@
   }
 
   form > h2 + p {
-    max-width: 62ch;
-    margin: 0 auto 2rem auto;
+    text-align: center;
+    width: 100%;
+    margin: 0 0 2rem 0;
+    /* max-width: 62ch; */
+    /* margin: 0 auto 2rem auto; */
   }
 
   /* Matches .big-result / .rate-value on the rate card so both tabs share a rhythm */
@@ -392,6 +392,7 @@
 
   .footer {
     margin-top: 2rem;
+    text-align: center;
   }
 
   .data-date {
