@@ -1,48 +1,17 @@
 <script lang="ts">
-  // --- Types ---
-
-  interface Band {
-    name: string;
-    code: string;
-    alias?: boolean;
-  }
-
-  // An allowance is either one card cell ("£15+", "Negotiable") or, as with the
-  // painters' box rental, a minimum/standard pair like the rates themselves.
-  interface Allowance {
-    text?: string;
-    min?: number;
-    rec?: number;
-  }
-
-  interface Rate {
-    band: string;
-    min: number | null;
-    rec: number | null;
-    align?: string;
-    note?: string;
-    allowances?: Record<string, Allowance>;
-  }
-
-  interface Role {
-    titles: string[];
-    code: string;
-    subcategory?: string;
-    labels?: { min?: string; rec?: string };
-    allowancePeriods?: Record<string, string>;
-    rates: Rate[];
-  }
-
-  interface RateData {
-    published: string;
-    source: string | { url: string; subcategory: string }[];
-    department: string;
-    bands: Band[];
-    subcategories?: { code: string; name: string }[];
-    allowanceTypes?: { code: string; name: string; period: string }[];
-    roles: Role[];
-    labels?: { min?: string; rec?: string };
-  }
+  import { period as ratePeriod } from "./period.svelte";
+  import { clearCardFocus, showOnCard } from "./cardFocus.svelte";
+  import {
+    currency,
+    dailyRate,
+    fetchRates,
+    issuingBranch,
+    resolveRate,
+    type Allowance,
+    type Rate,
+    type RateData,
+    type Role,
+  } from "./rates";
 
   // --- Props ---
 
@@ -61,7 +30,6 @@
 
   let selectedBand = $state("");
   let selectedRole = $state("");
-  let isWeeklyRates = $state(true);
 
   // --- Fetch data ---
 
@@ -69,9 +37,7 @@
 
   async function fetchRateData() {
     try {
-      const res = await fetch(endpoint);
-      if (!res.ok) throw new Error(`Failed to load rate data (${res.status})`);
-      rateData = await res.json();
+      rateData = await fetchRates(endpoint);
       selectedBand = "";
     } catch (e) {
       error = e instanceof Error ? e.message : "Failed to load rate data";
@@ -160,18 +126,7 @@
     const role = rateData.roles.find((r) => r.code === roleOption.code);
     if (!role) return null;
 
-    let rate: Rate | null = role.rates.find((r) => r.band === selectedBand) ?? null;
-
-    // Follow align references, guarding against missing targets and align cycles
-    const visited = new Set<string>();
-    while (rate?.align && !visited.has(rate.band)) {
-      visited.add(rate.band);
-      const target = role.rates.find((r) => r.band === rate!.align) ?? null;
-      if (!target) break;
-      rate = target;
-    }
-
-    return rate;
+    return resolveRate(role, selectedBand);
   });
 
   let hasResult = $derived(rateItemCount > 0);
@@ -203,26 +158,25 @@
       }));
   });
 
+  // Most allowances on a card share one period, so naming it against every
+  // column just repeats the same word four or five times. The shared period is
+  // stated once under the row and only the odd one out is labelled.
+  let commonPeriod = $derived.by(() => {
+    const counts = new Map<string, number>();
+    for (const row of allowanceRows) counts.set(row.period, (counts.get(row.period) ?? 0) + 1);
+    let best = "";
+    for (const [period, n] of counts) if (n > (counts.get(best) ?? 0)) best = period;
+    return counts.size > 1 || allowanceRows.length > 1 ? best : "";
+  });
+
   // --- Helpers ---
-
-  function currency(num: number): string {
-    return (
-      "£" +
-      num.toLocaleString("en-GB", {
-        minimumFractionDigits: Number.isInteger(num) ? 0 : 2,
-      })
-    );
-  }
-
-  function dailyRate(weekly: number): number {
-    // Round up: these are minimums, so a daily rate must never fall below weekly / 5
-    return Math.ceil(weekly / 5);
-  }
 
   function resetForm() {
     selectedBand = "";
     selectedRole = "";
-    isWeeklyRates = true;
+    ratePeriod.weekly = true;
+    // The cards below are showing what the form was showing, so they clear too
+    clearCardFocus();
   }
 
   // --- Source credit ---
@@ -233,31 +187,41 @@
       const depts = rateData.source.map((s) => s.subcategory).join(" & ");
       return `Rates are as per the ${rateData.published} BECTU ${depts} Departments Rate Cards.`;
     }
-    return `Rates are as per the ${rateData.published} BECTU ${rateData.department} Department Rate Card which was formulated by the BECTU ${rateData.department} Department Branch.`;
+    return `Rates are as per the ${rateData.published} BECTU ${rateData.department} Department Rate Card which was formulated by the ${issuingBranch(rateData)}.`;
   });
 </script>
 
-{#snippet allowanceItems(name: string, period: string, value: Allowance | undefined)}
+{#snippet allowanceItems(name: string, period: string | null, value: Allowance | undefined)}
   {#if !value}
     <div class="rate-item">
-      <span class="rate-label">{name}<span class="allowance-period">({period})</span></span>
+      <span class="rate-label"
+        >{name}{#if period}<span class="allowance-period">({period})</span>{/if}</span
+      >
       <span class="rate-value placeholder">£ —</span>
     </div>
   {:else if value.text}
     <div class="rate-item">
-      <span class="rate-label">{name}<span class="allowance-period">({period})</span></span>
-      <span class="rate-value" class:note={!value.text.startsWith("£")}>{value.text}</span>
+      <span class="rate-label"
+        >{name}{#if period}<span class="allowance-period">({period})</span>{/if}</span
+      >
+      <span class="rate-value" class:note={!value.text.startsWith("£") && value.text !== "—"}>{value.text}</span>
     </div>
   {:else}
     {#if value.min != null}
       <div class="rate-item">
-        <span class="rate-label">{labels.min} {name}<span class="allowance-period">({period})</span></span>
+        <span class="rate-label"
+          >{labels.min}
+          {name}{#if period}<span class="allowance-period">({period})</span>{/if}</span
+        >
         <span class="rate-value">{currency(value.min)}</span>
       </div>
     {/if}
     {#if value.rec != null}
       <div class="rate-item">
-        <span class="rate-label">{labels.rec} {name}<span class="allowance-period">({period})</span></span>
+        <span class="rate-label"
+          >{labels.rec}
+          {name}{#if period}<span class="allowance-period">({period})</span>{/if}</span
+        >
         <span class="rate-value">{currency(value.rec)}</span>
       </div>
     {/if}
@@ -270,8 +234,10 @@
   <p class="error-text">{error}</p>
 {:else if rateData}
   <form id="rateCardForm" onsubmit={(e) => e.preventDefault()}>
-    <h2>{rateData.department} Rate Calculator {rateData.published}</h2>
-    <p>Use our quick tool to look up BECTU rate card rates, or browse the full rate cards below.</p>
+    <h2>{rateData.department} Dept Rate Calculator</h2>
+    <p>
+      Use our quick tool to look up {rateData.published} BECTU rate card rates, or browse the full rate cards below.
+    </p>
 
     <div class="form-wrapper">
       <div class="form">
@@ -306,12 +272,24 @@
         </div>
 
         <div class="form-actions">
-          <button
-            type="button"
-            class="calculator-button calculator-reset reset-btn"
-            disabled={!selectedRole && !selectedBand}
-            onclick={resetForm}>Reset</button
-          >
+          <button type="button" class="reset-btn" disabled={!selectedRole && !selectedBand} onclick={resetForm}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+              <path d="M3 3v5h5" />
+              <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" />
+              <path d="M16 16h5v5" />
+            </svg>
+            Reset
+          </button>
         </div>
       </div>
 
@@ -323,16 +301,16 @@
             <button
               type="button"
               class="segment"
-              class:active={isWeeklyRates}
-              aria-pressed={isWeeklyRates}
-              onclick={() => (isWeeklyRates = true)}>Weekly</button
+              class:active={ratePeriod.weekly}
+              aria-pressed={ratePeriod.weekly}
+              onclick={() => (ratePeriod.weekly = true)}>Weekly</button
             >
             <button
               type="button"
               class="segment"
-              class:active={!isWeeklyRates}
-              aria-pressed={!isWeeklyRates}
-              onclick={() => (isWeeklyRates = false)}>Daily</button
+              class:active={!ratePeriod.weekly}
+              aria-pressed={!ratePeriod.weekly}
+              onclick={() => (ratePeriod.weekly = false)}>Daily</button
             >
           </div>
         </div>
@@ -340,14 +318,14 @@
         <div class="result-body">
           {#if !selectedRole || !selectedBand}
             <p class="big-result">£ —</p>
-            <p class="prompt-text">Select a role and band to see rates.</p>
+            <p class="prompt-text">Select a role and band to see rates and allowances.</p>
           {:else if hasResult && resultRate}
             <div class="rates-display" class:single={rateItemCount < 2}>
               {#if resultRate.min !== null}
                 <div class="rate-item">
                   <span class="rate-label">{labels.min}</span>
                   <span class="rate-value">
-                    {currency(isWeeklyRates ? resultRate.min : dailyRate(resultRate.min))}
+                    {currency(ratePeriod.weekly ? resultRate.min : dailyRate(resultRate.min))}
                   </span>
                 </div>
               {/if}
@@ -356,7 +334,7 @@
                 <div class="rate-item">
                   <span class="rate-label">{labels.rec}</span>
                   <span class="rate-value">
-                    {currency(isWeeklyRates ? resultRate.rec : dailyRate(resultRate.rec))}
+                    {currency(ratePeriod.weekly ? resultRate.rec : dailyRate(resultRate.rec))}
                   </span>
                 </div>
               {:else if resultRate.note}
@@ -367,10 +345,12 @@
               {/if}
             </div>
           {:else}
+            <!-- A blank cell on the rate card means the role is not usually
+                 crewed at this budget, so the card's own wording is used --
+                 and there is no figure here for a rate label to head -->
             <div class="rates-display single">
               <div class="rate-item">
-                <span class="rate-label">{labels.rec}</span>
-                <span class="rate-value note unavailable">No published rate for this band</span>
+                <span class="rate-value note unavailable">Not often in this band</span>
               </div>
             </div>
           {/if}
@@ -378,11 +358,37 @@
           <!-- Allowances keep their own period, so the weekly/daily toggle above
                does not apply to them and they are headed separately -->
           {#if allowanceRows.length}
-            <p class="form-label result-label allowances-label">Allowances</p>
+            <div class="result-heading allowances-heading">
+              <p class="form-label result-label">Allowances</p>
+              {#if commonPeriod}
+                <p class="allowances-note">All {commonPeriod} unless marked.</p>
+              {/if}
+            </div>
             <div class="rates-display allowances">
               {#each allowanceRows as row (row.name)}
-                {@render allowanceItems(row.name, row.period, row.value)}
+                {@render allowanceItems(row.name, row.period === commonPeriod ? null : row.period, row.value)}
               {/each}
+            </div>
+          {/if}
+
+          <!-- The figure above is one cell of a published card; this opens that
+               card below and puts the row back in its context -->
+          {#if selectedRole && selectedBand && selectedRoleOption}
+            <div class="show-on-card-row">
+              <button
+                type="button"
+                class="show-on-card"
+                onclick={() => showOnCard(selectedRoleOption.code, selectedBand)}
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <!-- The row in its table: the jump lands on a line of a grid -->
+                  <rect x="3" y="4" width="18" height="16" rx="1" />
+                  <path d="M3 9h18" />
+                  <path d="M3 14.5h18" />
+                  <path d="M9 4v16" />
+                </svg>
+                Show on rate card
+              </button>
             </div>
           {/if}
         </div>
@@ -473,10 +479,9 @@
     display: flex;
     gap: 0.5rem;
     flex-direction: column;
-    /* The result column is the taller of the two, so centre the controls
-       against it rather than leaving them stranded at the top */
-    justify-content: center;
-    /* stretch so the controls fill the column instead of hugging their text */
+    /* The result column is the taller of the two; .form-actions takes the
+       slack with an auto margin so the reset sits on the column's floor.
+       stretch so the controls fill the column instead of hugging their text */
     align-items: stretch;
     border-right: 1px solid #c1c1c1;
   }
@@ -491,9 +496,10 @@
     margin: 0 0 0.5rem 0;
   }
 
-  /* Sits directly under the controls it resets */
+  /* Directly under the selects: pinned to the foot of the column it sat alone
+     below several hundred pixels of empty space */
   .form-actions {
-    padding-top: 1.25rem;
+    padding-top: 0.75rem;
     display: flex;
     gap: 0.5rem;
   }
@@ -507,12 +513,92 @@
     margin-bottom: 1rem;
   }
 
+  /* Every heading's own margin is reset, so the row above controls the gap */
+  .result-heading p {
+    margin: 0;
+  }
+
   .result-heading .result-label {
     margin-bottom: 0;
   }
 
   /* Two halves of one control, so they share a border rather than each having
      their own -- the filled half is the period currently shown */
+  /* A separate action from the figures above it, so it sits below a rule
+     rather than floating under the allowances */
+  .show-on-card-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: left;
+    gap: 0.5rem 1rem;
+    margin-top: 2.5rem;
+  }
+
+  .show-on-card {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 0;
+    padding: 12px 22px;
+    border: 1px solid #371e79;
+    border-radius: 0;
+    background-color: transparent;
+    color: #371e79;
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+  }
+
+  .show-on-card svg {
+    flex: none;
+    width: 17px;
+    height: 17px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .show-on-card:hover {
+    background-color: rgba(55, 30, 121, 0.11);
+  }
+
+  .show-on-card:active {
+    background-color: rgba(55, 30, 121, 0.16);
+  }
+
+  .show-on-card svg {
+    opacity: 0.75;
+  }
+
+  .show-on-card:focus-visible {
+    outline: 2px solid #8e1b7e;
+    outline-offset: 2px;
+  }
+
+  @media (pointer: coarse) {
+    .show-on-card {
+      min-height: 44px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .show-on-card {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
   .segmented {
     display: inline-flex;
     border: 1px solid #371e79;
@@ -527,6 +613,7 @@
     color: #371e79;
     font-family: inherit;
     font-size: 0.875rem;
+    font-weight: 600;
     line-height: 1.5;
     letter-spacing: 0.04em;
     text-transform: uppercase;
@@ -549,6 +636,51 @@
     background-color: #371e79;
     color: #fff;
     cursor: default;
+  }
+
+  /* Undoing the form is a quieter action than the controls it clears, so this
+     is a plain icon and label rather than a filled button -- the rules below
+     also unpick the app-wide button chrome (border, radius, grey fill) */
+  .reset-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 6px 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #371e79;
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+
+  /* The icon carries the meaning, so it is sized against the label rather than
+     fixed in px, and never shrinks when the row is tight */
+  .reset-btn svg {
+    width: 1.125em;
+    height: 1.125em;
+    flex: none;
+  }
+
+  .reset-btn:hover:not(:disabled),
+  .reset-btn:focus-visible:not(:disabled) {
+    border-color: transparent;
+    color: #8e1b7e;
+  }
+
+  .reset-btn:disabled {
+    border-color: transparent;
+    background: transparent;
+    opacity: 0.4;
+    cursor: not-allowed;
   }
 
   .form-group {
@@ -575,7 +707,7 @@
   .rates-display {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.25rem 2.5rem;
+    gap: 1.5rem 2.5rem;
   }
 
   /* One figure fills the row rather than sitting in a half-empty grid */
@@ -586,7 +718,7 @@
   .rate-item {
     display: flex;
     flex-direction: column;
-    gap: 0.125rem;
+    gap: 0.25rem;
   }
 
   .rate-label {
@@ -621,22 +753,22 @@
     text-wrap: balance;
   }
 
-  /* A sentence rather than a word, so it is not set at figure size */
+  /* A sentence rather than a word, so it is set below figure size -- but not
+     so far below that it reads as a footnote to a result that is not there */
   .rate-value.unavailable {
-    font-size: 1rem;
+    font-size: 1.375rem;
   }
 
   .prompt-text {
-    max-width: 34ch;
     margin: 0;
     opacity: 0.7;
     font-style: italic;
     text-wrap: balance;
+    margin-top: 0.5rem;
   }
 
-  /* Element + class, to outweigh the shared p.form-label margin reset */
-  p.allowances-label {
-    margin-top: 2.75rem;
+  .allowances-heading {
+    margin-top: 2.5rem;
   }
 
   /* Allowances sit below the headline figures, so they read a step quieter --
@@ -648,7 +780,7 @@
        rather than the 12px labels, which made the tracks far wider than their
        contents need and pushed the fourth allowance on to a second row */
     grid-template-columns: repeat(auto-fit, minmax(4rem, 1fr));
-    gap: 0.75rem 1rem;
+    gap: 1.5rem 1rem;
   }
 
   /* "Negotiable" is set smaller than a figure, so every allowance value shares
@@ -662,10 +794,12 @@
     font-size: 1.25rem;
   }
 
-  /* Allowance figures are already small, so a word beside them is set smaller
-     again rather than matching them outright */
+  /* A word stands in for a figure here, so it is set as one -- upright and
+     close to their size, rather than as small italic type that greys the row */
   .allowances .rate-value.note {
-    font-size: 0.8rem;
+    font-size: 1rem;
+    font-style: normal;
+    opacity: 0.75;
   }
 
   /* Period drops to its own line so the name is not broken up by it */
@@ -673,8 +807,17 @@
     display: block;
   }
 
+  .allowances-note {
+    margin: 0;
+    font-size: 0.8125rem;
+    opacity: 0.65;
+  }
+
   .allowances .rate-label {
-    min-height: 3.4em;
+    min-height: 2.2em;
+    font-size: 0.875rem;
+    letter-spacing: normal;
+    text-transform: none;
   }
 
   .role-heading {
@@ -748,31 +891,53 @@
     form > h2 + p {
       margin-bottom: 1.5rem;
     }
+
+    /* Five allowances never divide evenly across a narrow grid -- four sat
+       abreast and the fifth was orphaned on a row of its own -- so here they
+       stop being columns and become a list, each label against its value */
+    .allowances {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0;
+    }
+
+    .allowances .rate-item {
+      flex-direction: row;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.5rem 0;
+    }
+
+    .allowances .rate-item + .rate-item {
+      border-top: 1px solid #e2e2e2;
+    }
+
+    /* A full row has width to spare, so the period rejoins its label rather
+       than taking a second line, and the label no longer reserves one */
+    .allowances .allowance-period {
+      display: inline;
+      margin-left: 0.35em;
+    }
+
+    .allowances .rate-label {
+      min-height: 0;
+    }
+
+    /* The value is pushed across by the row, not down by an auto margin */
+    .allowances .rate-value {
+      margin-top: 0;
+      font-size: 1.125rem;
+    }
   }
 
-  /* Too narrow for two figures abreast: one rate per row, allowances two up */
+  /* Too narrow for two figures abreast: one rate per row */
   @media (max-width: 380px) {
     .rates-display {
       grid-template-columns: minmax(0, 1fr);
     }
 
-    .allowances {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .rate-label,
-    .allowances .rate-label {
+    .rate-label {
       min-height: 0;
-    }
-  }
-
-  @media (max-width: 640px) {
-    .form-actions {
-      flex-wrap: wrap;
-    }
-
-    .form-actions .calculator-button {
-      flex: 1 1 auto;
     }
   }
 </style>

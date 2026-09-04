@@ -135,7 +135,12 @@
   let years = $derived.by(() => {
     if (!latest) return [];
     const { year: latestYear, month: latestMonth } = latest;
-    return Array.from({ length: 11 }, (_, i) => latestYear - i).filter((y) => y < latestYear || latestMonth > 1);
+    // Back to 2000 rather than a rolling ten years: the CPI series runs from
+    // 1988, and rates quoted from twenty years ago still come up
+    const EARLIEST = 2000;
+    return Array.from({ length: latestYear - EARLIEST + 1 }, (_, i) => latestYear - i).filter(
+      (y) => y < latestYear || latestMonth > 1,
+    );
   });
 </script>
 
@@ -192,10 +197,27 @@
         <div class="form-actions">
           <button
             type="button"
-            class="calculator-button calculator-reset reset-btn"
+            class="reset-btn"
             disabled={month === 0 && year === 0 && rate <= 0}
-            onclick={resetForm}>Reset</button
+            onclick={resetForm}
           >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+              <path d="M3 3v5h5" />
+              <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" />
+              <path d="M16 16h5v5" />
+            </svg>
+            Reset
+          </button>
         </div>
       </div>
 
@@ -375,6 +397,51 @@
   .error {
     border-color: #f44 !important;
     background-color: #fef !important;
+  }
+
+  /* Undoing the form is a quieter action than the controls it clears, so this
+     is a plain icon and label rather than a filled button -- the rules below
+     also unpick the app-wide button chrome (border, radius, grey fill) */
+  .reset-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 6px 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #371e79;
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+
+  /* The icon carries the meaning, so it is sized against the label rather than
+     fixed in px, and never shrinks when the row is tight */
+  .reset-btn svg {
+    width: 1.125em;
+    height: 1.125em;
+    flex: none;
+  }
+
+  .reset-btn:hover:not(:disabled),
+  .reset-btn:focus-visible:not(:disabled) {
+    border-color: transparent;
+    color: #8e1b7e;
+  }
+
+  .reset-btn:disabled {
+    border-color: transparent;
+    background: transparent;
+    opacity: 0.4;
+    cursor: not-allowed;
   }
 
   .form-actions {

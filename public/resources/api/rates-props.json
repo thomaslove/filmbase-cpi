@@ -11,14 +11,52 @@
         "url": "https://union.bectu.org.uk/resource/props-painters-rate-card-2025-26.html"
     }],
     "department": "Props",
+    "issuedBy": "Props Branch",
     "labels": {
         "min": "Minimum",
         "rec": "Recommended"
     },
     "subcategories": [
-        { "code": "dressing",  "name": "Prop Dressing" },
-        { "code": "modellers", "name": "Prop Modellers" },
-        { "code": "painters",  "name": "Prop Painters" }
+        {
+            "code": "dressing",
+            "name": "Prop Dressing",
+            "footnotes": [
+                "Rates shown are the recommended daily/weekly rate for a five-day week. Bectu members should aim to achieve this.",
+                "These rates currently include holiday pay at 12.07%, but the branch aims to show this separately in future cards.",
+                "TV rates are for a 10+1 working day."
+            ]
+        },
+        {
+            "code": "modellers",
+            "name": "Prop Modellers",
+            "footnotes": [
+                {
+                    "marker": "*",
+                    "text": "First number = Minimum. This is the rate which members should under no circumstances accept less than. Should a production insist on rates less than this number, it should be urgently reported to the Props committee or a Bectu official."
+                },
+                {
+                    "marker": "**",
+                    "text": "Second number in bold = Standard. This is the rate which members should be regularly achieving. Before accepting a job, each member should insist on a sum equivalent to or higher than the standard rate. Negotiations should always seek to go beyond the standard rate."
+                },
+                "All rates are calculated from data collected by Props branch surveys of its members and of the wider Props community."
+            ]
+        },
+        {
+            "code": "painters",
+            "name": "Prop Painters",
+            "footnotes": [
+                {
+                    "marker": "*",
+                    "text": "First number = Minimum. This is the rate which members should under no circumstances accept less than. Should a production insist on rates less than this number, it should be urgently reported to the Props committee or a Bectu official."
+                },
+                {
+                    "marker": "**",
+                    "text": "Second number in bold = Standard. This is the rate which members should be regularly achieving. Before accepting a job, each member should insist on a sum equivalent to or higher than the standard rate. Negotiations should always seek to go beyond the standard rate."
+                },
+                "All rates are calculated from data collected by Props branch surveys of its members and of the wider Props community.",
+                "TV rates are for a 10+1 working day."
+            ]
+        }
     ],
     "allowanceTypes": [
         { "code": "box",      "name": "Box",      "period": "daily" },
@@ -393,10 +431,10 @@
             "allowancePeriods": { "box": "weekly" },
             "labels": { "min": "Minimum", "rec": "Standard" },
             "rates": [
-                    { "band": "mmp", "min": 1210, "rec": 1470, "allowances": { "box": { "text": "Negotiable" } } },
-                    { "band": "mp",  "min": null, "rec": null, "align": "mmp", "allowances": { "box": { "text": "Negotiable" } } },
-                    { "band": "tv4", "min": null, "rec": null, "align": "mmp", "allowances": { "box": { "text": "Negotiable" } } },
-                    { "band": "tv3", "min": null, "rec": null, "align": "mmp", "allowances": { "box": { "text": "Negotiable" } } }
+                    { "band": "mmp", "min": 1210, "rec": 1470, "allowances": { "box": { "text": "No data – negotiate with HOD" } } },
+                    { "band": "mp",  "min": null, "rec": null, "align": "mmp", "allowances": { "box": { "text": "No data – negotiate with HOD" } } },
+                    { "band": "tv4", "min": null, "rec": null, "align": "mmp", "allowances": { "box": { "text": "No data – negotiate with HOD" } } },
+                    { "band": "tv3", "min": null, "rec": null, "align": "mmp", "allowances": { "box": { "text": "No data – negotiate with HOD" } } }
             ]
         },
         {
@@ -406,10 +444,10 @@
             "allowancePeriods": { "box": "weekly" },
             "labels": { "min": "Minimum", "rec": "Standard" },
             "rates": [
-                    { "band": "mmp", "min": 1000, "rec": 1210, "allowances": { "box": { "text": "Negotiable" } } },
-                    { "band": "mp",  "min": null, "rec": null, "align": "mmp", "allowances": { "box": { "text": "Negotiable" } } },
-                    { "band": "tv4", "min": null, "rec": null, "align": "mmp", "allowances": { "box": { "text": "Negotiable" } } },
-                    { "band": "tv3", "min": null, "rec": null, "align": "mmp", "allowances": { "box": { "text": "Negotiable" } } }
+                    { "band": "mmp", "min": 1000, "rec": 1210, "allowances": { "box": { "text": "No data – negotiate with HOD" } } },
+                    { "band": "mp",  "min": null, "rec": null, "align": "mmp", "allowances": { "box": { "text": "No data – negotiate with HOD" } } },
+                    { "band": "tv4", "min": null, "rec": null, "align": "mmp", "allowances": { "box": { "text": "No data – negotiate with HOD" } } },
+                    { "band": "tv3", "min": null, "rec": null, "align": "mmp", "allowances": { "box": { "text": "No data – negotiate with HOD" } } }
             ]
         }
     ]

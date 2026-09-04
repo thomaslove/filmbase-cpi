@@ -2,6 +2,7 @@
   import { tick } from "svelte";
   import InflationCalculator from "./lib/InflationCalculator.svelte";
   import RateCardCalculator from "./lib/RateCardCalculator.svelte";
+  import RateCardTables from "./lib/RateCardTables.svelte";
 
   interface Props {
     department?: string;
@@ -125,11 +126,15 @@
   >
     <InflationCalculator />
   </div>
+
+  <!-- The full cards, below both calculators and outside the tab panels: they
+       are reference material, not part of either tool. -->
+  <RateCardTables {department} />
 </main>
 
 <style>
   main {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0px auto;
   }
 
@@ -201,7 +206,7 @@
     backdrop-filter: blur(6px);
     color: #fff;
     font-size: 0.8125rem;
-    font-weight: 500;
+    font-weight: 600;
     line-height: 1;
     text-transform: uppercase;
     letter-spacing: 0.06em;
@@ -266,7 +271,9 @@
   }
 
   .tab {
-    flex: 1 1 auto;
+    /* basis 0, so the two tabs split the row evenly rather than sizing to
+       their labels -- the "New" badge made one of them wider */
+    flex: 1 1 0;
     box-sizing: border-box;
     display: flex;
     align-items: center;

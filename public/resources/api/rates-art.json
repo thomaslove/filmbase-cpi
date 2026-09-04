@@ -1,812 +1,260 @@
 {
-  "published": "2025-26",
-  "source": "https://www.bectuartdepartment.co.uk/Rate-Card",
-  "department": "Art",
-  "labels": {
-    "min": "Minimum",
-    "rec": "3+ Year Min."
-  },
-  "bands": [
-    {
-      "name": "Major Motion Picture (£30M+)",
-      "code": "mmp"
-    },
-    {
-      "name": "Motion Picture (£5M - £30M)",
-      "code": "mp"
-    },
-    {
-      "name": "Feature Film (£1M - £5M)",
-      "code": "ff"
-    },
-    {
-      "name": "TV Band 4 (£8M+ per hr)",
-      "code": "tv4"
-    },
-    {
-      "name": "TV Band 3 (£3M < £8M per hr)",
-      "code": "tv3"
-    },
-    {
-      "name": "TV Band 2 (£1.25M < £3M per hr)",
-      "code": "tv2"
-    },
-    {
-      "name": "TV Band 1 (< £1.25M per hr)",
-      "code": "tv1"
-    }
-  ],
-  "roles": [
-    {
-      "titles": [
-        "Supervising Art Director"
-      ],
-      "code": "sad",
-      "rates": [
+    "published": "2025-26",
+    "source": "https://www.bectuartdepartment.co.uk/Rate-Card",
+    "department": "Art",
+    "issuedBy": "Art Department Branch",
+    "secondFigureNegotiable": true,
+    "footnotes": [
         {
-          "band": "mmp",
-          "min": 3565,
-          "rec": 3895
+            "marker": "*",
+            "text": "First number = Minimum weekly. These are the base rates. They are based on the minimum rates crew members have been paid in these roles over the last year, adjusted for inflation"
         },
         {
-          "band": "mp",
-          "min": 2900,
-          "rec": 3170
-        },
-        {
-          "band": "ff",
-          "min": 2160,
-          "rec": 2360
-        },
-        {
-          "band": "tv4",
-          "min": 3565,
-          "rec": 3895,
-          "align": "mmp"
-        },
-        {
-          "band": "tv3",
-          "min": 2870,
-          "rec": 3305
-        },
-        {
-          "band": "tv2",
-          "min": 2305,
-          "rec": 2520
-        },
-        {
-          "band": "tv1",
-          "min": null,
-          "rec": null
+            "marker": "**",
+            "text": "Second number in bold: Recommended Minimum. These are guide rates for anyone who has established themselves in a role with at least 3 years of experience. Crew members should negotiate upwards of these rates according to their skill level and experience."
         }
-      ]
+    ],
+    "labels": {
+        "min": "Minimum",
+        "rec": "3+ Year Min."
     },
-    {
-      "titles": [
-        "Senior Art Director"
-      ],
-      "code": "snart",
-      "rates": [
+    "allowanceTypes": [
+        {"code": "computer", "name": "Computer", "period": "weekly"},
+        {"code": "phone", "name": "Phone", "period": "weekly"},
+        {"code": "car", "name": "Car", "period": "weekly"},
+        {"code": "software", "name": "Software", "period": "weekly"},
+        {"code": "kit", "name": "Kit", "period": "weekly"}
+    ],
+    "bands": [
+        {"name": "Major Motion Picture (£30M+)", "code": "mmp"},
+        {"name": "Motion Picture (£5M - £30M)", "code": "mp"},
+        {"name": "Feature Film (£1M - £5M)", "code": "ff"},
+        {"name": "TV Band 4 (£8M+ per hr)", "code": "tv4"},
+        {"name": "TV Band 3 (£3M < £8M per hr)", "code": "tv3"},
+        {"name": "TV Band 2 (£1.25M < £3M per hr)", "code": "tv2"},
+        {"name": "TV Band 1 (< £1.25M per hr)", "code": "tv1"}
+    ],
+    "roles": [
         {
-          "band": "mmp",
-          "min": 2890,
-          "rec": 3170
+            "titles": [ "Supervising Art Director" ],
+            "code": "sad",
+            "rates": [
+                {"band": "mmp", "min": 3565, "rec": 3895, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "mp", "min": 2900, "rec": 3170, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "ff", "min": 2160, "rec": 2360, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv4", "min": 3565, "rec": 3895, "align": "mmp", "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv3", "min": 2870, "rec": 3305, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv2", "min": 2305, "rec": 2520, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv1", "min": null, "rec": null, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}}
+            ]
         },
         {
-          "band": "mp",
-          "min": null,
-          "rec": null
+            "titles": [ "Senior Art Director" ],
+            "code": "snart",
+            "rates": [
+                {"band": "mmp", "min": 2890, "rec": 3170, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "mp", "min": null, "rec": null, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "ff", "min": null, "rec": null, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv4", "min": 2890, "rec": 3170, "align": "mmp", "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv3", "min": 2320, "rec": 2855, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv2", "min": null, "rec": null, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv1", "min": null, "rec": null, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}}
+            ]
         },
         {
-          "band": "ff",
-          "min": null,
-          "rec": null
+            "titles": [ "Art Director", "VFX Art Director" ],
+            "code": "adrec",
+            "rates": [
+                {"band": "mmp", "min": 2480, "rec": 2670, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "mp", "min": 2240, "rec": 2410, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "ff", "min": 1810, "rec": 1955, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv4", "min": 2480, "rec": 2670, "align": "mmp", "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv3", "min": 2025, "rec": 2560, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv2", "min": 1865, "rec": 2010, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv1", "min": 1785, "rec": 1925, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}}
+            ]
         },
         {
-          "band": "tv4",
-          "min": 2890,
-          "rec": 3170,
-          "align": "mmp"
+            "titles": [ "Standby Art Director" ],
+            "code": "stand",
+            "rates": [
+                {"band": "mmp", "min": 2175, "rec": 2480, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "mp", "min": 1935, "rec": 2200, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "ff", "min": 1330, "rec": 1515, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv4", "min": 2175, "rec": 2480, "align": "mmp", "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv3", "min": 2160, "rec": 2385, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv2", "min": 1650, "rec": 1880, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv1", "min": 1545, "rec": 1760, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}}
+            ]
         },
         {
-          "band": "tv3",
-          "min": 2320,
-          "rec": 2855
+            "titles": [ "Senior Assistant Art Director" ],
+            "code": "saad",
+            "rates": [
+                {"band": "mmp", "min": 2005, "rec": 2260, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "mp", "min": null, "rec": null, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "ff", "min": null, "rec": null, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv4", "min": 2005, "rec": 2260, "align": "mmp", "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv3", "min": 1940, "rec": 2110, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv2", "min": null, "rec": null, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv1", "min": null, "rec": null, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}}
+            ]
         },
         {
-          "band": "tv2",
-          "min": null,
-          "rec": null
+            "titles": [ "Assistant Art Director" ],
+            "code": "aad",
+            "rates": [
+                {"band": "mmp", "min": 1855, "rec": 2115, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "mp", "min": 1705, "rec": 1940, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "ff", "min": 1330, "rec": 1515, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv4", "min": 1855, "rec": 2115, "align": "mmp", "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv3", "min": 1855, "rec": 1975, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv2", "min": 1525, "rec": 1645, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv1", "min": 1375, "rec": 1485, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}}
+            ]
         },
         {
-          "band": "tv1",
-          "min": null,
-          "rec": null
+            "titles": [ "Senior Draughtsperson", "Senior Set Designer" ],
+            "code": "sdsd",
+            "rates": [
+                {"band": "mmp", "min": 1755, "rec": 1865, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "mp", "min": 1510, "rec": 1610, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "ff", "min": null, "rec": null, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv4", "min": 1755, "rec": 1865, "align": "mmp", "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv3", "min": 1650, "rec": 1700, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv2", "min": null, "rec": null, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv1", "min": null, "rec": null, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}}
+            ]
+        },
+        {
+            "titles": [ "Draughtsperson", "Set Designer" ],
+            "code": "dsdr",
+            "rates": [
+                {"band": "mmp", "min": 1470, "rec": 1630, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "mp", "min": 1330, "rec": 1470, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "ff", "min": 1140, "rec": 1260, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv4", "min": 1470, "rec": 1630, "align": "mmp", "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv3", "min": 1470, "rec": 1585, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv2", "min": 1260, "rec": 1410, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv1", "min": null, "rec": null, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}}
+            ]
+        },
+        {
+            "titles": [ "Junior Draughtsperson", "Junior Set Designer" ],
+            "code": "jnr",
+            "rates": [
+                {"band": "mmp", "min": 1025, "rec": 1210, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "mp", "min": 910, "rec": 1065, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "ff", "min": 845, "rec": 995, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv4", "min": 1025, "rec": 1210, "align": "mmp", "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv3", "min": 950, "rec": 1160, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv2", "min": 870, "rec": 1065, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv1", "min": null, "rec": null, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}}
+            ]
+        },
+        {
+            "titles": [ "Modelmaker" ],
+            "code": "mdma",
+            "rates": [
+                {"band": "mmp", "min": 1710, "rec": 1970, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "mp", "min": 1445, "rec": 1665, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "ff", "min": 1120, "rec": 1285, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv4", "min": 1710, "rec": 1970, "align": "mmp", "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv3", "min": 1710, "rec": 1820, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv2", "min": 1185, "rec": 1365, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv1", "min": 1120, "rec": 1285, "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}}
+            ]
+        },
+        {
+            "titles": [ "Art Dept Coordinator" ],
+            "code": "coor",
+            "rates": [
+                {"band": "mmp", "min": 1570, "rec": 1870, "allowances": {"computer": {"text": "£25-30"}, "phone": {"text": "£10"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "—"}}},
+                {"band": "mp", "min": 1330, "rec": 1585, "allowances": {"computer": {"text": "£25-30"}, "phone": {"text": "£10"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "—"}}},
+                {"band": "ff", "min": null, "rec": null, "allowances": {"computer": {"text": "£25-30"}, "phone": {"text": "£10"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "—"}}},
+                {"band": "tv4", "min": 1570, "rec": 1870, "align": "mmp", "allowances": {"computer": {"text": "£25-30"}, "phone": {"text": "£10"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "—"}}},
+                {"band": "tv3", "min": 1430, "rec": 1640, "allowances": {"computer": {"text": "£25-30"}, "phone": {"text": "£10"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "—"}}},
+                {"band": "tv2", "min": null, "rec": null, "allowances": {"computer": {"text": "£25-30"}, "phone": {"text": "£10"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "—"}}},
+                {"band": "tv1", "min": null, "rec": null, "allowances": {"computer": {"text": "£25-30"}, "phone": {"text": "£10"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "—"}}}
+            ]
+        },
+        {
+            "titles": [ "Art Dept Assistant" ],
+            "code": "assi",
+            "rates": [
+                {"band": "mmp", "min": 945, "rec": 1030, "allowances": {"computer": {"text": "£25-30"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "—"}}},
+                {"band": "mp", "min": 910, "rec": 990, "allowances": {"computer": {"text": "£25-30"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "—"}}},
+                {"band": "ff", "min": 785, "rec": 860, "allowances": {"computer": {"text": "£25-30"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "—"}}},
+                {"band": "tv4", "min": 945, "rec": 1030, "align": "mmp", "allowances": {"computer": {"text": "£25-30"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "—"}}},
+                {"band": "tv3", "min": 910, "rec": 990, "allowances": {"computer": {"text": "£25-30"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "—"}}},
+                {"band": "tv2", "min": 825, "rec": 905, "allowances": {"computer": {"text": "£25-30"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "—"}}},
+                {"band": "tv1", "min": 785, "rec": 855, "allowances": {"computer": {"text": "£25-30"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "Negotiable"}, "kit": {"text": "—"}}}
+            ]
+        },
+        {
+            "titles": [ "Art Dept Trainee" ],
+            "code": "trane",
+            "rates": [
+                {"band": "mmp", "min": 795, "rec": null, "allowances": {"computer": {"text": "£25-30"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "—"}, "kit": {"text": "—"}}},
+                {"band": "mp", "min": 780, "rec": null, "allowances": {"computer": {"text": "£25-30"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "—"}, "kit": {"text": "—"}}},
+                {"band": "ff", "min": 765, "rec": null, "allowances": {"computer": {"text": "£25-30"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "—"}, "kit": {"text": "—"}}},
+                {"band": "tv4", "min": 795, "rec": null, "align": "mmp", "allowances": {"computer": {"text": "£25-30"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "—"}, "kit": {"text": "—"}}},
+                {"band": "tv3", "min": 785, "rec": null, "allowances": {"computer": {"text": "£25-30"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "—"}, "kit": {"text": "—"}}},
+                {"band": "tv2", "min": 780, "rec": null, "allowances": {"computer": {"text": "£25-30"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "—"}, "kit": {"text": "—"}}},
+                {"band": "tv1", "min": 765, "rec": null, "allowances": {"computer": {"text": "£25-30"}, "phone": {"text": "£10"}, "car": {"text": "£150"}, "software": {"text": "—"}, "kit": {"text": "—"}}}
+            ]
+        },
+        {
+            "titles": [ "Concept Artist" ],
+            "code": "cart",
+            "rates": [
+                {"band": "mmp", "min": 2415, "rec": null, "note": "Negotiable based on portfolio", "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "mp", "min": 1935, "rec": null, "note": "Negotiable based on portfolio", "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "ff", "min": 1870, "rec": null, "note": "Negotiable based on portfolio", "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv4", "min": 2415, "rec": null, "align": "mmp", "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv3", "min": 1935, "rec": null, "note": "Negotiable based on portfolio", "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv2", "min": null, "rec": null, "note": "Negotiable based on portfolio", "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv1", "min": null, "rec": null, "note": "Negotiable based on portfolio", "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}}
+            ]
+        },
+        {
+            "titles": [ "Storyboard Artist" ],
+            "code": "start",
+            "rates": [
+                {"band": "mmp", "min": 2415, "rec": null, "note": "Negotiable based on portfolio", "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "mp", "min": 1935, "rec": null, "note": "Negotiable based on portfolio", "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "ff", "min": 1870, "rec": null, "note": "Negotiable based on portfolio", "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv4", "min": 2415, "rec": null, "align": "mmp", "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv3", "min": 1935, "rec": null, "note": "Negotiable based on portfolio", "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv2", "min": null, "rec": null, "note": "Negotiable based on portfolio", "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv1", "min": null, "rec": null, "note": "Negotiable based on portfolio", "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "Negotiable"}, "kit": {"text": "Negotiable"}}}
+            ]
+        },
+        {
+            "titles": [ "Researcher" ],
+            "code": "rese",
+            "rates": [
+                {"band": "mmp", "min": 1450, "rec": null, "note": "Negotiable based on portfolio", "allowances": {"computer": {"text": "£25-30"}, "phone": {"text": "£10"}, "car": {"text": "—"}, "software": {"text": "—"}, "kit": {"text": "—"}}},
+                {"band": "mp", "min": 1330, "rec": null, "note": "Negotiable based on portfolio", "allowances": {"computer": {"text": "£25-30"}, "phone": {"text": "£10"}, "car": {"text": "—"}, "software": {"text": "—"}, "kit": {"text": "—"}}},
+                {"band": "ff", "min": null, "rec": null, "allowances": {"computer": {"text": "£25-30"}, "phone": {"text": "£10"}, "car": {"text": "—"}, "software": {"text": "—"}, "kit": {"text": "—"}}},
+                {"band": "tv4", "min": 1450, "rec": null, "align": "mmp", "allowances": {"computer": {"text": "£25-30"}, "phone": {"text": "£10"}, "car": {"text": "—"}, "software": {"text": "—"}, "kit": {"text": "—"}}},
+                {"band": "tv3", "min": 1330, "rec": null, "note": "Negotiable based on portfolio", "allowances": {"computer": {"text": "£25-30"}, "phone": {"text": "£10"}, "car": {"text": "—"}, "software": {"text": "—"}, "kit": {"text": "—"}}},
+                {"band": "tv2", "min": null, "rec": null, "allowances": {"computer": {"text": "£25-30"}, "phone": {"text": "£10"}, "car": {"text": "—"}, "software": {"text": "—"}, "kit": {"text": "—"}}},
+                {"band": "tv1", "min": null, "rec": null, "allowances": {"computer": {"text": "£25-30"}, "phone": {"text": "£10"}, "car": {"text": "—"}, "software": {"text": "—"}, "kit": {"text": "—"}}}
+            ]
+        },
+        {
+            "titles": [ "Scenic Artist" ],
+            "code": "sceni",
+            "rates": [
+                {"band": "mmp", "min": 2415, "rec": null, "note": "Negotiable based on portfolio", "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "—"}, "kit": {"text": "Negotiable"}}},
+                {"band": "mp", "min": 1630, "rec": null, "note": "Negotiable based on portfolio", "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "—"}, "kit": {"text": "Negotiable"}}},
+                {"band": "ff", "min": 1510, "rec": null, "note": "Negotiable based on portfolio", "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "—"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv4", "min": 2415, "rec": null, "align": "mmp", "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "—"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv3", "min": 1630, "rec": null, "note": "Negotiable based on portfolio", "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "—"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv2", "min": null, "rec": null, "note": "Negotiable based on portfolio", "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "—"}, "kit": {"text": "Negotiable"}}},
+                {"band": "tv1", "min": null, "rec": null, "note": "Negotiable based on portfolio", "allowances": {"computer": {"text": "See Kit"}, "phone": {"text": "—"}, "car": {"text": "—"}, "software": {"text": "—"}, "kit": {"text": "Negotiable"}}}
+            ]
         }
-      ]
-    },
-    {
-      "titles": [
-        "Art Director",
-        "VFX Art Director"
-      ],
-      "code": "adrec",
-      "rates": [
-        {
-          "band": "mmp",
-          "min": 2480,
-          "rec": 2670
-        },
-        {
-          "band": "mp",
-          "min": 2240,
-          "rec": 2410
-        },
-        {
-          "band": "ff",
-          "min": 1810,
-          "rec": 1955
-        },
-        {
-          "band": "tv4",
-          "min": 2480,
-          "rec": 2670,
-          "align": "mmp"
-        },
-        {
-          "band": "tv3",
-          "min": 2025,
-          "rec": 2560
-        },
-        {
-          "band": "tv2",
-          "min": 1865,
-          "rec": 2010
-        },
-        {
-          "band": "tv1",
-          "min": 1785,
-          "rec": 1925
-        }
-      ]
-    },
-    {
-      "titles": [
-        "Standby Art Director"
-      ],
-      "code": "stand",
-      "rates": [
-        {
-          "band": "mmp",
-          "min": 2175,
-          "rec": 2480
-        },
-        {
-          "band": "mp",
-          "min": 1935,
-          "rec": 2200
-        },
-        {
-          "band": "ff",
-          "min": 1330,
-          "rec": 1515
-        },
-        {
-          "band": "tv4",
-          "min": 2175,
-          "rec": 2480,
-          "align": "mmp"
-        },
-        {
-          "band": "tv3",
-          "min": 2160,
-          "rec": 2385
-        },
-        {
-          "band": "tv2",
-          "min": 1650,
-          "rec": 1880
-        },
-        {
-          "band": "tv1",
-          "min": 1545,
-          "rec": 1760
-        }
-      ]
-    },
-    {
-      "titles": [
-        "Senior Assistant Art Director"
-      ],
-      "code": "saad",
-      "rates": [
-        {
-          "band": "mmp",
-          "min": 2005,
-          "rec": 2260
-        },
-        {
-          "band": "mp",
-          "min": null,
-          "rec": null
-        },
-        {
-          "band": "ff",
-          "min": null,
-          "rec": null
-        },
-        {
-          "band": "tv4",
-          "min": 2005,
-          "rec": 2260,
-          "align": "mmp"
-        },
-        {
-          "band": "tv3",
-          "min": 1940,
-          "rec": 2110
-        },
-        {
-          "band": "tv2",
-          "min": null,
-          "rec": null
-        },
-        {
-          "band": "tv1",
-          "min": null,
-          "rec": null
-        }
-      ]
-    },
-    {
-      "titles": [
-        "Assistant Art Director"
-      ],
-      "code": "aad",
-      "rates": [
-        {
-          "band": "mmp",
-          "min": 1855,
-          "rec": 2115
-        },
-        {
-          "band": "mp",
-          "min": 1705,
-          "rec": 1940
-        },
-        {
-          "band": "ff",
-          "min": 1330,
-          "rec": 1515
-        },
-        {
-          "band": "tv4",
-          "min": 1855,
-          "rec": 2115,
-          "align": "mmp"
-        },
-        {
-          "band": "tv3",
-          "min": 1855,
-          "rec": 1975
-        },
-        {
-          "band": "tv2",
-          "min": 1525,
-          "rec": 1645
-        },
-        {
-          "band": "tv1",
-          "min": 1375,
-          "rec": 1485
-        }
-      ]
-    },
-    {
-      "titles": [
-        "Senior Draughtsperson / Senior Set Designer"
-      ],
-      "code": "sdsd",
-      "rates": [
-        {
-          "band": "mmp",
-          "min": 1755,
-          "rec": 1865
-        },
-        {
-          "band": "mp",
-          "min": 1510,
-          "rec": 1610
-        },
-        {
-          "band": "ff",
-          "min": null,
-          "rec": null
-        },
-        {
-          "band": "tv4",
-          "min": 1755,
-          "rec": 1865,
-          "align": "mmp"
-        },
-        {
-          "band": "tv3",
-          "min": 1650,
-          "rec": 1700
-        },
-        {
-          "band": "tv2",
-          "min": null,
-          "rec": null
-        },
-        {
-          "band": "tv1",
-          "min": null,
-          "rec": null
-        }
-      ]
-    },
-    {
-      "titles": [
-        "Draughtsperson / Set Designer"
-      ],
-      "code": "dsdr",
-      "rates": [
-        {
-          "band": "mmp",
-          "min": 1470,
-          "rec": 1630
-        },
-        {
-          "band": "mp",
-          "min": 1330,
-          "rec": 1470
-        },
-        {
-          "band": "ff",
-          "min": 1140,
-          "rec": 1260
-        },
-        {
-          "band": "tv4",
-          "min": 1470,
-          "rec": 1630,
-          "align": "mmp"
-        },
-        {
-          "band": "tv3",
-          "min": 1470,
-          "rec": 1585
-        },
-        {
-          "band": "tv2",
-          "min": 1260,
-          "rec": 1410
-        },
-        {
-          "band": "tv1",
-          "min": null,
-          "rec": null
-        }
-      ]
-    },
-    {
-      "titles": [
-        "Junior Draughtsperson",
-        "Junior Set Designer"
-      ],
-      "code": "jnr",
-      "rates": [
-        {
-          "band": "mmp",
-          "min": 1025,
-          "rec": 1210
-        },
-        {
-          "band": "mp",
-          "min": 910,
-          "rec": 1065
-        },
-        {
-          "band": "ff",
-          "min": 845,
-          "rec": 995
-        },
-        {
-          "band": "tv4",
-          "min": 1025,
-          "rec": 1210,
-          "align": "mmp"
-        },
-        {
-          "band": "tv3",
-          "min": 950,
-          "rrec": 1160
-        },
-        {
-          "band": "tv2",
-          "min": 870,
-          "rec": 1065
-        },
-        {
-          "band": "tv1",
-          "min": null,
-          "rec": null
-        }
-      ]
-    },
-    {
-      "titles": [
-        "Modelmaker"
-      ],
-      "code": "mdma",
-      "rates": [
-        {
-          "band": "mmp",
-          "min": 1710,
-          "rec": 1970
-        },
-        {
-          "band": "mp",
-          "min": 1445,
-          "rec": 1665
-        },
-        {
-          "band": "ff",
-          "min": 1120,
-          "rec": 1285
-        },
-        {
-          "band": "tv4",
-          "min": 1710,
-          "rec": 1970,
-          "align": "mmp"
-        },
-        {
-          "band": "tv3",
-          "min": 1710,
-          "rec": 1820
-        },
-        {
-          "band": "tv2",
-          "min": 1185,
-          "rec": 1365
-        },
-        {
-          "band": "tv1",
-          "min": 1120,
-          "rec": 1285
-        }
-      ]
-    },
-    {
-      "titles": [
-        "Art Department Coordinator"
-      ],
-      "code": "coor",
-      "rates": [
-        {
-          "band": "mmp",
-          "min": 1570,
-          "rec": 1870
-        },
-        {
-          "band": "mp",
-          "min": 1330,
-          "rec": 1585
-        },
-        {
-          "band": "ff",
-          "min": null,
-          "rec": null
-        },
-        {
-          "band": "tv4",
-          "min": 1570,
-          "rec": 1870,
-          "align": "mmp"
-        },
-        {
-          "band": "tv3",
-          "min": 1430,
-          "rec": 1640
-        },
-        {
-          "band": "tv2",
-          "min": null,
-          "rec": null
-        },
-        {
-          "band": "tv1",
-          "min": null,
-          "rec": null
-        }
-      ]
-    },
-    {
-      "titles": [
-        "Art Department Assistant"
-      ],
-      "code": "assi",
-      "rates": [
-        {
-          "band": "mmp",
-          "min": 945,
-          "rec": 1030
-        },
-        {
-          "band": "mp",
-          "min": 910,
-          "rec": 990
-        },
-        {
-          "band": "ff",
-          "min": 785,
-          "rec": 860
-        },
-        {
-          "band": "tv4",
-          "min": 945,
-          "rec": 1030,
-          "align": "mmp"
-        },
-        {
-          "band": "tv3",
-          "min": 910,
-          "rec": 990
-        },
-        {
-          "band": "tv2",
-          "min": 825,
-          "rec": 905
-        },
-        {
-          "band": "tv1",
-          "min": 785,
-          "rec": 855
-        }
-      ]
-    },
-    {
-      "titles": [
-        "Art Department Trainee"
-      ],
-      "code": "trane",
-      "rates": [
-        {
-          "band": "mmp",
-          "min": 795,
-          "rec": 795
-        },
-        {
-          "band": "mp",
-          "min": 780,
-          "rec": 780
-        },
-        {
-          "band": "ff",
-          "min": 765,
-          "rec": 765
-        },
-        {
-          "band": "tv4",
-          "min": 795,
-          "rec": 795,
-          "align": "mmp"
-        },
-        {
-          "band": "tv3",
-          "min": 785,
-          "rec": 785
-        },
-        {
-          "band": "tv2",
-          "min": 780,
-          "rec": 780
-        },
-        {
-          "band": "tv1",
-          "min": 765,
-          "rec": 765
-        }
-      ]
-    },
-    {
-      "titles": [
-        "Concept Artist"
-      ],
-      "code": "cart",
-      "rates": [
-        {
-          "band": "mmp",
-          "min": 2415,
-          "rec": null,
-          "note": "Negotiable based on portfolio"
-        },
-        {
-          "band": "mp",
-          "min": 1935,
-          "rec": null,
-          "note": "Negotiable based on portfolio"
-        },
-        {
-          "band": "ff",
-          "min": 1870,
-          "rec": null,
-          "note": "Negotiable based on portfolio"
-        },
-        {
-          "band": "tv4",
-          "min": 2415,
-          "rec": null,
-          "align": "mmp"
-        },
-        {
-          "band": "tv3",
-          "min": 1935,
-          "rec": null,
-          "note": "Negotiable based on portfolio"
-        },
-        {
-          "band": "tv2",
-          "min": null,
-          "rec": null,
-          "note": "Negotiable based on portfolio"
-        },
-        {
-          "band": "tv1",
-          "min": null,
-          "rec": null,
-          "note": "Negotiable based on portfolio"
-        }
-      ]
-    },
-    {
-      "titles": [
-        "Storyboard Artist"
-      ],
-      "code": "start",
-      "rates": [
-        {
-          "band": "mmp",
-          "min": 2415,
-          "rec": null,
-          "note": "Negotiable based on portfolio"
-        },
-        {
-          "band": "mp",
-          "min": 1935,
-          "rec": null,
-          "note": "Negotiable based on portfolio"
-        },
-        {
-          "band": "ff",
-          "min": 1870,
-          "rec": null,
-          "note": "Negotiable based on portfolio"
-        },
-        {
-          "band": "tv4",
-          "min": 2415,
-          "rec": null,
-          "align": "mmp"
-        },
-        {
-          "band": "tv3",
-          "min": 1935,
-          "rec": null,
-          "note": "Negotiable based on portfolio"
-        },
-        {
-          "band": "tv2",
-          "min": null,
-          "rec": null,
-          "note": "Negotiable based on portfolio"
-        },
-        {
-          "band": "tv1",
-          "min": null,
-          "rec": null,
-          "note": "Negotiable based on portfolio"
-        }
-      ]
-    },
-    {
-      "titles": [
-        "Researcher"
-      ],
-      "code": "rese",
-      "rates": [
-        {
-          "band": "mmp",
-          "min": 1450,
-          "rec": null,
-          "note": "Negotiable based on portfolio"
-        },
-        {
-          "band": "mp",
-          "min": 1330,
-          "rec": null,
-          "note": "Negotiable based on portfolio"
-        },
-        {
-          "band": "ff",
-          "min": null,
-          "rec": null
-        },
-        {
-          "band": "tv4",
-          "min": 1450,
-          "rec": null,
-          "align": "mmp"
-        },
-        {
-          "band": "tv3",
-          "min": 1330,
-          "rec": null,
-          "note": "Negotiable based on portfolio"
-        },
-        {
-          "band": "tv2",
-          "min": null,
-          "rec": null
-        },
-        {
-          "band": "tv1",
-          "min": null,
-          "rec": null
-        }
-      ]
-    },
-    {
-      "titles": [
-        "Scenic Artist"
-      ],
-      "code": "sceni",
-      "rates": [
-        {
-          "band": "mmp",
-          "min": 2415,
-          "rec": null,
-          "note": "Negotiable based on portfolio"
-        },
-        {
-          "band": "mp",
-          "min": 1630,
-          "rec": null,
-          "note": "Negotiable based on portfolio"
-        },
-        {
-          "band": "ff",
-          "min": 1510,
-          "rec": null,
-          "note": "Negotiable based on portfolio"
-        },
-        {
-          "band": "tv4",
-          "min": 2415,
-          "rec": null,
-          "align": "mmp"
-        },
-        {
-          "band": "tv3",
-          "min": 1630,
-          "rec": null,
-          "note": "Negotiable based on portfolio"
-        },
-        {
-          "band": "tv2",
-          "min": null,
-          "rec": null,
-          "note": "Negotiable based on portfolio"
-        },
-        {
-          "band": "tv1",
-          "min": null,
-          "rec": null,
-          "note": "Negotiable based on portfolio"
-        }
-      ]
-    }
-  ]
+    ]
 }
