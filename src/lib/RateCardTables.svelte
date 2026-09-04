@@ -225,6 +225,15 @@
     return allowanceTypes.some((type) => allowanceFor(role, bands, type.code).length > 0);
   }
 
+  // A section only gets the columns it uses: the Prop Painters card carries a
+  // box rental and nothing else, so computer, phone and car would be three
+  // columns of dashes.
+  function allowanceTypesFor(section: Section) {
+    return allowanceTypes.filter((type) =>
+      section.roles.some((role) => allowanceFor(role, columnBands, type.code).length > 0),
+    );
+  }
+
 </script>
 
 {#snippet rateCell(role: Role, band: Band)}
@@ -287,6 +296,10 @@
         {#if value.min != null && value.rec != null}&nbsp;/&nbsp;{/if}
         {#if value.rec != null}{labels.rec} <strong>{currency(value.rec)}</strong>{/if}
       {/if}
+    {:else}
+      <!-- The role has no entry for this allowance, which the cards print as a
+           dash rather than leaving blank -->
+      <span class="empty">—</span>
     {/each}
   </td>
 {/snippet}
@@ -386,13 +399,14 @@
 
         {#each sections as section (section.key)}
           {@const roles = section.roles.filter((role) => hasAllowances(role, columnBands))}
+          {@const types = allowanceTypesFor(section)}
           {#if roles.length}
             <div class="rates-table-wrapper">
               <table class="rates-table">
                 <thead>
                   <tr>
                     <th scope="col">{section.name ?? ""}</th>
-                    {#each allowanceTypes as type (type.code)}
+                    {#each types as type (type.code)}
                       <th scope="col">
                         <span class="band-label">{type.name}</span>
                         <span class="period">({periodLabel(type.period)})</span>
@@ -404,7 +418,7 @@
                   {#each roles as role (role.code)}
                     <tr>
                       <th scope="row">{@render roleName(role)}</th>
-                      {#each allowanceTypes as type (type.code)}
+                      {#each types as type (type.code)}
                         {@render allowanceCell(role, columnBands, type.code)}
                       {/each}
                     </tr>
@@ -655,6 +669,10 @@
 
   /* "Negotiable", "See ...", "Not often in this band" -- not figures, and they
      repeat down whole columns, so they sit back from the rates */
+  .rates-table .empty {
+    color: #767676;
+  }
+
   .rates-table .note {
     color: #767676;
     font-size: 14px;
