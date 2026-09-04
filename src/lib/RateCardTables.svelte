@@ -150,7 +150,7 @@
   // The cells are narrow and these phrases repeat down whole columns. Table
   // only -- the calculator has the room for the card's full wording.
   function short(text: string): string {
-    return text.replace(/\bNegotiable based on portfolio\b/g, "Neg. (portfolio)").replace(/\bNegotiable\b/g, "Neg.");
+    return text.replace(/\bNegotiable\b.*/g, "Neg.");
   }
 
   let periodNote = $derived(
@@ -245,13 +245,13 @@
   {:else if rate.min !== null}
     {@const second = secondFigure(rate.note)}
     <td class:focused-cell={isFocused}>
-      {#if second}
+      {#if !second}
+        <strong>{amount(rate.min)}</strong>
+      {:else}
         <span class="pair"
           ><span class="min">{amount(rate.min)}</span><span class="sep">/</span><strong class="rec">{second}</strong
           ></span
         >
-      {:else}
-        <strong>{amount(rate.min)}</strong>
       {/if}
     </td>
   {:else if rate.rec !== null}

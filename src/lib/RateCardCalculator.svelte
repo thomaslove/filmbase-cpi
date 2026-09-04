@@ -743,8 +743,10 @@
     opacity: 0.5;
   }
 
-  /* Set at the same size as a figure -- it stands in for one */
+  /* It stands in for a figure, but it is a phrase: at figure size it ran to
+     three lines beside a single-line rate. Same size as .unavailable below. */
   .rate-value.note {
+    font-size: 1.375rem;
     line-height: 1.35;
     font-weight: normal;
     font-style: italic;
