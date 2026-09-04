@@ -10,6 +10,16 @@
 
   let { department = "art" }: Props = $props();
 
+  // --- Debug: switch departments without editing the host page ---
+
+  const DEPARTMENTS = ["art", "setdec", "props"];
+
+  // On in development, and on a deployed build only when asked for with ?debug
+  const showDebug =
+    import.meta.env.DEV || (typeof location !== "undefined" && new URLSearchParams(location.search).has("debug"));
+
+  let activeDepartment = $state(department);
+
   const TABS = [
     { id: "rates", label: "Rate Calculator", isNew: false },
     { id: "inflation", label: "Inflation Calculator", isNew: true },
@@ -47,6 +57,18 @@
     (el.parentElement?.children[next] as HTMLElement | undefined)?.focus();
   }
 </script>
+
+{#if showDebug}
+  <div class="debug-bar">
+    <span class="debug-tag">Debug</span>
+    <label for="debug-department">Switch Rate Cards</label>
+    <select id="debug-department" bind:value={activeDepartment}>
+      {#each DEPARTMENTS as dept}
+        <option value={dept}>{dept}</option>
+      {/each}
+    </select>
+  </div>
+{/if}
 
 <main>
   {#if showCallout}
@@ -113,7 +135,9 @@
     tabindex="-1"
     hidden={activeTab !== "rates"}
   >
-    <RateCardCalculator {department} />
+    {#key activeDepartment}
+      <RateCardCalculator department={activeDepartment} />
+    {/key}
   </div>
 
   <div
@@ -129,10 +153,76 @@
 
   <!-- The full cards, below both calculators and outside the tab panels: they
        are reference material, not part of either tool. -->
-  <RateCardTables {department} />
+  {#key activeDepartment}
+    <RateCardTables department={activeDepartment} />
+  {/key}
 </main>
 
 <style>
+  /* Test-only affordance: kept visibly apart from the page it sits above, and
+     lined up with <main> rather than to its own width */
+  .debug-bar {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    max-width: 900px;
+    margin: 0 auto 1.25rem auto;
+    padding: 0.75rem 1rem;
+    background-color: #fdf6e3;
+    border: 1px dashed #d8be6a;
+    font-size: 12px;
+    line-height: 1;
+    color: #7a6420;
+  }
+
+  /* app.css sets Raleway on "#calculator *" with !important, and the bar should
+     not look like part of the page it is testing */
+  :global(#calculator) .debug-bar,
+  :global(#calculator) .debug-bar * {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace !important;
+  }
+
+  .debug-tag {
+    display: block;
+    padding: 4px 7px;
+    background-color: #d8be6a;
+    border-radius: 2px;
+    color: #4a3c0d;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  :global(#calculator) .debug-bar label {
+    display: block;
+    margin: 0;
+    color: inherit;
+    font-size: 12px;
+    font-style: normal;
+    line-height: 1;
+    opacity: 0.85;
+  }
+
+  /* Outweighs the app-wide "#calculator select" rules: the debug bar is not one
+     of the calculator's own controls */
+  :global(#calculator) .debug-bar select {
+    width: auto;
+    min-width: 8rem;
+    margin: 0;
+    padding: 4px 8px;
+    border: 1px solid #d8be6a;
+    border-radius: 2px;
+    background-color: #fff;
+    color: inherit;
+    font-family: inherit;
+    font-size: 12px;
+    line-height: 1.2;
+    min-height: 0;
+  }
+
   main {
     max-width: 900px;
     margin: 0px auto;
