@@ -353,7 +353,7 @@
     border-right: 1px solid #c1c1c1;
   }
 
-  /* Controls themselves are sized by #calculator input/select in app.css */
+  /* Controls themselves are sized by .cpi-calc input/select in app.css */
   .form {
     font-size: 1.25rem;
   }
@@ -510,7 +510,7 @@
 
   /* Below this the two columns are too narrow to read, so stack them and turn
      the vertical divider into a horizontal one */
-  @media (max-width: 640px) {
+  @container cpi (max-width: 640px) {
     .form-wrapper {
       flex-direction: column;
     }
@@ -550,7 +550,7 @@
     }
   }
 
-  @media (max-width: 480px) {
+  @container cpi (max-width: 480px) {
     /* Month + year side by side clip their longest options at this width, so
        give each its own full-width row and let "in" head them */
     .form-group {

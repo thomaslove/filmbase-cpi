@@ -449,10 +449,6 @@
 <style>
   .rate-cards {
     margin-top: 2rem;
-    /* The section sits outside the tab panel, so it has to inset its own
-       contents by what .panel insets, or it runs to the screen edge while
-       everything above it is held in */
-    padding: 0 2rem;
   }
 
   .rate-cards-heading {
@@ -463,8 +459,11 @@
     gap: 1rem;
   }
 
-  .rate-cards-heading h2 {
+  /* Doubled to outrank app.css's ".cpi-calc.cpi-calc h2", which uppercases the
+     calculator headings -- this one is a section label, not a title */
+  .rate-cards-heading.rate-cards-heading h2 {
     margin: 0;
+    text-transform: none;
   }
 
   /* Same control as the calculator's, so the two read as one page */
@@ -783,12 +782,7 @@
 
   /* --- Responsive --- */
 
-  @media (max-width: 640px) {
-    /* Tracks .panel's own drop to 1.25rem at this width */
-    .rate-cards {
-      padding: 0 1.25rem;
-    }
-
+  @container cpi (max-width: 640px) {
     .rate-cards-heading {
       gap: 0.75rem;
     }

@@ -47,7 +47,7 @@
     // The callout (and the button inside it) is about to unmount, so move focus
     // onto the tab rather than letting it fall back to <body>
     await tick();
-    document.getElementById("tab-inflation")?.focus();
+    document.getElementById("cpi-tab-inflation")?.focus();
   }
 
   function dismissCallout() {
@@ -114,13 +114,13 @@
     </aside>
   {/if}
 
-  <div class="tabs" role="tablist" aria-label="Calculators">
+  <div class="cpi-tabs" role="tablist" aria-label="Calculators">
     {#each TABS as tab, i}
       <button
         type="button"
         role="tab"
-        id="tab-{tab.id}"
-        class="tab"
+        id="cpi-tab-{tab.id}"
+        class="cpi-tab"
         class:active={activeTab === tab.id}
         aria-selected={activeTab === tab.id}
         aria-controls="panel-{tab.id}"
@@ -128,8 +128,8 @@
         onclick={() => (activeTab = tab.id)}
         onkeydown={(e) => onTabKeydown(e, i)}
       >
-        <span class="tab-label-full">{tab.label}</span><span class="tab-label-short">{tab.short}</span>{#if tab.isNew}<span
-            class="badge"
+        <span class="cpi-tab-label-full">{tab.label}</span><span class="cpi-tab-label-short">{tab.short}</span>{#if tab.isNew}<span
+            class="cpi-tab-badge"
             aria-hidden="true">New</span
           ><span class="visually-hidden">(new)</span>{/if}
       </button>
@@ -142,12 +142,12 @@
     id="panel-rates"
     class="panel"
     role="tabpanel"
-    aria-labelledby="tab-rates"
+    aria-labelledby="cpi-tab-rates"
     tabindex="-1"
     hidden={activeTab !== "rates"}
   >
     {#key activeDepartment}
-      <RateCardCalculator department={activeDepartment} {apiBase} />
+      <RateCardCalculator department={activeDepartment} {apiBase} {mini} />
     {/key}
   </div>
 
@@ -155,7 +155,7 @@
     id="panel-inflation"
     class="panel"
     role="tabpanel"
-    aria-labelledby="tab-inflation"
+    aria-labelledby="cpi-tab-inflation"
     tabindex="-1"
     hidden={activeTab !== "inflation"}
   >
@@ -190,10 +190,10 @@
     color: #7a6420;
   }
 
-  /* app.css sets Raleway on "#calculator *" with !important, and the bar should
+  /* app.css sets Raleway on ".cpi-calc *" with !important, and the bar should
      not look like part of the page it is testing */
-  :global(#calculator) .debug-bar,
-  :global(#calculator) .debug-bar * {
+  :global(.cpi-calc) .debug-bar,
+  :global(.cpi-calc) .debug-bar * {
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace !important;
   }
 
@@ -210,7 +210,7 @@
     text-transform: uppercase;
   }
 
-  :global(#calculator) .debug-bar label {
+  :global(.cpi-calc) .debug-bar label {
     display: block;
     margin: 0;
     color: inherit;
@@ -220,9 +220,9 @@
     opacity: 0.85;
   }
 
-  /* Outweighs the app-wide "#calculator select" rules: the debug bar is not one
+  /* Outweighs the app-wide ".cpi-calc select" rules: the debug bar is not one
      of the calculator's own controls */
-  :global(#calculator) .debug-bar select {
+  :global(.cpi-calc) .debug-bar select {
     width: auto;
     min-width: 8rem;
     margin: 0;
@@ -367,14 +367,14 @@
   }
 
   /* Tabs sit directly on top of the panel; the active one merges into it */
-  .tabs {
+  .cpi-tabs {
     display: flex;
     flex-wrap: wrap;
     gap: 2px;
     margin: 0;
   }
 
-  .tab {
+  .cpi-tab {
     /* basis 0, so the two tabs split the row evenly rather than sizing to
        their labels -- the "New" badge made one of them wider */
     flex: 1 1 0;
@@ -406,12 +406,12 @@
 
   /* Only one of the two labels is ever in the layout, so the hidden one is out
      of the accessibility tree too and the tab is announced once */
-  .tab-label-short {
+  .cpi-tab-label-short {
     display: none;
   }
 
-  /* Flags the recently added calculator; uppercased by .tab's text-transform */
-  .tab .badge {
+  /* Flags the recently added calculator; uppercased by .cpi-tab's text-transform */
+  .cpi-tab .cpi-tab-badge {
     flex: none;
     padding: 2px 6px;
     border-radius: 999px;
@@ -446,18 +446,18 @@
     border: 0;
   }
 
-  .tab:hover {
+  .cpi-tab:hover {
     background-color: #ededf0;
     color: #371e79;
   }
 
-  .tab:focus-visible {
+  .cpi-tab:focus-visible {
     outline: 2px solid #8e1b7e;
     outline-offset: -2px;
   }
 
   /* Selected tab takes the panel's colour so the two read as one surface */
-  .tab.active {
+  .cpi-tab.active {
     background-color: #f6f6f6;
     border-top-color: #371e79;
     color: #371e79;
@@ -479,7 +479,7 @@
     outline: none;
   }
 
-  @media (max-width: 640px) {
+  @container cpi (max-width: 640px) {
     .callout {
       padding: 1.25rem;
     }
@@ -506,7 +506,7 @@
       padding: 2rem 1.25rem 1.25rem;
     }
 
-    .tab {
+    .cpi-tab {
       padding: 10px 12px;
       font-size: 15px;
       /* Keep the pill from crowding the two side-by-side tabs */
@@ -514,17 +514,23 @@
       /* The short labels have no floor to hold any more, and 112px each plus a
          badge overflowed the row on the narrowest phones */
       min-width: 0;
+      /* Each tab takes its own label plus an even share of what is left over,
+         rather than a flat half each. With the badge on one side only, halves
+         left "Rates" swimming in slack while "Inflation" ran up against its
+         edges; sharing the surplus instead gives the two the same breathing
+         room and keeps the divide off-centre by only as much as the pill. */
+      flex: 1 1 auto;
     }
 
-    .tab-label-full {
+    .cpi-tab-label-full {
       display: none;
     }
 
-    .tab-label-short {
+    .cpi-tab-label-short {
       display: inline;
     }
 
-    .tab .badge {
+    .cpi-tab .cpi-tab-badge {
       padding: 1px 5px;
       font-size: 10px;
     }

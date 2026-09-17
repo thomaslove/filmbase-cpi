@@ -10,11 +10,49 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&family=Raleway:ital,wght@0,400;0,600;0,700;1,400&display=swap"
     rel="stylesheet" />
-  <title>Vite + Svelte + TS</title>
+  <title>CPI Calculator (dev)</title>
+  <style>
+    /* Dev harness only -- this file is not part of the build. On the live site
+       the widget sits in a host page that brings its own page-level layout. */
+    body {
+      margin: 0;
+      display: flex;
+      /* Top-aligned: centring made the page shift when panel height changed */
+      align-items: flex-start;
+      justify-content: center;
+      min-width: 320px;
+      min-height: 100vh;
+      background-color: #ffffff;
+    }
+
+    /* The widget sizes itself to its container, not to the window, so testing
+       the narrow layouts means giving it a narrow column rather than resizing
+       the browser. ?w=380 (or any px value) stands in for a host sidebar. */
+    #harness {
+      width: 100%;
+    }
+
+    #harness[data-width] {
+      width: auto;
+      border-right: 1px dashed #c9c9d4;
+    }
+  </style>
 </head>
 
 <body>
-  <div id="calculator" data-department="art" data-mini="true"></div>
+  <div id="harness">
+    <div data-cpi-calculator data-department="art" data-mini="true"></div>
+  </div>
+  <script>
+    // Dev harness only: constrain the mount to a given width to emulate the
+    // sidebar the widget is embedded in on the live site
+    const w = new URLSearchParams(location.search).get('w');
+    if (w) {
+      const harness = document.getElementById('harness');
+      harness.dataset.width = w;
+      harness.style.width = /^\d+$/.test(w) ? `${w}px` : w;
+    }
+  </script>
   <script type="module" src="/src/main.ts"></script>
 </body>
 

@@ -19,9 +19,11 @@
   interface Props {
     department?: string;
     apiBase?: string;
+    /** Mini mode: no rate cards are rendered below, so nothing to jump to. */
+    mini?: boolean;
   }
 
-  let { department = "art", apiBase = DEFAULT_API_BASE }: Props = $props();
+  let { department = "art", apiBase = DEFAULT_API_BASE, mini = false }: Props = $props();
 
   // --- State ---
 
@@ -294,7 +296,7 @@
         </div>
       </div>
 
-      <div class="result" class:hide-until-role={!selectedRole}>
+      <div class="result" class:hide-until-result={!selectedRole || !selectedBand}>
         <div class="result-heading">
           <p class="form-label result-label" id="rate-period-label">Rate</p>
 
@@ -373,8 +375,9 @@
           {/if}
 
           <!-- The figure above is one cell of a published card; this opens that
-               card below and puts the row back in its context -->
-          {#if selectedRole && selectedBand && selectedRoleOption}
+               card below and puts the row back in its context. Mini stops at the
+               calculators, so there is no card below for it to open. -->
+          {#if selectedRole && selectedBand && selectedRoleOption && !mini}
             <div class="show-on-card-row">
               <button
                 type="button"
@@ -487,7 +490,7 @@
     border-right: 1px solid #c1c1c1;
   }
 
-  /* Controls themselves are sized by #calculator input/select in app.css */
+  /* Controls themselves are sized by .cpi-calc input/select in app.css */
   .form {
     font-size: 1.25rem;
   }
@@ -593,7 +596,7 @@
     }
   }
 
-  @media (max-width: 480px) {
+  @container cpi (max-width: 480px) {
     .show-on-card {
       width: 100%;
       justify-content: center;
@@ -869,7 +872,7 @@
 
   /* Below this the two columns are too narrow to read, so stack them and turn
      the vertical divider into a horizontal one */
-  @media (max-width: 640px) {
+  @container cpi (max-width: 640px) {
     .form-wrapper {
       flex-direction: column;
     }
@@ -888,13 +891,17 @@
 
     /* An empty result column below the form is several hundred pixels of
        placeholder between the inputs and the fold, so it waits for a role */
-    .form-wrapper .result.hide-until-role {
+    /* Stacked, the result sits below the form, so an empty one pushes the
+       inputs up the page before there is anything to read in it. Both selects
+       have to be answered before there is a rate -- a role on its own only
+       yields the "select a role and band" placeholder. */
+    .form-wrapper .result.hide-until-result {
       display: none;
     }
 
     /* The divider above exists to separate the form from the result -- with
        the result hidden it would just be a stray line under the form */
-    .form-wrapper:has(.result.hide-until-role) .form {
+    .form-wrapper:has(.result.hide-until-result) .form {
       border-bottom: none;
       padding-bottom: 0;
     }
@@ -947,7 +954,7 @@
   }
 
   /* Too narrow for two figures abreast: one rate per row */
-  @media (max-width: 380px) {
+  @container cpi (max-width: 380px) {
     .rates-display {
       grid-template-columns: minmax(0, 1fr);
     }

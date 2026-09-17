@@ -1,12 +1,42 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+/* Widget styles.
+ *
+ * Everything here is scoped to the widget root, because this stylesheet is
+ * loaded onto a host page (WildApricot) whose own headings, links and buttons
+ * must not be restyled by us. Nothing in this file may match a bare element
+ * selector at the top level.
+ *
+ * .cpi-calc is added to the mount element by main.ts, so one selector covers
+ * both the data-cpi-calculator and the legacy #calculator mount forms.
+ *
+ * The class is doubled throughout (.cpi-calc.cpi-calc) to buy specificity:
+ * these rules previously hung off the #calculator id and so outranked the
+ * components' own Svelte-scoped class rules. Doubling preserves that ordering,
+ * and gives us a little headroom over the host theme's own CSS besides.
+ */
+
+.cpi-calc.cpi-calc {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  /* No top padding: the host page's own container spaces the widget from
+     whatever sits above it */
+  padding: 0 0 2rem;
+
+  /* The widget is embedded in whatever column the host gives it -- a sidebar
+     beside another component, not the full page. Every responsive rule below
+     and in the components is a @container query against this element, so the
+     layout answers to the width it has actually been given rather than to the
+     window's. Named, so a container on the host page cannot capture them. */
+  container-type: inline-size;
+  container-name: cpi;
+
   line-height: 1.5;
   font-weight: 400;
 
   /* Dark mode disabled for now: light is the only scheme */
   color-scheme: light;
   color: #213547;
-  background-color: #ffffff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -14,44 +44,25 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
+/* The root included, not just its descendants: the host's font must not win
+   anywhere inside the widget */
+.cpi-calc.cpi-calc,
+.cpi-calc.cpi-calc * {
+  font-family: 'Raleway', 'Arial', sans-serif !important;
+}
+
+.cpi-calc.cpi-calc a {
   font-weight: 500;
   color: #646cff;
   text-decoration: inherit;
 }
-a:hover {
+.cpi-calc.cpi-calc a:hover {
   color: #747bff;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  /* Top-aligned: centring made the page shift when panel height changed */
-  align-items: flex-start;
-  justify-content: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-.card {
-  padding: 2em;
-}
-
-#calculator {
-  width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  box-sizing: border-box;
-  /* Vertical padding lives on .panel; this keeps the tabs off the window edge */
-  padding: 2rem 0;
-}
-
-button {
+/* Base button look. Deliberately one class + one element (lower than the
+   components' own two-class scoped rules), so .tab and friends still win. */
+.cpi-calc button {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
@@ -62,20 +73,17 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
-button:hover {
+.cpi-calc button:hover {
   border-color: #646cff;
 }
-button:focus,
-button:focus-visible {
+.cpi-calc button:focus,
+.cpi-calc button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
 /* Rate card / calculator buttons */
-#calculator * {
-  font-family: 'Raleway', 'Arial', sans-serif !important;
-}
 
-#calculator .calculator-button {
+.cpi-calc.cpi-calc .calculator-button {
   border: none;
   background-color: #371E79;
   transition: background-color 0.25s ease;
@@ -98,29 +106,29 @@ button:focus-visible {
   cursor: pointer;
 }
 
-#calculator .calculator-button:disabled,
-#calculator .calculator-button:disabled:hover {
+.cpi-calc.cpi-calc .calculator-button:disabled,
+.cpi-calc.cpi-calc .calculator-button:disabled:hover {
   opacity: 0.5;
   background-color: grey;
   cursor: not-allowed;
 }
 
-#calculator .calculator-button:hover,
-#calculator .calculator-button:active {
+.cpi-calc.cpi-calc .calculator-button:hover,
+.cpi-calc.cpi-calc .calculator-button:active {
   background-color: #8e1b7e;
 }
 
-#calculator .calculator-reset {
+.cpi-calc.cpi-calc .calculator-reset {
   background-color: #353a50;
 }
 
-#calculator .calculator-reset:hover,
-#calculator .calculator-reset:active {
+.cpi-calc.cpi-calc .calculator-reset:hover,
+.cpi-calc.cpi-calc .calculator-reset:active {
   background-color: #22252d;
 }
 
-#calculator h1,
-#calculator h2 {
+.cpi-calc.cpi-calc h1,
+.cpi-calc.cpi-calc h2 {
   color: #371E79;
   font-family: 'Raleway', 'Arial', sans-serif;
   font-size: 28px;
@@ -130,18 +138,18 @@ button:focus-visible {
   text-transform: uppercase;
 }
 
-#calculator label {
+.cpi-calc.cpi-calc label {
   display: inline-block;
   margin-bottom: .5rem;
   color: #676767;
   font-size: 16px;
   font-style: italic;
-  /* :root sets font-synthesis: none, so a real italic face must be loaded */
+  /* The root sets font-synthesis: none, so a real italic face must be loaded */
   font-synthesis: style;
 }
 
-#calculator input,
-#calculator select {
+.cpi-calc.cpi-calc input,
+.cpi-calc.cpi-calc select {
   display: inline-block;
   box-sizing: border-box;
   max-width: 100%;
@@ -160,28 +168,28 @@ button:focus-visible {
 
 /* Comfortable touch targets wherever there is no fine pointer */
 @media (pointer: coarse) {
-  #calculator .calculator-button {
+  .cpi-calc.cpi-calc .calculator-button {
     min-height: 44px;
   }
 
-  #calculator input,
-  #calculator select {
+  .cpi-calc.cpi-calc input,
+  .cpi-calc.cpi-calc select {
     min-height: 44px;
   }
 }
 
-@media (max-width: 640px) {
-  #calculator {
-    padding: 1rem 0;
-  }
+@container cpi (max-width: 640px) {
+  /* The root's own padding cannot narrow here: an element never matches a
+     container query against itself. It is trailing space only, so it stays at
+     the one value rather than moving onto an inner wrapper for 1rem. */
 
-  #calculator h1,
-  #calculator h2 {
+  .cpi-calc.cpi-calc h1,
+  .cpi-calc.cpi-calc h2 {
     font-size: 22px;
   }
 
   /* Long button labels must wrap rather than push the layout wide */
-  #calculator .calculator-button {
+  .cpi-calc.cpi-calc .calculator-button {
     min-width: 0;
     white-space: normal;
   }
