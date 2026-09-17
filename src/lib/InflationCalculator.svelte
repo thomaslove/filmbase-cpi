@@ -1,11 +1,13 @@
 <script lang="ts">
+  import { DEFAULT_API_BASE } from "./apiBase";
+
   // --- Props ---
 
   interface Props {
     apiBase?: string;
   }
 
-  let { apiBase = "/resources/api" }: Props = $props();
+  let { apiBase = DEFAULT_API_BASE }: Props = $props();
 
   const MONTH_NAMES = [
     "January",
@@ -114,6 +116,11 @@
     return ((toCPI - fromCPI) / fromCPI) * 100;
   });
 
+  // Stacked on a narrow screen the result sits below the form, so an empty one
+  // pushes the inputs up the page before there is anything to read in it. It
+  // stays collapsed until the sum lands -- or until there is an error to fix.
+  let hasOutput = $derived(hasErrors || (rate > 0 && result > 0));
+
   // --- Helpers ---
 
   function monthName(m: number): string {
@@ -221,7 +228,7 @@
         </div>
       </div>
 
-      <div class="result">
+      <div class="result" class:hide-until-result={!hasOutput}>
         <p class="form-label">
           Equivalent rate as of
           <span class="data-date">
@@ -518,6 +525,19 @@
     .form-wrapper .result {
       padding-left: 0;
       padding-top: 1.5rem;
+    }
+
+    /* An empty result column below the form is several hundred pixels of
+       placeholder between the inputs and the fold, so it waits for the sum */
+    .form-wrapper .result.hide-until-result {
+      display: none;
+    }
+
+    /* The divider exists to separate the form from the result -- with the
+       result hidden it would just be a stray line under the form */
+    .form-wrapper:has(.result.hide-until-result) .form {
+      border-bottom: none;
+      padding-bottom: 0;
     }
 
     /* The hard break in the intro leaves a stranded short line when narrow */

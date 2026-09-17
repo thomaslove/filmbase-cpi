@@ -1,6 +1,7 @@
 <script lang="ts">
   import { period as ratePeriod } from "./period.svelte";
   import { clearCardFocus, showOnCard } from "./cardFocus.svelte";
+  import { DEFAULT_API_BASE } from "./apiBase";
   import {
     currency,
     dailyRate,
@@ -20,7 +21,7 @@
     apiBase?: string;
   }
 
-  let { department = "art", apiBase = "/resources/api" }: Props = $props();
+  let { department = "art", apiBase = DEFAULT_API_BASE }: Props = $props();
 
   // --- State ---
 
@@ -293,7 +294,7 @@
         </div>
       </div>
 
-      <div class="result">
+      <div class="result" class:hide-until-role={!selectedRole}>
         <div class="result-heading">
           <p class="form-label result-label" id="rate-period-label">Rate</p>
 
@@ -883,6 +884,19 @@
     .form-wrapper .result {
       padding-left: 0;
       padding-top: 1.5rem;
+    }
+
+    /* An empty result column below the form is several hundred pixels of
+       placeholder between the inputs and the fold, so it waits for a role */
+    .form-wrapper .result.hide-until-role {
+      display: none;
+    }
+
+    /* The divider above exists to separate the form from the result -- with
+       the result hidden it would just be a stray line under the form */
+    .form-wrapper:has(.result.hide-until-role) .form {
+      border-bottom: none;
+      padding-bottom: 0;
     }
 
     /* The hard break in the intro leaves a stranded short line when narrow */

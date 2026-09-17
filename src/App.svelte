@@ -3,12 +3,17 @@
   import InflationCalculator from "./lib/InflationCalculator.svelte";
   import RateCardCalculator from "./lib/RateCardCalculator.svelte";
   import RateCardTables from "./lib/RateCardTables.svelte";
+  import { DEFAULT_API_BASE } from "./lib/apiBase";
 
   interface Props {
     department?: string;
+    /** Mini mode: both calculators, but no promo callout and no rate cards below. */
+    mini?: boolean;
+    /** Folder holding the JSON data files; resolved by main.ts from the script's own URL. */
+    apiBase?: string;
   }
 
-  let { department = "art" }: Props = $props();
+  let { department = "art", mini = false, apiBase = DEFAULT_API_BASE }: Props = $props();
 
   // --- Debug: switch departments without editing the host page ---
 
@@ -20,9 +25,12 @@
 
   let activeDepartment = $state(department);
 
+  // Two tabs have to sit side by side on a phone, where "Rate Calculator" and
+  // "Inflation Calculator" are too long to share the row -- on that width the
+  // panel below says plainly enough which calculator it is
   const TABS = [
-    { id: "rates", label: "Rate Calculator", isNew: false },
-    { id: "inflation", label: "Inflation Calculator", isNew: true },
+    { id: "rates", label: "Rate Calculator", short: "Rates", isNew: false },
+    { id: "inflation", label: "Inflation Calculator", short: "Inflation", isNew: true },
   ] as const;
 
   type TabId = (typeof TABS)[number]["id"];
@@ -71,7 +79,9 @@
 {/if}
 
 <main>
-  {#if showCallout}
+  <!-- The pitch for the inflation tab is page furniture, and mini is embedded
+       somewhere with no room for it -->
+  {#if showCallout && !mini}
     <aside class="callout" aria-labelledby="callout-title">
       <button type="button" class="callout-close" onclick={dismissCallout} aria-label="Dismiss">
         <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
@@ -118,9 +128,10 @@
         onclick={() => (activeTab = tab.id)}
         onkeydown={(e) => onTabKeydown(e, i)}
       >
-        {tab.label}{#if tab.isNew}<span class="badge" aria-hidden="true">New</span><span class="visually-hidden"
-            >(new)</span
-          >{/if}
+        <span class="tab-label-full">{tab.label}</span><span class="tab-label-short">{tab.short}</span>{#if tab.isNew}<span
+            class="badge"
+            aria-hidden="true">New</span
+          ><span class="visually-hidden">(new)</span>{/if}
       </button>
     {/each}
   </div>
@@ -136,7 +147,7 @@
     hidden={activeTab !== "rates"}
   >
     {#key activeDepartment}
-      <RateCardCalculator department={activeDepartment} />
+      <RateCardCalculator department={activeDepartment} {apiBase} />
     {/key}
   </div>
 
@@ -148,14 +159,17 @@
     tabindex="-1"
     hidden={activeTab !== "inflation"}
   >
-    <InflationCalculator />
+    <InflationCalculator {apiBase} />
   </div>
 
   <!-- The full cards, below both calculators and outside the tab panels: they
-       are reference material, not part of either tool. -->
-  {#key activeDepartment}
-    <RateCardTables department={activeDepartment} />
-  {/key}
+       are reference material, not part of either tool. Mini is the calculators
+       only, so it stops here. -->
+  {#if !mini}
+    {#key activeDepartment}
+      <RateCardTables department={activeDepartment} {apiBase} />
+    {/key}
+  {/if}
 </main>
 
 <style>
@@ -390,6 +404,12 @@
       border-color 0.25s ease;
   }
 
+  /* Only one of the two labels is ever in the layout, so the hidden one is out
+     of the accessibility tree too and the tab is announced once */
+  .tab-label-short {
+    display: none;
+  }
+
   /* Flags the recently added calculator; uppercased by .tab's text-transform */
   .tab .badge {
     flex: none;
@@ -480,19 +500,28 @@
       font-size: 0.875rem;
     }
 
+    /* More above than beside: the tab strip sits directly on the panel, so the
+       heading underneath needs room to clear it */
     .panel {
-      padding: 1.25rem;
+      padding: 2rem 1.25rem 1.25rem;
     }
 
     .tab {
       padding: 10px 12px;
       font-size: 15px;
-      white-space: normal;
+      /* Keep the pill from crowding the two side-by-side tabs */
+      gap: 0.4rem;
+      /* The short labels have no floor to hold any more, and 112px each plus a
+         badge overflowed the row on the narrowest phones */
+      min-width: 0;
     }
 
-    /* Keep the pill from crowding the two side-by-side tabs */
-    .tab {
-      gap: 0.4rem;
+    .tab-label-full {
+      display: none;
+    }
+
+    .tab-label-short {
+      display: inline;
     }
 
     .tab .badge {
@@ -501,9 +530,4 @@
     }
   }
 
-  @media (max-width: 480px) {
-    .tab {
-      flex: 1 1 100%;
-    }
-  }
 </style>

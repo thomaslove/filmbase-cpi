@@ -2,6 +2,7 @@
   import { tick } from "svelte";
   import { cardFocus } from "./cardFocus.svelte";
   import { period as ratePeriod } from "./period.svelte";
+  import { DEFAULT_API_BASE } from "./apiBase";
   import {
     currency,
     dailyRate,
@@ -20,7 +21,7 @@
     apiBase?: string;
   }
 
-  let { department = "art", apiBase = "/resources/api" }: Props = $props();
+  let { department = "art", apiBase = DEFAULT_API_BASE }: Props = $props();
 
   // --- State ---
 
@@ -178,6 +179,14 @@
     return { label: match[1], range };
   }
 
+  // A column header sets the band name over its budget range on two lines.
+  // Stacked on a narrow screen there are no columns, so the same pair has to
+  // introduce a single figure from the left of its row.
+  function bandRowLabel(band: Band): string {
+    const { label, range } = splitBand(band.name);
+    return range ? `${label} (${range})` : label;
+  }
+
   // The three Props cards each carry their own notes; Art and Set Dec have one
   // set for the department
   function footnotesFor(section: Section): Footnote[] {
@@ -239,12 +248,15 @@
 {#snippet rateCell(role: Role, band: Band)}
   {@const rate = rateFor(role, band)}
   {@const isFocused = focused.role === role.code && focused.band === band.code}
+  <!-- data-band is what the stacked layout prints down the left of each row,
+       where the column header it would have sat under is gone -->
+  {@const label = bandRowLabel(band)}
   {#if !rate}
     <!-- No row at all for this band, which is not the same as a row that says
          the band is unusual: several Prop Painters stop before TV1/TV2 -->
-    <td class="note" class:focused-cell={isFocused}>No data</td>
+    <td class="note" class:focused-cell={isFocused} data-band={label}>No data</td>
   {:else if rate.min !== null && rate.rec !== null}
-    <td class:focused-cell={isFocused}>
+    <td class:focused-cell={isFocused} data-band={label}>
       <span class="pair"
         ><span class="min">{amount(rate.min)}</span><span class="sep">/</span><strong class="rec"
           >{amount(rate.rec)}</strong
@@ -253,7 +265,7 @@
     </td>
   {:else if rate.min !== null}
     {@const second = secondFigure(rate.note)}
-    <td class:focused-cell={isFocused}>
+    <td class:focused-cell={isFocused} data-band={label}>
       {#if !second}
         <strong>{amount(rate.min)}</strong>
       {:else}
@@ -264,15 +276,15 @@
       {/if}
     </td>
   {:else if rate.rec !== null}
-    <td class:focused-cell={isFocused}><strong>{amount(rate.rec)}</strong></td>
+    <td class:focused-cell={isFocused} data-band={label}><strong>{amount(rate.rec)}</strong></td>
   {:else if rate.note}
     <!-- A row can carry both: the Action Prop Buyer's TV4 points at the film
          band, but its own note says what that band says, and says it plainly -->
-    <td class="note" class:focused-cell={isFocused}>{short(rate.note)}</td>
+    <td class="note" class:focused-cell={isFocused} data-band={label}>{short(rate.note)}</td>
   {:else if rate.align}
-    <td class="note" class:focused-cell={isFocused}>See {bandName(rate.align)}</td>
+    <td class="note" class:focused-cell={isFocused} data-band={label}>See {bandName(rate.align)}</td>
   {:else}
-    <td class="note" class:focused-cell={isFocused}>Not often in this band</td>
+    <td class="note" class:focused-cell={isFocused} data-band={label}>Not often in this band</td>
   {/if}
 {/snippet}
 
@@ -283,10 +295,10 @@
   {/if}
 {/snippet}
 
-{#snippet allowanceCell(role: Role, bands: Band[], code: string)}
+{#snippet allowanceCell(role: Role, bands: Band[], code: string, label: string)}
   {@const values = allowanceFor(role, bands, code)}
   {@const labels = labelsFor(role)}
-  <td>
+  <td data-band={label}>
     {#each values as value, i}
       {#if i > 0}&nbsp;/&nbsp;{/if}
       {#if value.text}
@@ -419,7 +431,7 @@
                     <tr>
                       <th scope="row">{@render roleName(role)}</th>
                       {#each types as type (type.code)}
-                        {@render allowanceCell(role, columnBands, type.code)}
+                        {@render allowanceCell(role, columnBands, type.code, `${type.name} (${periodLabel(type.period)})`)}
                       {/each}
                     </tr>
                   {/each}
@@ -437,6 +449,10 @@
 <style>
   .rate-cards {
     margin-top: 2rem;
+    /* The section sits outside the tab panel, so it has to inset its own
+       contents by what .panel insets, or it runs to the screen edge while
+       everything above it is held in */
+    padding: 0 2rem;
   }
 
   .rate-cards-heading {
@@ -727,8 +743,27 @@
   }
 
   .rates-table-wrapper {
+    position: relative;
     overflow-x: scroll;
     overscroll-behavior-x: none;
+    -webkit-overflow-scrolling: touch;
+    /* Fades in at whichever edge still has more table to scroll to, and
+       disappears once you've scrolled all the way that way -- the two
+       "local" gradients track the table's own scroll position, the two
+       "scroll" ones (the actual shadows) stay fixed to the viewport */
+    background:
+      linear-gradient(to right, white 30%, rgba(255, 255, 255, 0)),
+      linear-gradient(to left, white 30%, rgba(255, 255, 255, 0)) right,
+      linear-gradient(to right, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0)),
+      linear-gradient(to left, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0)) right;
+    background-repeat: no-repeat;
+    background-color: white;
+    background-size:
+      40px 100%,
+      40px 100%,
+      14px 100%,
+      14px 100%;
+    background-attachment: local, local, scroll, scroll;
   }
 
   .rates-table-wrapper .rates-table tr th:first-of-type {
@@ -744,5 +779,135 @@
   .rates-table-wrapper .rates-table-footer {
     position: sticky;
     left: 0;
+  }
+
+  /* --- Responsive --- */
+
+  @media (max-width: 640px) {
+    /* Tracks .panel's own drop to 1.25rem at this width */
+    .rate-cards {
+      padding: 0 1.25rem;
+    }
+
+    .rate-cards-heading {
+      gap: 0.75rem;
+    }
+
+    .rate-cards-heading h2 {
+      font-size: 1.25rem;
+    }
+
+    summary {
+      padding: 1rem 0.25rem;
+      font-size: 18px;
+    }
+
+    /* A phone cannot hold five band columns and the role names beside them, so
+       the grid is abandoned: every role becomes its own block and each figure
+       takes a row headed by the band it belongs to. Same trade the calculator
+       makes for its allowances at this width. */
+    .rates-table,
+    .rates-table thead,
+    .rates-table tbody,
+    .rates-table tr,
+    .rates-table th,
+    .rates-table td {
+      display: block;
+    }
+
+    .rates-table {
+      /* The width that forced the horizontal scroll in the first place */
+      min-width: 0;
+      font-size: 15px;
+      line-height: 20px;
+    }
+
+    .rates-table th:first-of-type {
+      width: auto;
+    }
+
+    /* Nothing scrolls sideways any more, so the wrapper drops the scrollport
+       and the edge shadows that hinted at it */
+    .rates-table-wrapper {
+      overflow-x: visible;
+      background: none;
+    }
+
+    /* The summary above already opens on a gap of its own */
+    details .rates-table-wrapper {
+      margin-top: 0;
+    }
+
+    .rates-table-wrapper .rates-table tr th:first-of-type {
+      position: static;
+    }
+
+    /* The band headers have moved on to the rows; the corner cell stays, since
+       on Props it is the only thing naming which of the three cards this is */
+    .rates-table thead th:not(:first-of-type) {
+      display: none;
+    }
+
+    .rates-table thead th:first-of-type {
+      padding: 0 0 0.75rem 0;
+      background-color: transparent;
+    }
+
+    .rates-table tbody tr {
+      margin-bottom: 1.25rem;
+      border: 1px solid #e2e2e2;
+    }
+
+    /* The role name heads its block rather than sitting in a column */
+    .rates-table tbody th {
+      padding: 10px 12px;
+      font-size: 16px;
+      border-bottom: 1px solid #e2e2e2;
+    }
+
+    /* Stacked, the block is already the role and the outlined cell already
+       says which band -- tinting the header too just says it a third time */
+    .rates-table tbody tr.focused th {
+      background-color: rgb(247, 247, 247);
+    }
+
+    /* Band on the left, figure on the right. The column tints come with them,
+       so a row keeps the colour its band had on the printed card. */
+    .rates-table tbody td {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 9px 12px;
+      border: 0;
+      text-align: right;
+    }
+
+    .rates-table tbody td::before {
+      content: attr(data-band);
+      flex: 1 1 auto;
+      min-width: 0;
+      color: #555;
+      font-size: 13px;
+      line-height: 18px;
+      font-weight: 600;
+      text-align: left;
+      text-wrap: balance;
+    }
+
+    /* Three tracks were there to line the slash up down a column; in a row of
+       its own the pair only has to sit against the right edge */
+    .rates-table td .pair {
+      grid-template-columns: auto auto auto;
+    }
+
+    .rates-table .note {
+      font-size: 13px;
+    }
+
+    .rates-table .role-alt {
+      font-size: 12px;
+      line-height: 16px;
+    }
   }
 </style>
