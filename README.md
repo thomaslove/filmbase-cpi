@@ -1,47 +1,76 @@
-# Svelte + TS + Vite
+# CPI Calculator
 
-This template should help get you started developing with Svelte and TypeScript in Vite.
+A BECTU rate-card and inflation calculator widget, embedded in a WildApricot
+host page rather than served as its own site. Svelte 5 + TypeScript + Vite.
 
-## Recommended IDE Setup
+## Develop
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+Needs [Node](https://nodejs.org) 20.19+ or 22.12+. Run these from this folder,
+in a terminal.
 
-## Need an official Svelte framework?
-
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
-
-## Technical considerations
-
-**Why use this over SvelteKit?**
-
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
-
-This template contains as little as possible to get started with Vite + TypeScript + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
-
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
-
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
-
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
-
-**Why include `.vscode/extensions.json`?**
-
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
-
-**Why enable `allowJs` in the TS template?**
-
-While `allowJs: false` would indeed prevent the use of `.js` files in the project, it does not prevent the use of JavaScript syntax in `.svelte` files. In addition, it would force `checkJs: false`, bringing the worst of both worlds: not being able to guarantee the entire codebase is TypeScript, and also having worse typechecking for the existing JavaScript. In addition, there are valid use cases in which a mixed codebase may be relevant.
-
-**Why is HMR not preserving my local component state?**
-
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/rixo/svelte-hmr#svelte-hmr).
-
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
-
-```ts
-// store.ts
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
+```sh
+npm install      # once, and after pulling changes to package.json
+npm run dev      # local preview, reloads as you edit -- ctrl-C to stop
+npm run check    # reports type and template errors; changes nothing
+npm run build    # writes the files to upload into dist/
 ```
+
+`npm run dev` prints a `localhost` address to open in a browser. Editing the
+source, or the JSON in `public/resources/api/`, updates that page immediately;
+nothing there affects the live site until you run `npm run build` and upload.
+
+The preview page takes a few query strings: `?mini=false` shows the callout and
+the rate cards, `?w=380` constrains the widget to a sidebar width, `?debug`
+adds the department switcher, and `?mode=inflation` opens on the inflation
+calculator.
+
+## Build output
+
+The build is a **library**, not an app: one classic IIFE script and one
+stylesheet, at fixed names ([vite.config.ts](vite.config.ts) explains why an
+IIFE and not an ES module).
+
+```
+dist/cpi-calculator.js
+dist/cpi-calculator.css
+dist/resources/api/*.json
+```
+
+On the live site the script and stylesheet go in `/resources/scripts/cpi/` and
+the JSON in `/resources/api/`. Because those are two different folders, the
+embed sets `data-api-base` explicitly: [apiBase.ts](src/lib/apiBase.ts)
+otherwise looks for the data beside the script, relative to its own URL, so
+that the host's folder path never has to be hardcoded.
+
+## Embedding
+
+The snippet pasted into the host page's content HTML gadget:
+
+```html
+<link rel="stylesheet" href="/resources/scripts/cpi/cpi-calculator.css?v=5" />
+<div data-cpi-calculator data-department="art" data-mini="false" data-api-base="/resources/api"></div>
+<script src="/resources/scripts/cpi/cpi-calculator.js?v=5"></script>
+```
+
+Bump `?v=` on both files whenever a new build is uploaded, or the host serves
+the cached ones.
+
+Attributes on the mount element:
+
+| Attribute         | Default         |                                                            |
+| ----------------- | --------------- | ---------------------------------------------------------- |
+| `data-department` | `art`           | `art`, `setdec` or `props`                                 |
+| `data-mini`       | `false`         | Both calculators, no callout and no rate cards below       |
+| `data-callout`    | `true`          | `false` hides the inflation-calculator promo               |
+| `data-mode`       | `rates`         | Which calculator to open on; `?mode=` in the page URL wins |
+| `data-api-base`   | script's folder | Where the JSON data files live                             |
+
+More than one widget can share a page. The script mounts every matching element,
+and the order above is not required — it is safe to load before or after the
+markup it mounts into.
+
+## Data
+
+One JSON file per department in [public/resources/api/](public/resources/api/),
+plus `cpi.json` for the inflation figures (which carries its own update
+instructions). [reference.md](reference.md) documents the rate-card schema.
