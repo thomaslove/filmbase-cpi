@@ -73,4 +73,4 @@ markup it mounts into.
 
 One JSON file per department in [public/resources/api/](public/resources/api/),
 plus `cpi.json` for the inflation figures (which carries its own update
-instructions). [reference.md](reference.md) documents the rate-card schema.
+instructions). [SCHEMA.md](SCHEMA.md) documents the rate-card schema.
