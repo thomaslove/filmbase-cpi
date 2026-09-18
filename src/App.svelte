@@ -4,6 +4,7 @@
   import RateCardCalculator from "./lib/RateCardCalculator.svelte";
   import RateCardTables from "./lib/RateCardTables.svelte";
   import { DEFAULT_API_BASE } from "./lib/apiBase";
+  import { DEFAULT_MODE, type Mode } from "./lib/mode";
 
   interface Props {
     department?: string;
@@ -11,9 +12,19 @@
     mini?: boolean;
     /** Folder holding the JSON data files; resolved by main.ts from the script's own URL. */
     apiBase?: string;
+    /** Which calculator to open on; resolved by main.ts from ?mode and data-mode. */
+    mode?: Mode;
+    /** Show the inflation-calculator promo callout; data-callout="false" turns it off. */
+    callout?: boolean;
   }
 
-  let { department = "art", mini = false, apiBase = DEFAULT_API_BASE }: Props = $props();
+  let {
+    department = "art",
+    mini = false,
+    apiBase = DEFAULT_API_BASE,
+    mode = DEFAULT_MODE,
+    callout = true,
+  }: Props = $props();
 
   // --- Debug: switch departments without editing the host page ---
 
@@ -35,7 +46,9 @@
 
   type TabId = (typeof TABS)[number]["id"];
 
-  let activeTab = $state<TabId>("rates");
+  // Mode and TabId are the same two names by construction; the mode module owns
+  // the parsing so main.ts can resolve it before the component exists
+  let activeTab = $state<TabId>(mode);
 
   // Not persisted: hidden for this page view only, so it returns on next load
   let showCallout = $state(true);
@@ -79,9 +92,10 @@
 {/if}
 
 <main>
-  <!-- The pitch for the inflation tab is page furniture, and mini is embedded
-       somewhere with no room for it -->
-  {#if showCallout && !mini}
+  <!-- The pitch for the inflation tab is page furniture: mini is embedded
+       somewhere with no room for it, and a host page can turn it off outright.
+       showCallout is separate, being this view's dismissal. -->
+  {#if callout && showCallout && !mini}
     <aside class="callout" aria-labelledby="callout-title">
       <button type="button" class="callout-close" onclick={dismissCallout} aria-label="Dismiss">
         <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
@@ -109,7 +123,19 @@
           pay cut.
         </p>
 
-        <button type="button" class="callout-btn" onclick={goToInflation}>Check it out</button>
+        <!-- Nothing to take them to when the tab is already the open one, as it
+             is for a ?mode=inflation link; the copy still introduces it. The
+             button stays in the layout as an inert placeholder rather than
+             being dropped, so the body copy wraps to the same width either
+             way -- the callout must not reflow as tabs change. -->
+        <button
+          type="button"
+          class="callout-btn"
+          class:placeholder={activeTab === "inflation"}
+          inert={activeTab === "inflation"}
+          aria-hidden={activeTab === "inflation"}
+          onclick={goToInflation}>Check it out</button
+        >
       </div>
     </aside>
   {/if}
@@ -321,6 +347,11 @@
       border-color 0.2s ease;
   }
 
+  /* Holds its space without being seen, reachable or announced */
+  .callout-btn.placeholder {
+    visibility: hidden;
+  }
+
   .callout-btn:hover {
     background-color: rgba(255, 255, 255, 0.22);
     border-color: #fff;
@@ -489,6 +520,12 @@
       flex-direction: column;
       align-items: flex-start;
       gap: 1.25rem;
+    }
+
+    /* Stacked, so the body already spans the row and an invisible button below
+       it would only add dead height */
+    .callout-btn.placeholder {
+      display: none;
     }
 
     .callout-title {

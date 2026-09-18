@@ -41,12 +41,20 @@
 
 <body>
   <div id="harness">
-    <div data-cpi-calculator data-department="art" data-mini="true"></div>
+    <div id="mount" data-cpi-calculator data-department="art" data-mini="false"></div>
   </div>
   <script>
-    // Dev harness only: constrain the mount to a given width to emulate the
-    // sidebar the widget is embedded in on the live site
-    const w = new URLSearchParams(location.search).get('w');
+    // Dev harness only. ?mini=false drops the mount out of mini mode, which is
+    // the only way to see the callout and the rate cards below it; the default
+    // stays mini because that is how the live site embeds it.
+    const params = new URLSearchParams(location.search);
+    if (params.get('mini') === 'false') {
+      document.getElementById('mount').dataset.mini = 'false';
+    }
+
+    // Constrain the mount to a given width to emulate the sidebar the widget is
+    // embedded in on the live site
+    const w = params.get('w');
     if (w) {
       const harness = document.getElementById('harness');
       harness.dataset.width = w;

@@ -2,6 +2,7 @@ import { mount } from 'svelte'
 import './app.css'
 import App from './App.svelte'
 import { DEFAULT_API_BASE } from './lib/apiBase'
+import { resolveMode } from './lib/mode'
 
 // The widget is embedded by a host-page HTML snippet, so nothing here can
 // assume the page is ours: the script may load on a page with no mount point at
@@ -30,6 +31,12 @@ function mountInto(el: HTMLElement) {
     props: {
       department: el.dataset.department ?? 'art',
       mini: el.dataset.mini === 'true',
+      // Opt-out, not opt-in: pages already carrying the snippet keep the
+      // callout, and data-callout="false" is how a page turns it off
+      callout: el.dataset.callout !== 'false',
+      // Read per mount rather than once, so a page carrying two widgets can
+      // still give each its own data-mode default
+      mode: resolveMode(location.search, el.dataset.mode),
       // DEFAULT_API_BASE is resolved at script-execution time, above, so it is
       // already captured by the time this runs on DOMContentLoaded
       apiBase: el.dataset.apiBase ?? DEFAULT_API_BASE,
